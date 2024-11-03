@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  hexagonal-python:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    depends_on:
+      - hexagonal-python-api
+    profiles: [prod]
+
+  hexagonal-python-api:
+    image: postgres
+    ports:
+      - "3006:5432"
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - ./local-database:/var/lib/postgresql/data
