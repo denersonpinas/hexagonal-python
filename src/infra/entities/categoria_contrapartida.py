@@ -14,7 +14,7 @@ class CategoriaContrapartida(Base):
         Integer, ForeignKey(f"{REFERENCE_TABLE}_categoriacontrapartida.id")
     )
 
-    id_relacao_contrapartida_categoria = relationship("RelacaoContrapartidaCategoria")
+    id_relacao_contrapartida_categoria = relationship("RelacaoCategoriaContrapartida")
 
     def __rep__(self):
         return f"Categoria Contrapartida [nome={self.nome}]"

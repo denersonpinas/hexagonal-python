@@ -6,7 +6,7 @@
 
 Crie um ambiente virtual utilizando o comando: 
    
-```shell
+```bash
 python3 -m venv venv
 ```
 
@@ -14,7 +14,7 @@ python3 -m venv venv
 
 Ative o ambiente virtual (se criado) usando o comando: 
 
-```shell
+```bash
 source venv/bin/activate
 ```
 
@@ -29,7 +29,7 @@ deactivate
 
 Instale as bibliotecas necessárias executando o comando: 
 
-```shell
+```bash
 python3 -m pip install -r requirements.txt
 ```
 
@@ -37,19 +37,28 @@ python3 -m pip install -r requirements.txt
 
 #### pofile: local
 
-```shell
+```bash
 sudo docker compose up
 ```
 
 #### pofile: prod
 
-```shell
+```bash
 sudo docker compose --profile prod up
+```
+
+### Dados de conexão com o Postgress
+```bash
+DB_USER = "postgres"
+DB_PASSWORD = "postgres"
+DB_HOST = "localhost"
+DB_PORT = "3006"
+DB_NAME = "app_bank"
 ```
 
 ### Criação do Banco de Dados
 
-```shell
+```bash
 python3
 from src.infra.config import *
 db_conn = DBConnectionHandler()

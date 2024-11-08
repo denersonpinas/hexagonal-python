@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   hexagonal-python:
     build: .
@@ -9,7 +7,7 @@ services:
       - .:/code
     depends_on:
       - hexagonal-python-api
-    profiles: [prod]
+    profiles: [ prod ]
 
   hexagonal-python-api:
     image: postgres
@@ -17,5 +15,10 @@ services:
       - "3006:5432"
     environment:
       POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_DB: "app_bank" # Define o nome do banco
     volumes:
-      - ./local-database:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

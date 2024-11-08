@@ -27,16 +27,16 @@ class Proposta(Base):
     data_inicio_projeto = Column(Date, nullable=False)
     data_fim_projeto = Column(Date, nullable=False)
 
-    arquivos = relationship("PropostaArquivo", back_populates="proposta")
-    metas = relationship("PropostaMeta", back_populates="proposta")
-    gerenciamento = relationship("GerenciamentoProposta", back_populates="proposta")
-    proponente = relationship("Proponente", back_populates="proposta")
-    beneficiarios = relationship("PropostaBeneficiario", back_populates="proposta")
-    marcos = relationship("PropostaMarcos", back_populates="proposta")
-    abginvest = relationship("PropostaAbginvestTpprojLei", back_populates="proposta")
-    temas = relationship("PropostaTematica", back_populates="proposta")
-    patrocinador = relationship("PropostaPatrocinador", back_populates="proposta")
-    municipios = relationship("PropostaLocalExecucao", back_populates="proposta")
+    id_proposta_arquivo = relationship("PropostaArquivo")
+    id_proposta_meta = relationship("PropostaMeta")
+    id_gerenciamento_proposta = relationship("GerenciamentoProposta")
+    id_proponente = relationship("Proponente")
+    id_proposta_beneficiarios = relationship("PropostaBeneficiario")
+    id_proposta_marcos = relationship("PropostaMarcos")
+    id_proposta_abginvestTpprojLei = relationship("PropostaAbginvestTpprojLei")
+    id_proposta_tematica = relationship("PropostaTematica")
+    id_proposta_patrocinador = relationship("PropostaPatrocinador")
+    id_proposta_local_execucao = relationship("PropostaLocalExecucao")
 
     def __req__(self):
         return f"Proposta [titulo={self.titulo_projeto}]"
