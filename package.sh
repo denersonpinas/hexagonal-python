@@ -12,10 +12,10 @@ case $1 in
         pytest -v -s
         ;;
     "test") 
-        echo pytest
+        pytest
         ;;
     *)
-        echo "Argumento inválido. Use 'lint' ou 'fome'"
+        echo "Argumento inválido"
         exit 1
         ;;
 esac
