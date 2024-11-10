@@ -1,1 +1,1 @@
-from .fake import FakerRepo
+from .counterpart_repository import CounterpartRepository
