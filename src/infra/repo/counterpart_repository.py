@@ -1,10 +1,11 @@
 from typing import List
+from src.data.interface import CounterpartRepositoryInterface
 from src.infra.config import DBConnectionHandler
 from src.infra.entities import Contrapartida
 from src.domain.models import Counterpart
 
 
-class CounterpartRepository:
+class CounterpartRepository(CounterpartRepositoryInterface):
     """Class to manage Counterpart Repository"""
 
     @classmethod
