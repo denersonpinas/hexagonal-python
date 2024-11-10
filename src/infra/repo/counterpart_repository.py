@@ -65,7 +65,6 @@ class CounterpartRepository:
                     and type(required) is not bool
                     and type(default) is not bool
                 ):
-                    print("Cai no CID")
                     data = (
                         db_connection.session.query(Contrapartida)
                         .filter_by(id=counterpart_id)
@@ -78,7 +77,6 @@ class CounterpartRepository:
                     and type(required) is bool
                     and type(default) is not bool
                 ):
-                    print("Cai no REQ")
                     data = (
                         db_connection.session.query(Contrapartida)
                         .filter_by(obrigatoria=required)
