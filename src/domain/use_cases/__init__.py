@@ -1,1 +1,2 @@
 from .register_counterpart_interface import RegisterCounterpartInterface
+from .find_counterpart_interface import FindCounterpartInterface
