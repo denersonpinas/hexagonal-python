@@ -21,6 +21,7 @@ source venv/bin/activate
 ### Desativação do Ambiente Virtual
 
 Desative o ambiente virtual (se criado) usando o comando:
+
 ```bash
 deactivate
 ```
@@ -31,6 +32,7 @@ Instale as bibliotecas necessárias executando o comando:
 
 ```bash
 python3 -m pip install -r requirements.txt
+pre-commit install
 ```
 
 ### Inicialização Docker
