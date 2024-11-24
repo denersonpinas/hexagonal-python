@@ -22,7 +22,7 @@ def test_handle_by_id_and_required_and_default():
         }
     )
 
-    response = find_counterpart_controller.handle(http_request=http_request)
+    response = find_counterpart_controller.route(http_request=http_request)
 
     # Testing Inputs
     assert (
@@ -54,7 +54,7 @@ def test_handle_by_id_and_required():
         query={"counterpart_id": faker.random_number(), "required": faker.boolean()}
     )
 
-    response = find_counterpart_controller.handle(http_request=http_request)
+    response = find_counterpart_controller.route(http_request=http_request)
 
     # Testing Inputs
     assert (
@@ -82,7 +82,7 @@ def test_handle_by_id_and_default():
         query={"counterpart_id": faker.random_number(), "default": faker.boolean()}
     )
 
-    response = find_counterpart_controller.handle(http_request=http_request)
+    response = find_counterpart_controller.route(http_request=http_request)
 
     # Testing Inputs
     assert (
@@ -110,7 +110,7 @@ def test_handle_by_required_and_default():
         query={"required": faker.boolean(), "default": faker.boolean()}
     )
 
-    response = find_counterpart_controller.handle(http_request=http_request)
+    response = find_counterpart_controller.route(http_request=http_request)
 
     # Testing Inputs
     assert (
@@ -136,7 +136,7 @@ def test_handle_by_id():
     )
     http_request = HttpRequest(query={"counterpart_id": faker.random_number()})
 
-    response = find_counterpart_controller.handle(http_request=http_request)
+    response = find_counterpart_controller.route(http_request=http_request)
 
     # Testing Inputs
     assert (
@@ -158,7 +158,7 @@ def test_handle_by_required():
     )
     http_request = HttpRequest(query={"required": faker.boolean()})
 
-    response = find_counterpart_controller.handle(http_request=http_request)
+    response = find_counterpart_controller.route(http_request=http_request)
 
     # Testing Inputs
     assert (
@@ -180,7 +180,7 @@ def test_handle_by_default():
     )
     http_request = HttpRequest(query={"default": faker.boolean()})
 
-    response = find_counterpart_controller.handle(http_request=http_request)
+    response = find_counterpart_controller.route(http_request=http_request)
 
     # Testing Inputs
     assert (
@@ -202,7 +202,7 @@ def test_handle_no_query_param():
     )
     http_request = HttpRequest(query={})
 
-    response = find_counterpart_controller.handle(http_request=http_request)
+    response = find_counterpart_controller.route(http_request=http_request)
 
     # Testing Inputs
     assert find_counterpart_use_case.by_id_and_required_and_default_param == {}
@@ -227,7 +227,7 @@ def test_handle_fail():
     )
     http_request = HttpRequest(query={"other_query": faker.word()})
 
-    response = find_counterpart_controller.handle(http_request=http_request)
+    response = find_counterpart_controller.route(http_request=http_request)
 
     # Testing Inputs
     assert find_counterpart_use_case.by_id_and_required_and_default_param == {}

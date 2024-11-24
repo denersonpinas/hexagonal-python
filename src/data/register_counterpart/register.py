@@ -12,7 +12,7 @@ class RegisterCounterpart(RegisterCounterpartInterface):
     def __init__(self, counterpart_repository: Type[CounterpartRepositoryInterface]):
         self.__counterpart_repository = counterpart_repository
 
-    def register(
+    def registry(
         self, descricao: str, exemplo_aplicabilidade: str, obrigatoria: bool
     ) -> Dict[bool, Counterpart]:
         """Register counterpart use case

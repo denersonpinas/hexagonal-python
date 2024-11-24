@@ -1,17 +1,18 @@
 from typing import Type
 
 from src.domain.use_cases import FindCounterpartInterface
+from src.main.interface.route_interface import RouteInterface
 from src.presenters.errors.http_errors import HttpErrors
 from src.presenters.helpers import HttpRequest, HttpResponse
 
 
-class FindCounterpartController:
+class FindCounterpartController(RouteInterface):
     """Class to define controller to find counterpart use case"""
 
     def __init__(self, find_counterpart_use_case: Type[FindCounterpartInterface]):
         self.find_counterpart_use_case = find_counterpart_use_case
 
-    def handle(self, http_request: Type[HttpRequest]) -> HttpResponse:
+    def route(self, http_request: Type[HttpRequest]) -> HttpResponse:
         """Method to call use case"""
 
         response = None

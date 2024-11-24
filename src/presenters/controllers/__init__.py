@@ -1,1 +1,2 @@
 from .find_counterpart_controller import FindCounterpartController
+from .register_counterpart_controller import RegisterCounterpartController

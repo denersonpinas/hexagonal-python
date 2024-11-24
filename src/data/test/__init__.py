@@ -1,1 +1,2 @@
 from .find_counterpart_spy import FindCounterpartSpy
+from .register_counterpart_spy import RegisterCounterpartSpy

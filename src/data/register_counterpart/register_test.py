@@ -17,7 +17,7 @@ def test_register():
         "required": faker.boolean(),
     }
 
-    response = register_counterpart.register(
+    response = register_counterpart.registry(
         descricao=attributes["description"],
         exemplo_aplicabilidade=attributes["example_aplicabilirity"],
         obrigatoria=attributes["required"],
@@ -54,7 +54,7 @@ def test_register_fail():
         "required": faker.word(),
     }
 
-    response = register_counterpart.register(
+    response = register_counterpart.registry(
         descricao=attributes["description"],
         exemplo_aplicabilidade=attributes["example_aplicabilirity"],
         obrigatoria=attributes["required"],
