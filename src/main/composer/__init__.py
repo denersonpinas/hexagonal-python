@@ -1,0 +1,1 @@
+from .register_counterpart_composite import register_counterpart_composer
