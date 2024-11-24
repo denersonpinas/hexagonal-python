@@ -63,7 +63,7 @@ def test_route_fail():
 
     # Testing output
     assert response.status_code == 422
-    assert response.body is None
+    assert response.body
 
 
 def test_route_no_body_param():
@@ -81,4 +81,4 @@ def test_route_no_body_param():
 
     # Testing output
     assert response.status_code == 400
-    assert response.body is None
+    assert response.body

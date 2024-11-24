@@ -110,11 +110,13 @@ class FindCounterpartController(RouteInterface):
             if response["Success"] is False:
                 http_error = HttpErrors.error_422()
                 return HttpResponse(
-                    status_code=http_error["status_code"], body=response["Data"]
+                    status_code=http_error["status_code"], body=http_error["body"]
                 )
 
             return HttpResponse(status_code=200, body=response["Data"])
 
         # If not query in http_request
         http_error = HttpErrors.error_400()
-        return HttpResponse(status_code=http_error["status_code"], body=response)
+        return HttpResponse(
+            status_code=http_error["status_code"], body=http_error["body"]
+        )

@@ -215,7 +215,7 @@ def test_handle_no_query_param():
 
     # Testing Output
     assert response.status_code == 400
-    assert response.body is None
+    assert response.body
 
 
 def test_handle_fail():
@@ -240,4 +240,4 @@ def test_handle_fail():
 
     # Testing Output
     assert response.status_code == 422
-    assert response.body is None
+    assert response.body
