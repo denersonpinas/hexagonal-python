@@ -14,6 +14,11 @@ case $1 in
     "test") 
         pytest
         ;;
+    "run") 
+        export FLASK_APP=run
+        export FLASK_RUN_PORT=8001
+        flask run
+        ;;
     *)
         echo "Argumento inválido"
         exit 1
