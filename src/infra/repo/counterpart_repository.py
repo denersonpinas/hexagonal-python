@@ -1,4 +1,5 @@
 from typing import List
+from sqlalchemy.orm.exc import NoResultFound
 from src.data.interface import CounterpartRepositoryInterface
 from src.infra.config import DBConnectionHandler
 from src.infra.entities import Contrapartida
@@ -69,7 +70,7 @@ class CounterpartRepository(CounterpartRepositoryInterface):
                     data = (
                         db_connection.session.query(Contrapartida)
                         .filter_by(id=counterpart_id)
-                        .one_or_none()
+                        .one()
                     )
                     query_data = [data]
 
@@ -106,7 +107,7 @@ class CounterpartRepository(CounterpartRepositoryInterface):
                     data = (
                         db_connection.session.query(Contrapartida)
                         .filter_by(id=counterpart_id, obrigatoria=required)
-                        .one_or_none()
+                        .one()
                     )
                     query_data = [data]
 
@@ -130,7 +131,7 @@ class CounterpartRepository(CounterpartRepositoryInterface):
                     data = (
                         db_connection.session.query(Contrapartida)
                         .filter_by(id=counterpart_id, padrao=default)
-                        .one_or_none()
+                        .one()
                     )
                     query_data = [data]
 
@@ -142,10 +143,12 @@ class CounterpartRepository(CounterpartRepositoryInterface):
                         .filter_by(
                             id=counterpart_id, obrigatoria=required, padrao=default
                         )
-                        .one_or_none()
+                        .one()
                     )
                     query_data = [data]
                 return query_data
+            except NoResultFound:
+                return []
             except:
                 db_connection.session.rollback()
                 raise
