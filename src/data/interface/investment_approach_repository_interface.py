@@ -3,7 +3,7 @@ from typing import List
 from src.domain.models import InvestmentApproach
 
 
-class InvestmentApproachInterface(ABC):
+class InvestmentApproachRepositoryInterface(ABC):
     """Interface to Investment Approach Repository"""
 
     @abstractmethod

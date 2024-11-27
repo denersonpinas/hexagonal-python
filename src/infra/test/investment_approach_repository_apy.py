@@ -1,10 +1,12 @@
 from typing import List
-from src.data.interface.investment_approach_interface import InvestmentApproachInterface
+from src.data.interface import (
+    InvestmentApproachRepositoryInterface,
+)
 from src.domain.models import InvestmentApproach
 from src.domain.test import mock_investment_appr
 
 
-class InvestmentApproachRepositorySpy(InvestmentApproachInterface):
+class InvestmentApproachRepositorySpy(InvestmentApproachRepositoryInterface):
     """Spy to InvestmentApproach Repository"""
 
     def __init__(self):

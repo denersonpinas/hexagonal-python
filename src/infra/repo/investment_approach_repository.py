@@ -1,12 +1,14 @@
 from typing import List
 from sqlalchemy.orm.exc import NoResultFound
-from src.data.interface.investment_approach_interface import InvestmentApproachInterface
+from src.data.interface import (
+    InvestmentApproachRepositoryInterface,
+)
 from src.infra.config import DBConnectionHandler
 from src.domain.models import InvestmentApproach
 from src.infra.entities.abordagem_investimento import AbordagemInvestimento
 
 
-class InvestmentApproachRepository(InvestmentApproachInterface):
+class InvestmentApproachRepository(InvestmentApproachRepositoryInterface):
     """Class to manage Investment Approach Repository"""
 
     @classmethod
