@@ -1,1 +1,2 @@
 from .counterpart_repository import CounterpartRepository
+from .investment_approach_repository import InvestmentApproachRepository
