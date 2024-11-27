@@ -1,2 +1,5 @@
 from .find_counterpart_controller import FindCounterpartController
 from .register_counterpart_controller import RegisterCounterpartController
+from .register_investment_approach_controller import (
+    RegisterInvestmentApproachController,
+)
