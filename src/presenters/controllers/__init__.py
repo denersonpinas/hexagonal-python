@@ -4,3 +4,4 @@ from .register_investment_approach_controller import (
     RegisterInvestmentApproachController,
 )
 from .register_law_controller import RegisterLawController
+from .register_type_project_controller import RegisterTypeProjectController

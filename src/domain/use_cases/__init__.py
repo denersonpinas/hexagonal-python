@@ -4,3 +4,5 @@ from .register_investment_approach_interface import RegisterInvestmentApproachIn
 from .find_investment_approach_interface import FindInvestmentApproachInterface
 from .register_law_interface import RegisterLawInterface
 from .find_law_interface import FindLawInterface
+from .register_type_project_interface import RegisterTypeProjectInterface
+from .find_type_project_interface import FindTypeProjectInterface
