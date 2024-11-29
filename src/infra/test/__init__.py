@@ -1,2 +1,3 @@
 from .counterpart_repository_spy import CounterpartRepositorySpy
-from .investment_approach_repository_apy import InvestmentApproachRepositorySpy
+from .investment_approach_repository_spy import InvestmentApproachRepositorySpy
+from .law_repository_spy import LawRepositorySpy

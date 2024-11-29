@@ -16,7 +16,7 @@ class InvestmentApproachRepository(InvestmentApproachRepositoryInterface):
         cls, descricao: str, incetivado: bool
     ) -> InvestmentApproach:
         """Insert data in investment approach entity
-        :param  -   descricao: counterpart description
+        :param  -   descricao: investment approach description
                 -   incetivado: if investment approach is incentivized
         :return -   tuple with investment approach inserted
         """

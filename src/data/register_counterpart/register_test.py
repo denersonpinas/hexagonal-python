@@ -12,8 +12,8 @@ def test_register():
     register_counterpart = RegisterCounterpart(counterpart_repo)
 
     attributes = {
-        "description": faker.word(),
-        "example_aplicabilirity": faker.word(),
+        "description": faker.text(max_nb_chars=500),
+        "example_aplicabilirity": faker.text(max_nb_chars=500),
         "required": faker.boolean(),
     }
 
@@ -40,6 +40,32 @@ def test_register():
     # Testing outputs
     assert response["Success"] is True
     assert response["Data"]
+
+
+def test_register_fail_max_nb_char():
+    """Testing registry method in fail with max lenght char"""
+
+    counterpart_repo = CounterpartRepositorySpy()
+    register_counterpart = RegisterCounterpart(counterpart_repo)
+
+    attributes = {
+        "description": faker.text(max_nb_chars=10000),
+        "example_aplicabilirity": faker.text(max_nb_chars=10000),
+        "required": faker.boolean(),
+    }
+
+    response = register_counterpart.registry(
+        descricao=attributes["description"],
+        exemplo_aplicabilidade=attributes["example_aplicabilirity"],
+        obrigatoria=attributes["required"],
+    )
+
+    # Testing inputs
+    assert counterpart_repo.insert_counterpart_params == {}
+
+    # Testing outputs
+    assert response["Success"] is False
+    assert response["Data"] is None
 
 
 def test_register_fail():

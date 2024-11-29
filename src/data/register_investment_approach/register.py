@@ -19,7 +19,11 @@ class RegisterInvestmentApproach(RegisterInvestmentApproachInterface):
         """
 
         response = None
-        validate_entry = isinstance(descricao, str) and isinstance(incetivado, bool)
+        validate_entry = (
+            isinstance(descricao, str)
+            and isinstance(incetivado, bool)
+            and len(descricao) <= 80
+        )
 
         if validate_entry:
             response = self._investment_appr_repository.insert_investment_approach(

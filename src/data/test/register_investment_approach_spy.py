@@ -17,7 +17,7 @@ class RegisterInvestmentApproachSpy(RegisterInvestmentApproachInterface):
         self.registry_param = {}
 
     def registry(
-        self, descricao: str, incetivado: str
+        self, descricao: str, incetivado: bool
     ) -> Dict[bool, InvestmentApproach]:
         """Register investmentApproach use case"""
 

@@ -3,3 +3,4 @@ from .register_counterpart_controller import RegisterCounterpartController
 from .register_investment_approach_controller import (
     RegisterInvestmentApproachController,
 )
+from .register_law_controller import RegisterLawController

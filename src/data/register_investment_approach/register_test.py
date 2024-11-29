@@ -12,7 +12,7 @@ def test_register():
     register_investment_appr = RegisterInvestmentApproach(investment_appr_repo)
 
     attributes = {
-        "description": faker.word(),
+        "description": faker.text(max_nb_chars=80),
         "incetivado": faker.boolean(),
     }
 
@@ -33,6 +33,29 @@ def test_register():
     # Testing outputs
     assert response["Success"] is True
     assert response["Data"]
+
+
+def test_register_max_len_description():
+    """Testing registry with long description method"""
+
+    investment_appr_repo = InvestmentApproachRepositorySpy()
+    register_investment_appr = RegisterInvestmentApproach(investment_appr_repo)
+
+    attributes = {
+        "description": faker.text(max_nb_chars=9000),
+        "incetivado": faker.boolean(),
+    }
+
+    response = register_investment_appr.registry(
+        descricao=attributes["description"], incetivado=attributes["incetivado"]
+    )
+
+    # Testing inputs
+    assert investment_appr_repo.insert_investment_appr_params == {}
+
+    # Testing outputs
+    assert response["Success"] is False
+    assert response["Data"] is None
 
 
 def test_register_fail():
