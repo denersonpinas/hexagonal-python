@@ -5,3 +5,7 @@ from .register_investment_approach_controller import (
 )
 from .register_law_controller import RegisterLawController
 from .register_type_project_controller import RegisterTypeProjectController
+from .register_category_counterpart_controller import (
+    RegisterCategoryCounterpartController,
+)
+from .find_category_counterpart_controller import FindCategoryCounterpartController

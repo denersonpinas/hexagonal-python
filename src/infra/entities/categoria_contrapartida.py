@@ -24,6 +24,7 @@ class CategoriaContrapartida(Base):
             self.id == other.id
             and self.descricao == other.descricao
             and self.nome == other.nome
+            and self.subcategoria_id == other.subcategoria_id
         ):
             return True
         return False

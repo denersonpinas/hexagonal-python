@@ -6,3 +6,5 @@ from .register_law_spy import RegisterLawSpy
 from .register_type_project_spy import RegisterTypeProjectSpy
 from .find_law_spy import FindLawSpy
 from .find_type_project_spy import FindTypeProjectSpy
+from .register_category_counterpart_spy import RegisterCategoryCounterpartSpy
+from .find_category_counterpart_spy import FindCategoryCounterpartSpy

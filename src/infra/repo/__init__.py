@@ -2,3 +2,4 @@ from .counterpart_repository import CounterpartRepository
 from .investment_approach_repository import InvestmentApproachRepository
 from .law_repository import LawRepository
 from .type_project_repository import TypeProjectRepository
+from .category_counterpart_repository import CategoryCounterpartRepository

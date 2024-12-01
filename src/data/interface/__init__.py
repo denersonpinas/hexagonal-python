@@ -4,3 +4,6 @@ from .investment_approach_repository_interface import (
 )
 from .law_repository_interface import LawRepositoryInterface
 from .type_project_repository_interface import TypeProjectRepositoryInterface
+from .category_counterpart_repository_interface import (
+    CategoryCounterpartRepositoryInterface,
+)

@@ -23,6 +23,8 @@ class RegisterCounterpartSpy(RegisterCounterpartInterface):
             isinstance(descricao, str)
             and isinstance(exemplo_aplicabilidade, str)
             and isinstance(obrigatoria, bool)
+            and len(exemplo_aplicabilidade) <= 500
+            and len(descricao) <= 500
         )
 
         if validate_entry:
