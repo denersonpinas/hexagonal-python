@@ -8,3 +8,9 @@ from .find_law_spy import FindLawSpy
 from .find_type_project_spy import FindTypeProjectSpy
 from .register_category_counterpart_spy import RegisterCategoryCounterpartSpy
 from .find_category_counterpart_spy import FindCategoryCounterpartSpy
+from .register_relationship_category_counterparts_spy import (
+    RegisterRelationshipCategoryCounterpartsSpy,
+)
+from .find_relationship_category_counterparts_spy import (
+    FindRelationshipCategoryCounterpartsSpy,
+)

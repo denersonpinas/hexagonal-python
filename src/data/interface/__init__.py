@@ -7,3 +7,6 @@ from .type_project_repository_interface import TypeProjectRepositoryInterface
 from .category_counterpart_repository_interface import (
     CategoryCounterpartRepositoryInterface,
 )
+from .relationship_category_counterparts_repository_interface import (
+    RelationshipCategoryCounterpartsRepositoryInterface,
+)

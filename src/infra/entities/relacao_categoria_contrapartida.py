@@ -16,3 +16,15 @@ class RelacaoCategoriaContrapartida(Base):
     )
 
     id_abginvest_tpproj_lei_contrpart = relationship("AbginvestTpprojLeiContrpart")
+
+    def __req__(self):
+        return f"RelacaoCategoriaContrapartida [id={self.id}]"
+
+    def __eq__(self, other):
+        if (
+            self.id == other.id
+            and self.categoria_id == other.categoria_id
+            and self.contrapartida_id == other.contrapartida_id
+        ):
+            return True
+        return False

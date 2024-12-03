@@ -10,3 +10,9 @@ from .register_category_counterpart_interface import (
     RegisterCategoryCounterpartInterface,
 )
 from .find_category_counterpart_interface import FindCategoryCounterpartInterface
+from .register_relationship_category_counterparts_interface import (
+    RegisterRelationshipCategoryCounterpartsInterface,
+)
+from .find_relationship_category_counterparts_interface import (
+    FindRelationshipCategoryCounterpartsInterface,
+)

@@ -9,3 +9,9 @@ from .register_category_counterpart_controller import (
     RegisterCategoryCounterpartController,
 )
 from .find_category_counterpart_controller import FindCategoryCounterpartController
+from .register_relationship_category_counterparts_controller import (
+    RegisterRelationshipCategoryCounterpartsController,
+)
+from .find_relationship_category_counterparts_controller import (
+    FindRelationshipCategoryCounterpartsController,
+)
