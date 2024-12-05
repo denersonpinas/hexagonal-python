@@ -6,3 +6,4 @@ from .category_counterpart import CategoryCounterpart
 from .relationship_category_counterparts import RelationshipCategoryCounterparts
 from .abginvest_tpproj_lei import AbginvestTpprojLei
 from .type_file import TypeFile
+from .thematic import Thematic

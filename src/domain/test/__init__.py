@@ -8,3 +8,4 @@ from .mock_relationship_category_counterpart import (
 )
 from .mock_abginvest_tpproj_lei import mock_abginvest_tpproj_lei
 from .mock_type_file import mock_type_file
+from .mock_thematic import mock_thematic

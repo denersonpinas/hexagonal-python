@@ -8,3 +8,4 @@ from .relationship_category_counterparts_repository import (
 )
 from .abginvest_tpproj_lei_repository import AbginvestTpprojLeiRepository
 from .type_file_repository import TypeFileRepository
+from .thematic_repository import ThematicRepository

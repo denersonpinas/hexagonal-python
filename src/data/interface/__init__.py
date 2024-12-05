@@ -14,3 +14,4 @@ from .abginvest_tpproj_lei_repository_interface import (
     AbginvestTpprojLeiRepositoryInterface,
 )
 from .type_file_repository_interface import TypeFileRepositoryInterface
+from .thematic_repository_interface import ThematicRepositoryInterface
