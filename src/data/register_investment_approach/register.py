@@ -11,7 +11,7 @@ class RegisterInvestmentApproach(RegisterInvestmentApproachInterface):
     def __init__(self, investment_appr_repository: Type[InvestmentApproachRepository]):
         self._investment_appr_repository = investment_appr_repository
 
-    def registry(self, descricao: str, incetivado: bool):
+    def register(self, descricao: str, incetivado: bool):
         """Register investment approach use case
         :param  -   descricao: description of the investment approach
                 -   incetivado: if investment approach is incentivized or not

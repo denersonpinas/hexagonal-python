@@ -9,7 +9,7 @@ class RegisterTypeProject(RegisterTypeProjectInterface):
     def __init__(self, type_project_repository: Type[TypeProjectRepository]):
         self._type_project_repository = type_project_repository
 
-    def registry(self, nome: str, descricao: str):
+    def register(self, nome: str, descricao: str):
         """Register type project use case
         :param  -   nome: name of the type project
                 -   descricao: description of the type project

@@ -20,9 +20,9 @@ class RegisterRelationshipCategoryCounterpartsSpy(
         self._relationship_category_counterparts_repo = (
             relationship_category_counterparts_repo
         )
-        self.registry_param = {}
+        self.register_param = {}
 
-    def registry(
+    def register(
         self, categoria_id: int, contrapartida_id: int
     ) -> Dict[bool, RelationshipCategoryCounterparts]:
         """Register relationhip category counterpart use case"""
@@ -33,8 +33,8 @@ class RegisterRelationshipCategoryCounterpartsSpy(
         )
 
         if validate_entry:
-            self.registry_param["categoria_id"] = categoria_id
-            self.registry_param["contrapartida_id"] = contrapartida_id
+            self.register_param["categoria_id"] = categoria_id
+            self.register_param["contrapartida_id"] = contrapartida_id
 
             response = mock_relationship_category_counterparts()
 

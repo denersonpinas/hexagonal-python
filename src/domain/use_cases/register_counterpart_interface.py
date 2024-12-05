@@ -8,7 +8,7 @@ class RegisterCounterpartInterface(ABC):
     """Interface to Register Counterpart use case"""
 
     @abstractmethod
-    def registry(
+    def register(
         self, descricao: str, exemplo_aplicabilidade: str, obrigatoria: bool
     ) -> Dict[bool, Counterpart]:
         """Use Case"""

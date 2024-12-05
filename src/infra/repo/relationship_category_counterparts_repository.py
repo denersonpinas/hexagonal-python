@@ -73,7 +73,7 @@ class RelationshipCategoryCounterpartsRepository(
         self, id: int = None, categoria_id: int = None, contrapartida_id: int = None
     ) -> List[RelationshipCategoryCounterparts]:
         """Select data in RelacaoCategoriaContrapartidas entity by id or categoria_id or contrapartida_id
-        :param  -   id: Id of the registry
+        :param  -   id: Id of the register
                 -   categoria_id: id Category in Relationship Category Counterparts
                 -   contrapartida_id: id Counterparts in Relationship Category Counterparts
         :return -   List with Relationship Category Counterparts selected

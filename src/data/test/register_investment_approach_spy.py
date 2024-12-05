@@ -14,9 +14,9 @@ class RegisterInvestmentApproachSpy(RegisterInvestmentApproachInterface):
         investment_approach_repository: Type[InvestmentApproachRepositoryInterface],
     ):
         self.__investment_approach_repository = investment_approach_repository
-        self.registry_param = {}
+        self.register_param = {}
 
-    def registry(
+    def register(
         self, descricao: str, incetivado: bool
     ) -> Dict[bool, InvestmentApproach]:
         """Register investmentApproach use case"""
@@ -25,8 +25,8 @@ class RegisterInvestmentApproachSpy(RegisterInvestmentApproachInterface):
         validate_entry = isinstance(descricao, str) and isinstance(incetivado, bool)
 
         if validate_entry:
-            self.registry_param["descricao"] = descricao
-            self.registry_param["incetivado"] = incetivado
+            self.register_param["descricao"] = descricao
+            self.register_param["incetivado"] = incetivado
 
             response = mock_investment_appr()
 

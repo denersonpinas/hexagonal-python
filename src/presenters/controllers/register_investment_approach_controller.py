@@ -33,7 +33,7 @@ class RegisterInvestmentApproachController(RouteInterface):
                 description = http_request.body["description"]
                 incentivized = http_request.body["incentivized"]
 
-                response = self.register_investment_approach_use_case.registry(
+                response = self.register_investment_approach_use_case.register(
                     descricao=description,
                     incetivado=incentivized,
                 )

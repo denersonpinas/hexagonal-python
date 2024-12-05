@@ -26,15 +26,15 @@ def test_route():
 
     # Testing input
     assert (
-        register_counterpart_use_case.registry_param["descricao"]
+        register_counterpart_use_case.register_param["descricao"]
         == attributer["description"]
     )
     assert (
-        register_counterpart_use_case.registry_param["exemplo_aplicabilidade"]
+        register_counterpart_use_case.register_param["exemplo_aplicabilidade"]
         == attributer["example_aplicability"]
     )
     assert (
-        register_counterpart_use_case.registry_param["obrigatoria"]
+        register_counterpart_use_case.register_param["obrigatoria"]
         == attributer["required"]
     )
 
@@ -59,7 +59,7 @@ def test_route_fail():
     response = register_counterpart_route.route(HttpRequest(body=attributer))
 
     # Testing input
-    assert register_counterpart_use_case.registry_param == {}
+    assert register_counterpart_use_case.register_param == {}
 
     # Testing output
     assert response.status_code == 422
@@ -77,7 +77,7 @@ def test_route_no_body_param():
     response = register_counterpart_route.route(HttpRequest())
 
     # Testing input
-    assert register_counterpart_use_case.registry_param == {}
+    assert register_counterpart_use_case.register_param == {}
 
     # Testing output
     assert response.status_code == 400

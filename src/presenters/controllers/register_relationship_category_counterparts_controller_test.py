@@ -31,13 +31,13 @@ def test_route():
 
     # Testing input
     assert (
-        register_relationship_category_counterparts_use_case.registry_param[
+        register_relationship_category_counterparts_use_case.register_param[
             "categoria_id"
         ]
         == attributer["category_id"]
     )
     assert (
-        register_relationship_category_counterparts_use_case.registry_param[
+        register_relationship_category_counterparts_use_case.register_param[
             "contrapartida_id"
         ]
         == attributer["counterpart_id"]
@@ -68,7 +68,7 @@ def test_route_fail():
     response = register_counterpart_route.route(HttpRequest(body=attributer))
 
     # Testing input
-    assert register_relationship_category_counterparts_use_case.registry_param == {}
+    assert register_relationship_category_counterparts_use_case.register_param == {}
 
     # Testing output
     assert response.status_code == 422
@@ -90,7 +90,7 @@ def test_route_no_body_param():
     response = register_counterpart_route.route(HttpRequest())
 
     # Testing input
-    assert register_relationship_category_counterparts_use_case.registry_param == {}
+    assert register_relationship_category_counterparts_use_case.register_param == {}
 
     # Testing output
     assert response.status_code == 400

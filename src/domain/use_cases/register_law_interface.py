@@ -8,7 +8,7 @@ class RegisterLawInterface(ABC):
     """Interface to Register Law use case"""
 
     @abstractmethod
-    def registry(self, nome: str, descricao: str) -> Dict[bool, Law]:
+    def register(self, nome: str, descricao: str) -> Dict[bool, Law]:
         """Use Case"""
 
-        raise Exception("Should implement method: registry")
+        raise Exception("Should implement method: register")

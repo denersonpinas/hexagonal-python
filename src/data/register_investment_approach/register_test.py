@@ -6,7 +6,7 @@ faker = Faker()
 
 
 def test_register():
-    """Testing registry method"""
+    """Testing register method"""
 
     investment_appr_repo = InvestmentApproachRepositorySpy()
     register_investment_appr = RegisterInvestmentApproach(investment_appr_repo)
@@ -16,7 +16,7 @@ def test_register():
         "incetivado": faker.boolean(),
     }
 
-    response = register_investment_appr.registry(
+    response = register_investment_appr.register(
         descricao=attributes["description"], incetivado=attributes["incetivado"]
     )
 
@@ -36,7 +36,7 @@ def test_register():
 
 
 def test_register_max_len_description():
-    """Testing registry with long description method"""
+    """Testing register with long description method"""
 
     investment_appr_repo = InvestmentApproachRepositorySpy()
     register_investment_appr = RegisterInvestmentApproach(investment_appr_repo)
@@ -46,7 +46,7 @@ def test_register_max_len_description():
         "incetivado": faker.boolean(),
     }
 
-    response = register_investment_appr.registry(
+    response = register_investment_appr.register(
         descricao=attributes["description"], incetivado=attributes["incetivado"]
     )
 
@@ -59,7 +59,7 @@ def test_register_max_len_description():
 
 
 def test_register_fail():
-    """Testing registry method fail"""
+    """Testing register method fail"""
 
     investment_appr_repo = InvestmentApproachRepositorySpy()
     register_investment_appr = RegisterInvestmentApproach(investment_appr_repo)
@@ -69,7 +69,7 @@ def test_register_fail():
         "incetivado": faker.word(),
     }
 
-    response = register_investment_appr.registry(
+    response = register_investment_appr.register(
         descricao=attributes["description"], incetivado=attributes["incetivado"]
     )
 

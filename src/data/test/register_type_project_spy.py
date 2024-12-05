@@ -14,9 +14,9 @@ class RegisterTypeProjectSpy(RegisterTypeProjectInterface):
         type_project_repository: Type[TypeProjectRepositoryInterface],
     ):
         self._type_project_repository = type_project_repository
-        self.registry_param = {}
+        self.register_param = {}
 
-    def registry(self, nome: str, descricao: str) -> Dict[bool, TypeProject]:
+    def register(self, nome: str, descricao: str) -> Dict[bool, TypeProject]:
         """Register TypeProject use case"""
 
         response = None
@@ -28,8 +28,8 @@ class RegisterTypeProjectSpy(RegisterTypeProjectInterface):
         )
 
         if validate_entry:
-            self.registry_param["nome"] = nome
-            self.registry_param["descricao"] = descricao
+            self.register_param["nome"] = nome
+            self.register_param["descricao"] = descricao
 
             response = mock_type_project()
 

@@ -6,7 +6,7 @@ faker = Faker()
 
 
 def test_register():
-    """Testing registry method"""
+    """Testing register method"""
 
     type_project_repo = TypeProjectRepositorySpy()
     register_type_project = RegisterTypeProject(type_project_repo)
@@ -16,7 +16,7 @@ def test_register():
         "description": faker.text(max_nb_chars=250),
     }
 
-    response = register_type_project.registry(
+    response = register_type_project.register(
         nome=attributes["name"], descricao=attributes["description"]
     )
 
@@ -33,7 +33,7 @@ def test_register():
 
 
 def test_register_max_len_description():
-    """Testing registry with long description method"""
+    """Testing register with long description method"""
 
     type_project_repo = TypeProjectRepositorySpy()
     register_type_project = RegisterTypeProject(type_project_repo)
@@ -43,7 +43,7 @@ def test_register_max_len_description():
         "description": faker.text(max_nb_chars=2500),
     }
 
-    response = register_type_project.registry(
+    response = register_type_project.register(
         nome=attributes["name"], descricao=attributes["description"]
     )
 
@@ -56,7 +56,7 @@ def test_register_max_len_description():
 
 
 def test_register_fail():
-    """Testing registry method fail"""
+    """Testing register method fail"""
 
     type_project_repo = TypeProjectRepositorySpy()
     register_type_project = RegisterTypeProject(type_project_repo)
@@ -66,7 +66,7 @@ def test_register_fail():
         "description": faker.boolean(),
     }
 
-    response = register_type_project.registry(
+    response = register_type_project.register(
         nome=attributes["name"], descricao=attributes["description"]
     )
 

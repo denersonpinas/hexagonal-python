@@ -34,7 +34,7 @@ class RegisterRelationshipCategoryCounterpartsController(RouteInterface):
                 counterpart_id = http_request.body["counterpart_id"]
 
                 response = (
-                    self.register_relationship_category_counterparts_use_case.registry(
+                    self.register_relationship_category_counterparts_use_case.register(
                         categoria_id=category_id, contrapartida_id=counterpart_id
                     )
                 )

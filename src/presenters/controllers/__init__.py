@@ -15,3 +15,6 @@ from .register_relationship_category_counterparts_controller import (
 from .find_relationship_category_counterparts_controller import (
     FindRelationshipCategoryCounterpartsController,
 )
+from .register_abginvest_tpproj_lei_controller import (
+    RegisterAbginvestTpprojLeiController,
+)

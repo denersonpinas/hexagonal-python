@@ -29,7 +29,7 @@ class RegisterLawController(RouteInterface):
                 name = http_request.body["name"]
                 description = http_request.body["description"]
 
-                response = self.register_law_use_case.registry(
+                response = self.register_law_use_case.register(
                     nome=name,
                     descricao=description,
                 )

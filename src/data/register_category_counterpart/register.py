@@ -12,7 +12,7 @@ class RegisterCategoryCounterpart(RegisterCategoryCounterpartInterface):
     ):
         self.__category_counterpart_repo = category_counterpart_repo
 
-    def registry(
+    def register(
         self, nome: str, descricao: str, subcategoria_id: int = None
     ) -> Dict[bool, CategoryCounterpart]:
         """Register category counterpart use case

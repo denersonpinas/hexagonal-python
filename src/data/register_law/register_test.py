@@ -6,7 +6,7 @@ faker = Faker()
 
 
 def test_register():
-    """Testing registry method"""
+    """Testing register method"""
 
     law_repository = LawRepositorySpy()
     register_law = RegisterLaw(law_repository)
@@ -16,7 +16,7 @@ def test_register():
         "description": faker.text(max_nb_chars=250),
     }
 
-    response = register_law.registry(
+    response = register_law.register(
         nome=attributes["name"], descricao=attributes["description"]
     )
 
@@ -30,7 +30,7 @@ def test_register():
 
 
 def test_register_max_len_description():
-    """Testing registry with long description method"""
+    """Testing register with long description method"""
 
     law_repository = LawRepositorySpy()
     register_law = RegisterLaw(law_repository)
@@ -40,7 +40,7 @@ def test_register_max_len_description():
         "description": faker.text(max_nb_chars=2500),
     }
 
-    response = register_law.registry(
+    response = register_law.register(
         nome=attributes["name"], descricao=attributes["description"]
     )
 
@@ -53,7 +53,7 @@ def test_register_max_len_description():
 
 
 def test_register_fail():
-    """Testing registry method fail"""
+    """Testing register method fail"""
 
     law_repository = LawRepositorySpy()
     register_law = RegisterLaw(law_repository)
@@ -63,7 +63,7 @@ def test_register_fail():
         "description": faker.boolean(),
     }
 
-    response = register_law.registry(
+    response = register_law.register(
         nome=attributes["name"], descricao=attributes["description"]
     )
 

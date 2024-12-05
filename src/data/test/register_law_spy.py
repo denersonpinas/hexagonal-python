@@ -14,9 +14,9 @@ class RegisterLawSpy(RegisterLawInterface):
         law_repository: Type[LawRepositoryInterface],
     ):
         self.__law_repository = law_repository
-        self.registry_param = {}
+        self.register_param = {}
 
-    def registry(self, nome: str, descricao: str) -> Dict[bool, Law]:
+    def register(self, nome: str, descricao: str) -> Dict[bool, Law]:
         """Register Law use case"""
 
         response = None
@@ -28,8 +28,8 @@ class RegisterLawSpy(RegisterLawInterface):
         )
 
         if validate_entry:
-            self.registry_param["nome"] = nome
-            self.registry_param["descricao"] = descricao
+            self.register_param["nome"] = nome
+            self.register_param["descricao"] = descricao
 
             response = mock_law()
 

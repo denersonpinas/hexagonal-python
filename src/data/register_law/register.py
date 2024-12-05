@@ -9,7 +9,7 @@ class RegisterLaw(RegisterLawInterface):
     def __init__(self, law_repository: Type[LawRepository]):
         self._law_repository = law_repository
 
-    def registry(self, nome: str, descricao: str):
+    def register(self, nome: str, descricao: str):
         """Register law use case
         :param  -   nome: name of the law
                 -   descricao: description of the law

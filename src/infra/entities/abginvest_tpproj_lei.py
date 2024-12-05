@@ -16,3 +16,16 @@ class AbginvestTpprojLei(Base):
 
     id_proposta_abginvest_tpproj_lei = relationship("PropostaAbginvestTpprojLei")
     id_abginvest_tpproj_lei_contrpart = relationship("AbginvestTpprojLeiContrpart")
+
+    def __rep__(self):
+        return f"AbginvestTpprojLei [id={self.id}]"
+
+    def __eq__(self, other):
+        if (
+            self.id == other.id
+            and self.abordagem_investimento_id == other.abordagem_investimento_id
+            and self.lei_id == other.lei_id
+            and self.tipo_projeto_id == other.tipo_projeto_id
+        ):
+            return True
+        return False

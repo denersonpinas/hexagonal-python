@@ -16,3 +16,5 @@ from .register_relationship_category_counterparts_interface import (
 from .find_relationship_category_counterparts_interface import (
     FindRelationshipCategoryCounterpartsInterface,
 )
+from .register_abginvest_tpproj_lei_interface import RegisterAbginvestTpprojLeiInterface
+from .find_abginvest_tpproj_lei_interface import FindAbginvestTpprojLeiInterface

@@ -14,3 +14,5 @@ from .register_relationship_category_counterparts_spy import (
 from .find_relationship_category_counterparts_spy import (
     FindRelationshipCategoryCounterpartsSpy,
 )
+from .register_abginvet_tpproj_lei_spy import RegisterAbginvestTpprojLeiSpy
+from .find_abginvest_tpproj_lei_spy import FindAbginvestTpprojLeiSpy

@@ -19,7 +19,7 @@ class RegisterRelationshipCategoryCounterparts(
             relationship_category_counterparts_repo
         )
 
-    def registry(
+    def register(
         self, categoria_id: int, contrapartida_id: int
     ) -> Dict[bool, RelationshipCategoryCounterparts]:
         """Register relationship category counterpart use case

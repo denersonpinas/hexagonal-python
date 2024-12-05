@@ -33,7 +33,7 @@ class RegisterCounterpartController(RouteInterface):
                 example_aplicability = http_request.body["example_aplicability"]
                 required = http_request.body["required"]
 
-                response = self.register_counterpart_use_case.registry(
+                response = self.register_counterpart_use_case.register(
                     descricao=description,
                     exemplo_aplicabilidade=example_aplicability,
                     obrigatoria=required,

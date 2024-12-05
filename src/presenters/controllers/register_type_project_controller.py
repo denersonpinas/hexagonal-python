@@ -29,7 +29,7 @@ class RegisterTypeProjectController(RouteInterface):
                 name = http_request.body["name"]
                 description = http_request.body["description"]
 
-                response = self.register_type_project_use_case.registry(
+                response = self.register_type_project_use_case.register(
                     nome=name,
                     descricao=description,
                 )

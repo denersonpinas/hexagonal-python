@@ -6,3 +6,4 @@ from .category_counterpart_repository_spy import CategoryCounterpartRepositorySp
 from .relationship_category_counterparts_repository_spy import (
     RelationshipCategoryCounterpartsRepositorySpy,
 )
+from .abginvest_tpproj_lei_repository_spy import AbginvestTpprojLeiRepositorySpy

@@ -8,7 +8,7 @@ class RegisterTypeProjectInterface(ABC):
     """Interface to Register TypeProject use case"""
 
     @abstractmethod
-    def registry(self, nome: str, descricao: str) -> Dict[bool, TypeProject]:
+    def register(self, nome: str, descricao: str) -> Dict[bool, TypeProject]:
         """Use Case"""
 
-        raise Exception("Should implement method: registry")
+        raise Exception("Should implement method: register")

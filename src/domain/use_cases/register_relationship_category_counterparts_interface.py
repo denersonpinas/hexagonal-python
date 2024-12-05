@@ -8,7 +8,7 @@ class RegisterRelationshipCategoryCounterpartsInterface(ABC):
     """Interface to Register Relationship Category Counterparts use case"""
 
     @abstractmethod
-    def registry(
+    def register(
         self, categoria_id: int, contrapartida_id: int
     ) -> Dict[bool, RelationshipCategoryCounterparts]:
         """Use Case"""

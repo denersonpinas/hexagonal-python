@@ -8,7 +8,7 @@ class RegisterInvestmentApproachInterface(ABC):
     """Interface to Register InvestmentApproach use case"""
 
     @abstractmethod
-    def registry(
+    def register(
         self, descricao: str, incetivado: bool
     ) -> Dict[bool, InvestmentApproach]:
         """Use Case"""

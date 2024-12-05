@@ -6,7 +6,7 @@ faker = Faker()
 
 
 def test_register():
-    """Testing registry method"""
+    """Testing register method"""
 
     category_counterpart_repo = CategoryCounterpartRepositorySpy()
     register_category_counterpart = RegisterCategoryCounterpart(
@@ -19,7 +19,7 @@ def test_register():
         "subcategory_id": faker.random_number(digits=5),
     }
 
-    response = register_category_counterpart.registry(
+    response = register_category_counterpart.register(
         nome=attributes["name"],
         descricao=attributes["description"],
         subcategoria_id=attributes["subcategory_id"],
@@ -45,7 +45,7 @@ def test_register():
 
 
 def test_register_fail_max_nb_char():
-    """Testing registry method in fail with max lenght char"""
+    """Testing register method in fail with max lenght char"""
 
     category_counterpart_repo = CategoryCounterpartRepositorySpy()
     register_category_counterpart = RegisterCategoryCounterpart(
@@ -58,7 +58,7 @@ def test_register_fail_max_nb_char():
         "subcategory_id": faker.random_number(digits=5),
     }
 
-    response = register_category_counterpart.registry(
+    response = register_category_counterpart.register(
         nome=attributes["name"],
         descricao=attributes["description"],
         subcategoria_id=attributes["subcategory_id"],
@@ -73,7 +73,7 @@ def test_register_fail_max_nb_char():
 
 
 def test_register_fail():
-    """Testing registry method in fail"""
+    """Testing register method in fail"""
 
     category_counterpart_repo = CategoryCounterpartRepositorySpy()
     register_category_counterpart = RegisterCategoryCounterpart(
@@ -86,7 +86,7 @@ def test_register_fail():
         "subcategory_id": faker.word(),
     }
 
-    response = register_category_counterpart.registry(
+    response = register_category_counterpart.register(
         nome=attributes["name"],
         descricao=attributes["description"],
         subcategoria_id=attributes["subcategory_id"],

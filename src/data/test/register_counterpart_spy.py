@@ -11,9 +11,9 @@ class RegisterCounterpartSpy(RegisterCounterpartInterface):
 
     def __init__(self, counterpart_repository: Type[CounterpartRepositoryInterface]):
         self.__counterpart_repository = counterpart_repository
-        self.registry_param = {}
+        self.register_param = {}
 
-    def registry(
+    def register(
         self, descricao: str, exemplo_aplicabilidade: str, obrigatoria: bool
     ) -> Dict[bool, Counterpart]:
         """Register counterpart use case"""
@@ -28,9 +28,9 @@ class RegisterCounterpartSpy(RegisterCounterpartInterface):
         )
 
         if validate_entry:
-            self.registry_param["descricao"] = descricao
-            self.registry_param["exemplo_aplicabilidade"] = exemplo_aplicabilidade
-            self.registry_param["obrigatoria"] = obrigatoria
+            self.register_param["descricao"] = descricao
+            self.register_param["exemplo_aplicabilidade"] = exemplo_aplicabilidade
+            self.register_param["obrigatoria"] = obrigatoria
 
             response = mock_counterpart()
 

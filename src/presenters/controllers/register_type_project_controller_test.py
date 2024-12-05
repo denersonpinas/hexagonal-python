@@ -25,10 +25,10 @@ def test_route():
 
     # Testing input
     assert (
-        register_type_project_use_case.registry_param["descricao"]
+        register_type_project_use_case.register_param["descricao"]
         == attributer["description"]
     )
-    assert register_type_project_use_case.registry_param["nome"] == attributer["name"]
+    assert register_type_project_use_case.register_param["nome"] == attributer["name"]
 
     # Testing output
     assert response.status_code == 200
@@ -51,7 +51,7 @@ def test_route_fail():
     response = register_law_route.route(HttpRequest(body=attributer))
 
     # Testing input
-    assert register_type_project_use_case.registry_param == {}
+    assert register_type_project_use_case.register_param == {}
 
     # Testing output
     assert response.status_code == 422
@@ -69,7 +69,7 @@ def test_route_no_body_params():
     response = register_law_route.route(HttpRequest())
 
     # Testing input
-    assert register_type_project_use_case.registry_param == {}
+    assert register_type_project_use_case.register_param == {}
 
     # Testing output
     assert response.status_code == 400

@@ -13,9 +13,9 @@ class RegisterCategoryCounterpartSpy(RegisterCategoryCounterpartInterface):
         self, category_counterpart_repo: Type[CategoryCounterpartRepositoryInterface]
     ):
         self._category_counterpart_repo = category_counterpart_repo
-        self.registry_param = {}
+        self.register_param = {}
 
-    def registry(
+    def register(
         self, nome: str, descricao: str, subcategoria_id: int = None
     ) -> Dict[bool, CategoryCounterpart]:
         """Register category counterpart use case"""
@@ -29,9 +29,9 @@ class RegisterCategoryCounterpartSpy(RegisterCategoryCounterpartInterface):
         )
 
         if validate_entry:
-            self.registry_param["nome"] = nome
-            self.registry_param["descricao"] = descricao
-            self.registry_param["subcategoria_id"] = subcategoria_id
+            self.register_param["nome"] = nome
+            self.register_param["descricao"] = descricao
+            self.register_param["subcategoria_id"] = subcategoria_id
 
             response = mock_category_counterpart()
 

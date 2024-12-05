@@ -37,7 +37,7 @@ class RegisterCategoryCounterpartController(RouteInterface):
                 if "subcategory_id" in body_params:
                     subcategory_id = http_request.body["subcategory_id"]
 
-                response = self.register_category_counterpart_use_case.registry(
+                response = self.register_category_counterpart_use_case.register(
                     nome=name, descricao=description, subcategoria_id=subcategory_id
                 )
 

@@ -6,7 +6,7 @@ faker = Faker()
 
 
 def test_register():
-    """Testing registry method"""
+    """Testing register method"""
 
     relationship_category_counterparts_repo = (
         RelationshipCategoryCounterpartsRepositorySpy()
@@ -20,7 +20,7 @@ def test_register():
         "contrapartida_id": faker.random_number(digits=5),
     }
 
-    response = register_relationship_category_counterparts.registry(
+    response = register_relationship_category_counterparts.register(
         categoria_id=attributes["categoria_id"],
         contrapartida_id=attributes["contrapartida_id"],
     )
@@ -45,7 +45,7 @@ def test_register():
 
 
 def test_register_fail():
-    """Testing registry method in fail"""
+    """Testing register method in fail"""
 
     relationship_category_counterparts_repo = (
         RelationshipCategoryCounterpartsRepositorySpy()
@@ -61,7 +61,7 @@ def test_register_fail():
         "contrapartida_id": faker.random_number(digits=5),
     }
 
-    response = register_relationship_category_counterparts.registry(
+    response = register_relationship_category_counterparts.register(
         categoria_id=attributes["categoria_id"],
         contrapartida_id=attributes["contrapartida_id"],
     )

@@ -6,7 +6,7 @@ faker = Faker()
 
 
 def test_register():
-    """Testing registry method"""
+    """Testing register method"""
 
     counterpart_repo = CounterpartRepositorySpy()
     register_counterpart = RegisterCounterpart(counterpart_repo)
@@ -17,7 +17,7 @@ def test_register():
         "required": faker.boolean(),
     }
 
-    response = register_counterpart.registry(
+    response = register_counterpart.register(
         descricao=attributes["description"],
         exemplo_aplicabilidade=attributes["example_aplicabilirity"],
         obrigatoria=attributes["required"],
@@ -43,7 +43,7 @@ def test_register():
 
 
 def test_register_fail_max_nb_char():
-    """Testing registry method in fail with max lenght char"""
+    """Testing register method in fail with max lenght char"""
 
     counterpart_repo = CounterpartRepositorySpy()
     register_counterpart = RegisterCounterpart(counterpart_repo)
@@ -54,7 +54,7 @@ def test_register_fail_max_nb_char():
         "required": faker.boolean(),
     }
 
-    response = register_counterpart.registry(
+    response = register_counterpart.register(
         descricao=attributes["description"],
         exemplo_aplicabilidade=attributes["example_aplicabilirity"],
         obrigatoria=attributes["required"],
@@ -69,7 +69,7 @@ def test_register_fail_max_nb_char():
 
 
 def test_register_fail():
-    """Testing registry method in fail"""
+    """Testing register method in fail"""
 
     counterpart_repo = CounterpartRepositorySpy()
     register_counterpart = RegisterCounterpart(counterpart_repo)
@@ -80,7 +80,7 @@ def test_register_fail():
         "required": faker.word(),
     }
 
-    response = register_counterpart.registry(
+    response = register_counterpart.register(
         descricao=attributes["description"],
         exemplo_aplicabilidade=attributes["example_aplicabilirity"],
         obrigatoria=attributes["required"],

@@ -71,8 +71,8 @@ class CategoryCounterpartRepository(CategoryCounterpartRepositoryInterface):
         cls, category_counterpart_id: int = None, subcategoria_id: int = None
     ) -> List[CategoryCounterpart]:
         """Select data in category counterpart entity by id and/or subcategoria_id
-        :param  -   category_counterpart_id: Id of the registry
-                -   subcategoria_id: Id subcategory of the registry
+        :param  -   category_counterpart_id: Id of the register
+                -   subcategoria_id: Id subcategory of the register
         :return -   List with Category Counterpart selected
         """
 

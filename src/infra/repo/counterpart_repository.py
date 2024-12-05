@@ -52,7 +52,7 @@ class CounterpartRepository(CounterpartRepositoryInterface):
         cls, counterpart_id: int = None, required: bool = None, default: bool = None
     ) -> List[Counterpart]:
         """Select data in counterpart entity by id and/or required and/or defeult
-        :param  -   counterpart_id: Id of the registry
+        :param  -   counterpart_id: Id of the register
                 -   required: if required of the counterpart
                 -   default: if default of the counterpart
         :return -   List with Counterpart selected
