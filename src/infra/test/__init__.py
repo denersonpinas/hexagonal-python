@@ -7,3 +7,4 @@ from .relationship_category_counterparts_repository_spy import (
     RelationshipCategoryCounterpartsRepositorySpy,
 )
 from .abginvest_tpproj_lei_repository_spy import AbginvestTpprojLeiRepositorySpy
+from .type_file_repository_spy import TypeFileRepositorySpy

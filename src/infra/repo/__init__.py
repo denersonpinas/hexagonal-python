@@ -7,3 +7,4 @@ from .relationship_category_counterparts_repository import (
     RelationshipCategoryCounterpartsRepository,
 )
 from .abginvest_tpproj_lei_repository import AbginvestTpprojLeiRepository
+from .type_file_repository import TypeFileRepository

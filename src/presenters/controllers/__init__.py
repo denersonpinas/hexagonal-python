@@ -18,3 +18,5 @@ from .find_relationship_category_counterparts_controller import (
 from .register_abginvest_tpproj_lei_controller import (
     RegisterAbginvestTpprojLeiController,
 )
+from .register_type_file_controller import RegisterTypeFileController
+from .find_type_file_controller import FindTypeFileController

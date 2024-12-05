@@ -18,3 +18,5 @@ from .find_relationship_category_counterparts_interface import (
 )
 from .register_abginvest_tpproj_lei_interface import RegisterAbginvestTpprojLeiInterface
 from .find_abginvest_tpproj_lei_interface import FindAbginvestTpprojLeiInterface
+from .register_type_file_interface import RegisterTypeFileInterface
+from .find_type_file_interface import FindTypeFileInterface

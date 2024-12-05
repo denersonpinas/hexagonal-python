@@ -16,3 +16,5 @@ from .find_relationship_category_counterparts_spy import (
 )
 from .register_abginvet_tpproj_lei_spy import RegisterAbginvestTpprojLeiSpy
 from .find_abginvest_tpproj_lei_spy import FindAbginvestTpprojLeiSpy
+from .register_type_file_spy import RegisterTypeFileSpy
+from .find_type_file_spy import FindTypeFileSpy
