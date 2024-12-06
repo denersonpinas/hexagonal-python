@@ -22,3 +22,13 @@ from .register_type_file_controller import RegisterTypeFileController
 from .find_type_file_controller import FindTypeFileController
 from .register_thematic_controller import RegisterThematicController
 from .find_thematic_controller import FindThematicController
+from .register_benefit_categorization_controller import (
+    RegisterBenefitCategorizationController,
+)
+from .find_benefit_categorization_controller import FindBenefitCategorizationController
+from .register_benefit_categorization_type_controller import (
+    RegisterBenefitCategorizationTypeController,
+)
+from .find_benefit_categorization_type_controller import (
+    FindBenefitCategorizationTypeController,
+)

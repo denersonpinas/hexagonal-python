@@ -22,3 +22,13 @@ from .register_type_file_interface import RegisterTypeFileInterface
 from .find_type_file_interface import FindTypeFileInterface
 from .register_thematic_interface import RegisterThematicInterface
 from .find_thematic_interface import FindThematicInterface
+from .register_benefit_categorization_interface import (
+    RegisterBenefitCategorizationInterface,
+)
+from .register_benefit_categorization_type_interface import (
+    RegisterBenefitCategorizationTypeInterface,
+)
+from .find_benefit_categorization_interface import FindBenefitCategorizationInterface
+from .find_benefit_categorization_type_interface import (
+    FindBenefitCategorizationTypeInterface,
+)

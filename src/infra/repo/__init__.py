@@ -9,3 +9,5 @@ from .relationship_category_counterparts_repository import (
 from .abginvest_tpproj_lei_repository import AbginvestTpprojLeiRepository
 from .type_file_repository import TypeFileRepository
 from .thematic_repository import ThematicRepository
+from .benefit_categorization_repository import BenefitCategorizationRepository
+from .benefit_categorization_type_repository import BenefitCategorizationTypeRepository

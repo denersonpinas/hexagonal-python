@@ -15,3 +15,9 @@ from .abginvest_tpproj_lei_repository_interface import (
 )
 from .type_file_repository_interface import TypeFileRepositoryInterface
 from .thematic_repository_interface import ThematicRepositoryInterface
+from .benefit_categorization_type_repository_interface import (
+    BenefitCategorizationTypeRepositoryInterface,
+)
+from .benefit_categorization_repository_interface import (
+    BenefitCategorizationRepositoryInterface,
+)

@@ -9,3 +9,5 @@ from .mock_relationship_category_counterpart import (
 from .mock_abginvest_tpproj_lei import mock_abginvest_tpproj_lei
 from .mock_type_file import mock_type_file
 from .mock_thematic import mock_thematic
+from .mock_categorization import mock_categorization
+from .mock_categorization_type import mock_categorization_type

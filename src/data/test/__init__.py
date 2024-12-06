@@ -20,3 +20,9 @@ from .register_type_file_spy import RegisterTypeFileSpy
 from .find_type_file_spy import FindTypeFileSpy
 from .register_thematic_spy import RegisterThematicSpy
 from .find_thematic_spy import FindThematicSpy
+from .find_benefit_categorization_spy import FindBenefitCategorizationSpy
+from .register_benefit_categorization_spy import RegisterBenefitCategorizationSpy
+from .find_benefit_categorization_type_spy import FindBenefitCategorizationTypeSpy
+from .register_benefit_categorization_type_spy import (
+    RegisterBenefitCategorizationTypeSpy,
+)

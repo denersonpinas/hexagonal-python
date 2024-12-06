@@ -9,3 +9,7 @@ from .relationship_category_counterparts_repository_spy import (
 from .abginvest_tpproj_lei_repository_spy import AbginvestTpprojLeiRepositorySpy
 from .type_file_repository_spy import TypeFileRepositorySpy
 from .thematic_repository_spy import ThematicRepositorySpy
+from .benefit_categorization_repository_spy import BenefitCategorizationRepositorySpy
+from .benefit_categorization_type_repository_spy import (
+    BenefitCategorizationTypeRepositorySpy,
+)
