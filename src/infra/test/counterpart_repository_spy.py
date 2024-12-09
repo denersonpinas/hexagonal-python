@@ -34,3 +34,8 @@ class CounterpartRepositorySpy(CounterpartRepositoryInterface):
         self.select_counterpart_params["default"] = default
 
         return [mock_counterpart()]
+
+    def select_all_counterpart(self) -> List[Counterpart]:
+        """Spy to all the attributes"""
+
+        return [mock_counterpart()]

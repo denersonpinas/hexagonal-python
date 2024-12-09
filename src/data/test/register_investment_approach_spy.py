@@ -17,16 +17,16 @@ class RegisterInvestmentApproachSpy(RegisterInvestmentApproachInterface):
         self.register_param = {}
 
     def register(
-        self, descricao: str, incetivado: bool
+        self, descricao: str, incentivado: bool
     ) -> Dict[bool, InvestmentApproach]:
         """Register investmentApproach use case"""
 
         response = None
-        validate_entry = isinstance(descricao, str) and isinstance(incetivado, bool)
+        validate_entry = isinstance(descricao, str) and isinstance(incentivado, bool)
 
         if validate_entry:
             self.register_param["descricao"] = descricao
-            self.register_param["incetivado"] = incetivado
+            self.register_param["incentivado"] = incentivado
 
             response = mock_investment_appr()
 

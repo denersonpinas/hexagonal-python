@@ -1,2 +1,14 @@
 from .register_counterpart_composite import register_counterpart_composer
 from .find_counterpart_composite import find_counterpart_composer
+from .find_investment_approach_composite import find_investmento_approacht_composer
+from .find_law_composite import find_law_composer
+from .find_relationship_category_counterpart_composite import (
+    find_relationship_category_counterparts_composer,
+)
+from .find_category_counterpart_composite import find_category_counterpart_composer
+from .find_type_project_composite import find_type_project_composer
+from .find_abginvest_tpproj_lei_composite import find_abginvest_tpproj_lei_composer
+from .find_type_file_composite import find_type_file_composer
+from .find_thematic_composite import find_thematic_composer
+from .find_categorization_type_composite import find_categorization_type_composer
+from .find_categorization_composite import find_categorization_composer

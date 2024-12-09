@@ -11,5 +11,5 @@ def mock_category_counterpart() -> CategoryCounterpart:
         id=faker.random_number(digits=5),
         nome=faker.text(max_nb_chars=120),
         descricao=faker.text(max_nb_chars=500),
-        subcategoria_id=faker.random_number(digits=5),
+        subcategoria_de_id=faker.random_number(digits=5),
     )

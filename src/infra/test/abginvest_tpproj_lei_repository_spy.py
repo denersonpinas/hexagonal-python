@@ -12,7 +12,7 @@ class AbginvestTpprojLeiRepositorySpy(AbginvestTpprojLeiRepositoryInterface):
         self.select_abginvest_tpproj_lei_params = {}
 
     def insert_abginvest_tpproj_lei(
-        self, abordagem_investimento_id: int, lei_id: int, tipo_projeto_id: int
+        self, abordagem_investimento_id: int, lei_id: int, tipo_pojeto_id: int
     ) -> AbginvestTpprojLei:
         """Spy to all the attributes"""
 
@@ -20,7 +20,7 @@ class AbginvestTpprojLeiRepositorySpy(AbginvestTpprojLeiRepositoryInterface):
             abordagem_investimento_id
         )
         self.insert_abginvest_tpproj_lei_params["lei_id"] = lei_id
-        self.insert_abginvest_tpproj_lei_params["tipo_projeto_id"] = tipo_projeto_id
+        self.insert_abginvest_tpproj_lei_params["tipo_pojeto_id"] = tipo_pojeto_id
 
         return mock_abginvest_tpproj_lei()
 
@@ -29,7 +29,7 @@ class AbginvestTpprojLeiRepositorySpy(AbginvestTpprojLeiRepositoryInterface):
         id: int = None,
         abordagem_investimento_id: int = None,
         lei_id: int = None,
-        tipo_projeto_id: int = None,
+        tipo_pojeto_id: int = None,
     ) -> List[AbginvestTpprojLei]:
         """Spy to all the attributes"""
 
@@ -38,7 +38,7 @@ class AbginvestTpprojLeiRepositorySpy(AbginvestTpprojLeiRepositoryInterface):
             abordagem_investimento_id
         )
         self.select_abginvest_tpproj_lei_params["lei_id"] = lei_id
-        self.select_abginvest_tpproj_lei_params["tipo_projeto_id"] = tipo_projeto_id
+        self.select_abginvest_tpproj_lei_params["tipo_pojeto_id"] = tipo_pojeto_id
 
         return [mock_abginvest_tpproj_lei()]
 

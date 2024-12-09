@@ -37,7 +37,7 @@ def test_register():
         == attributes["law_id"]
     )
     assert (
-        abginvest_tpproj_lei_repo.insert_abginvest_tpproj_lei_params["tipo_projeto_id"]
+        abginvest_tpproj_lei_repo.insert_abginvest_tpproj_lei_params["tipo_pojeto_id"]
         == attributes["type_project_id"]
     )
 

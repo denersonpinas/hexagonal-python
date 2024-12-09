@@ -9,7 +9,7 @@ class CategoryCounterpartRepositoryInterface(ABC):
 
     @abstractmethod
     def insert_category_counterpart(
-        self, nome: str, descricao: str, subcategoria_id: int
+        self, nome: str, descricao: str, subcategoria_de_id: int
     ) -> CategoryCounterpart:
         """abstractmethod"""
         raise Exception("Method not implemented")
@@ -21,7 +21,7 @@ class CategoryCounterpartRepositoryInterface(ABC):
 
     @abstractmethod
     def select_category_counterpart(
-        self, category_counterpart_id: int = None, subcategoria_id: int = None
+        self, category_counterpart_id: int = None, subcategoria_de_id: int = None
     ) -> List[CategoryCounterpart]:
         """abstractmethod"""
         raise Exception("Method not implemented")

@@ -31,7 +31,7 @@ def test_route():
         == attributer["description"]
     )
     assert (
-        register_investment_appr_use_case.register_param["incetivado"]
+        register_investment_appr_use_case.register_param["incentivado"]
         == attributer["incentivized"]
     )
 

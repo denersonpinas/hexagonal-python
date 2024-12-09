@@ -32,7 +32,7 @@ def test_insert_abginvest_tpproj_lei():
             conn.execute(
                 text(
                     """
-                    INSERT INTO {}_abordageminvestimento (id, descricao, incetivado)
+                    INSERT INTO {}_abordageminvestimento (id, descricao, incentivado)
                     VALUES ('{}', '{}', '{}');
                     """.format(
                         REFERENCE_TABLE, id, description, incentivized
@@ -89,7 +89,7 @@ def test_insert_abginvest_tpproj_lei():
         # SQL commands
 
     new_abginvest_tpproj = abginvest_tpproj_lei_repo.insert_abginvest_tpproj_lei(
-        abordagem_investimento_id=id, lei_id=id_law, tipo_projeto_id=id_project
+        abordagem_investimento_id=id, lei_id=id_law, tipo_pojeto_id=id_project
     )
 
     # Select type_project
@@ -111,8 +111,7 @@ def test_insert_abginvest_tpproj_lei():
             )
             assert new_abginvest_tpproj.lei_id == query_type_project.lei_id
             assert (
-                new_abginvest_tpproj.tipo_projeto_id
-                == query_type_project.tipo_projeto_id
+                new_abginvest_tpproj.tipo_pojeto_id == query_type_project.tipo_pojeto_id
             )
         except:
             conn.rollback()
@@ -210,7 +209,7 @@ def test_select_abginvest_tpproj_lei():
             conn.execute(
                 text(
                     """
-                    INSERT INTO {}_abordageminvestimento (id, descricao, incetivado)
+                    INSERT INTO {}_abordageminvestimento (id, descricao, incentivado)
                     VALUES ('{}', '{}', '{}');
                     """.format(
                         REFERENCE_TABLE, id_aprooach, description, incentivized
@@ -270,7 +269,7 @@ def test_select_abginvest_tpproj_lei():
         id=abginvest_id,
         abordagem_investimento_id=id_aprooach,
         lei_id=id_law,
-        tipo_projeto_id=id_project,
+        tipo_pojeto_id=id_project,
     )
 
     # Insert AbginvestTpprojLei
@@ -279,7 +278,7 @@ def test_select_abginvest_tpproj_lei():
             conn.execute(
                 text(
                     """
-                        INSERT INTO {}_abginvest_tpproj_lei (id, abordagem_investimento_id, lei_id, tipo_projeto_id)
+                        INSERT INTO {}_abginvest_tpproj_lei (id, abordagem_investimento_id, lei_id, tipo_pojeto_id)
                         VALUES ('{}', '{}', '{}', '{}');
                     """.format(
                         REFERENCE_TABLE, abginvest_id, id_aprooach, id_law, id_project
@@ -303,7 +302,7 @@ def test_select_abginvest_tpproj_lei():
         lei_id=id_law
     )
     query_counterpart4 = abginvest_tpproj_lei_repo.select_abginvest_tpproj_lei(
-        tipo_projeto_id=id_project
+        tipo_pojeto_id=id_project
     )
     query_counterpart5 = abginvest_tpproj_lei_repo.select_all_abginvest_tpproj_lei()
 

@@ -57,7 +57,7 @@ class FindAbginvestTpprojLei(FindAbginvestTpprojLeiInterface):
 
         if validate_entry:
             response = self.abginvest_tpproj_lei_repo.select_abginvest_tpproj_lei(
-                tipo_projeto_id=type_project_id
+                tipo_pojeto_id=type_project_id
             )
 
         return {"Success": validate_entry, "Data": response}

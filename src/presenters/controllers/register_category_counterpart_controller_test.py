@@ -36,7 +36,7 @@ def test_route():
         == attributer["name"]
     )
     assert (
-        register_category_counterpart_use_case.register_param["subcategoria_id"]
+        register_category_counterpart_use_case.register_param["subcategoria_de_id"]
         == attributer["subcategory_id"]
     )
 

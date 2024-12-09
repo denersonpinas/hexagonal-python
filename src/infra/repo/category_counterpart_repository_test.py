@@ -28,7 +28,7 @@ def test_insert_category_counterpart():
     new_counterpart_secundary = category_counterpart_repo.insert_category_counterpart(
         nome=name_secundary,
         descricao=description_secundary,
-        subcategoria_id=new_counterpart_primary.id,
+        subcategoria_de_id=new_counterpart_primary.id,
     )
 
     # Select category counterpart
@@ -49,8 +49,8 @@ def test_insert_category_counterpart():
                 new_counterpart_primary.descricao == query_counterpart_primary.descricao
             )
             assert (
-                new_counterpart_primary.subcategoria_id
-                == query_counterpart_primary.subcategoria_id
+                new_counterpart_primary.subcategoria_de_id
+                == query_counterpart_primary.subcategoria_de_id
             )
         except:
             conn.rollback()
@@ -77,8 +77,8 @@ def test_insert_category_counterpart():
                 == query_counterpart_secundary.descricao
             )
             assert (
-                new_counterpart_secundary.subcategoria_id
-                == query_counterpart_secundary.subcategoria_id
+                new_counterpart_secundary.subcategoria_de_id
+                == query_counterpart_secundary.subcategoria_de_id
             )
         except:
             conn.rollback()
@@ -142,7 +142,7 @@ def test_select_category_counterpart():
         id=category_counterpart_id_secundary,
         nome=name_secundary,
         descricao=description_secundary,
-        subcategoria_id=category_counterpart_id_primary,
+        subcategoria_de_id=category_counterpart_id_primary,
     )
 
     # Insert category counterpart
@@ -175,7 +175,7 @@ def test_select_category_counterpart():
                 text(
                     """
                         INSERT INTO {}_categoriacontrapartida (id, nome, descricao,
-                        subcategoria_id)
+                        subcategoria_de_id)
                         VALUES ('{}', '{}', '{}', '{}');
                     """.format(
                         REFERENCE_TABLE,
@@ -195,13 +195,13 @@ def test_select_category_counterpart():
 
     query_counterpart1 = category_counterpart_repo.select_category_counterpart(
         category_counterpart_id=category_counterpart_id_secundary,
-        subcategoria_id=category_counterpart_id_primary,
+        subcategoria_de_id=category_counterpart_id_primary,
     )
     query_counterpart2 = category_counterpart_repo.select_category_counterpart(
         category_counterpart_id=category_counterpart_id_primary
     )
     query_counterpart3 = category_counterpart_repo.select_category_counterpart(
-        subcategoria_id=category_counterpart_id_primary
+        subcategoria_de_id=category_counterpart_id_primary
     )
     query_counterpart4 = category_counterpart_repo.select_all_category_counterpart()
 

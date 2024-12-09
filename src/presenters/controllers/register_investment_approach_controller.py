@@ -35,7 +35,7 @@ class RegisterInvestmentApproachController(RouteInterface):
 
                 response = self.register_investment_approach_use_case.register(
                     descricao=description,
-                    incetivado=incentivized,
+                    incentivado=incentivized,
                 )
 
             else:

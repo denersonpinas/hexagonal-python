@@ -9,14 +9,19 @@ class CounterpartRepositoryInterface(ABC):
 
     @abstractmethod
     def insert_counterpart(
-        self, descricao: str, exemplo_aplicabilidade: str, obrigatoria: bool
+        cls, descricao: str, exemplo_aplicabilidade: str, obrigatoria: bool
     ) -> Counterpart:
         """abstractmethod"""
         raise Exception("Method not implemented")
 
     @abstractmethod
     def select_counterpart(
-        self, counterpart_id: int = None, required: bool = None, default: bool = None
+        cls, counterpart_id: int = None, required: bool = None, default: bool = None
     ) -> List[Counterpart]:
+        """abstractmethod"""
+        raise Exception("Method not implemented")
+
+    @abstractmethod
+    def select_all_counterpart(cls) -> List[Counterpart]:
         """abstractmethod"""
         raise Exception("Method not implemented")

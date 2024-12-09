@@ -62,7 +62,9 @@ def test_by_subcategory():
 
     # Testing inputs
     assert (
-        category_counterpart_repo.select_category_counterpart_params["subcategoria_id"]
+        category_counterpart_repo.select_category_counterpart_params[
+            "subcategoria_de_id"
+        ]
         == attributes["id"]
     )
 

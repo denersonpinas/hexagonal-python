@@ -43,7 +43,7 @@ class FindCategoryCounterpart(FindCategoryCounterpartInterface):
 
         if validate_entry:
             response = self.category_counterpart_repo.select_category_counterpart(
-                subcategoria_id=subcategory_id
+                subcategoria_de_id=subcategory_id
             )
 
         return {"Success": validate_entry, "Data": response}

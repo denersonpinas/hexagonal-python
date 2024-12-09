@@ -8,7 +8,7 @@ class InvestmentApproachRepositoryInterface(ABC):
 
     @abstractmethod
     def insert_investment_approach(
-        self, descricao: str, incetivado: bool
+        self, descricao: str, incentivado: bool
     ) -> InvestmentApproach:
         """abstractmethod"""
         raise Exception("Method insert_investment_approach not implemented")

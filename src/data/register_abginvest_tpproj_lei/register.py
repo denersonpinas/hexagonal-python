@@ -33,7 +33,7 @@ class RegisterAbginvestTpprojLei(RegisterAbginvestTpprojLeiInterface):
             response = self._abginvest_tpproj_lei_repo.insert_abginvest_tpproj_lei(
                 abordagem_investimento_id=investment_approach_id,
                 lei_id=law_id,
-                tipo_projeto_id=type_project_id,
+                tipo_pojeto_id=type_project_id,
             )
 
         return {"Success": validate_entry, "Data": response}

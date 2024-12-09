@@ -9,7 +9,7 @@ class AbginvestTpprojLeiRepositoryInterface(ABC):
 
     @abstractmethod
     def insert_abginvest_tpproj_lei(
-        self, abordagem_investimento_id: int, lei_id: int, tipo_projeto_id: int
+        self, abordagem_investimento_id: int, lei_id: int, tipo_pojeto_id: int
     ) -> AbginvestTpprojLei:
         """abstractmethod"""
         raise Exception("Method not implemented")
@@ -19,7 +19,7 @@ class AbginvestTpprojLeiRepositoryInterface(ABC):
         id: int = None,
         abordagem_investimento_id: int = None,
         lei_id: int = None,
-        tipo_projeto_id: int = None,
+        tipo_pojeto_id: int = None,
     ) -> List[AbginvestTpprojLei]:
         """abstractmethod"""
         raise Exception("Method not implemented")

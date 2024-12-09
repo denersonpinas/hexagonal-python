@@ -7,8 +7,8 @@ from .find_counterpart_controller import FindCounterpartController
 faker = Faker()
 
 
-def test_handle_by_id_and_required_and_default():
-    """Testing Handle by id and required and default method"""
+def test_route_by_id_and_required_and_default():
+    """Testing Route by id and required and default method"""
 
     find_counterpart_use_case = FindCounterpartSpy(CounterpartRepositorySpy())
     find_counterpart_controller = FindCounterpartController(
@@ -43,8 +43,8 @@ def test_handle_by_id_and_required_and_default():
     assert response.body
 
 
-def test_handle_by_id_and_required():
-    """Testing Handle by id and required method"""
+def test_route_by_id_and_required():
+    """Testing Route by id and required method"""
 
     find_counterpart_use_case = FindCounterpartSpy(CounterpartRepositorySpy())
     find_counterpart_controller = FindCounterpartController(
@@ -71,8 +71,8 @@ def test_handle_by_id_and_required():
     assert response.body
 
 
-def test_handle_by_id_and_default():
-    """Testing Handle by id and default method"""
+def test_route_by_id_and_default():
+    """Testing Route by id and default method"""
 
     find_counterpart_use_case = FindCounterpartSpy(CounterpartRepositorySpy())
     find_counterpart_controller = FindCounterpartController(
@@ -99,8 +99,8 @@ def test_handle_by_id_and_default():
     assert response.body
 
 
-def test_handle_by_required_and_default():
-    """Testing Handle by required and default method"""
+def test_route_by_required_and_default():
+    """Testing Route by required and default method"""
 
     find_counterpart_use_case = FindCounterpartSpy(CounterpartRepositorySpy())
     find_counterpart_controller = FindCounterpartController(
@@ -127,8 +127,8 @@ def test_handle_by_required_and_default():
     assert response.body
 
 
-def test_handle_by_id():
-    """Testing Handle by id method"""
+def test_route_by_id():
+    """Testing Route by id method"""
 
     find_counterpart_use_case = FindCounterpartSpy(CounterpartRepositorySpy())
     find_counterpart_controller = FindCounterpartController(
@@ -149,8 +149,8 @@ def test_handle_by_id():
     assert response.body
 
 
-def test_handle_by_required():
-    """Testing Handle by required method"""
+def test_route_by_required():
+    """Testing Route by required method"""
 
     find_counterpart_use_case = FindCounterpartSpy(CounterpartRepositorySpy())
     find_counterpart_controller = FindCounterpartController(
@@ -171,8 +171,8 @@ def test_handle_by_required():
     assert response.body
 
 
-def test_handle_by_default():
-    """Testing Handle by default method"""
+def test_route_by_default():
+    """Testing Route method"""
 
     find_counterpart_use_case = FindCounterpartSpy(CounterpartRepositorySpy())
     find_counterpart_controller = FindCounterpartController(
@@ -193,8 +193,8 @@ def test_handle_by_default():
     assert response.body
 
 
-def test_handle_no_query_param():
-    """Testing Handle no query param method"""
+def test_route_all():
+    """Testing Route by default method"""
 
     find_counterpart_use_case = FindCounterpartSpy(CounterpartRepositorySpy())
     find_counterpart_controller = FindCounterpartController(
@@ -204,22 +204,13 @@ def test_handle_no_query_param():
 
     response = find_counterpart_controller.route(http_request=http_request)
 
-    # Testing Inputs
-    assert find_counterpart_use_case.by_id_and_required_and_default_param == {}
-    assert find_counterpart_use_case.by_id_and_required_param == {}
-    assert find_counterpart_use_case.by_id_and_default_param == {}
-    assert find_counterpart_use_case.by_required_and_default_param == {}
-    assert find_counterpart_use_case.by_id_param == {}
-    assert find_counterpart_use_case.by_required_param == {}
-    assert find_counterpart_use_case.by_default_param == {}
-
     # Testing Output
-    assert response.status_code == 400
+    assert response.status_code == 200
     assert response.body
 
 
-def test_handle_fail():
-    """Testing Handle method fail"""
+def test_route_fail():
+    """Testing Route method fail"""
 
     find_counterpart_use_case = FindCounterpartSpy(CounterpartRepositorySpy())
     find_counterpart_controller = FindCounterpartController(

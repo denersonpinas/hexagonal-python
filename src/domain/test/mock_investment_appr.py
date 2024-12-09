@@ -10,5 +10,5 @@ def mock_investment_appr() -> InvestmentApproach:
     return InvestmentApproach(
         id=faker.random_number(digits=5),
         descricao=faker.word(),
-        incetivado=faker.boolean(),
+        incentivado=faker.boolean(),
     )

@@ -12,7 +12,7 @@ class AbginvestTpprojLei(Base):
         Integer, ForeignKey(f"{REFERENCE_TABLE}_abordageminvestimento.id")
     )
     lei_id = Column(Integer, ForeignKey(f"{REFERENCE_TABLE}_lei.id"))
-    tipo_projeto_id = Column(Integer, ForeignKey(f"{REFERENCE_TABLE}_tipoprojeto.id"))
+    tipo_pojeto_id = Column(Integer, ForeignKey(f"{REFERENCE_TABLE}_tipoprojeto.id"))
 
     id_proposta_abginvest_tpproj_lei = relationship("PropostaAbginvestTpprojLei")
     id_abginvest_tpproj_lei_contrpart = relationship("AbginvestTpprojLeiContrpart")
@@ -25,7 +25,7 @@ class AbginvestTpprojLei(Base):
             self.id == other.id
             and self.abordagem_investimento_id == other.abordagem_investimento_id
             and self.lei_id == other.lei_id
-            and self.tipo_projeto_id == other.tipo_projeto_id
+            and self.tipo_pojeto_id == other.tipo_pojeto_id
         ):
             return True
         return False

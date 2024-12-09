@@ -124,6 +124,7 @@ def test_select_counterpart():
     query_counterpart6 = counterpart_repository.select_counterpart(
         counterpart_id=counterpart_id, required=required, default=True
     )
+    query_counterpart7 = counterpart_repository.select_all_counterpart()
 
     assert data in query_counterpart1
     assert data in query_counterpart2
@@ -131,6 +132,7 @@ def test_select_counterpart():
     assert data in query_counterpart4
     assert data in query_counterpart5
     assert data in query_counterpart6
+    assert data in query_counterpart7
 
     # Deleting counterpart inserted with test
     with engine.begin() as conn:

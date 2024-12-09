@@ -109,7 +109,7 @@ def test_by_type_project():
 
     # Testing inputs
     assert (
-        abginvest_tpproj_lei_repo.select_abginvest_tpproj_lei_params["tipo_projeto_id"]
+        abginvest_tpproj_lei_repo.select_abginvest_tpproj_lei_params["tipo_pojeto_id"]
         == attributes["type_project_id"]
     )
 

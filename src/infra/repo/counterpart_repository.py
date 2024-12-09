@@ -155,3 +155,24 @@ class CounterpartRepository(CounterpartRepositoryInterface):
             finally:
                 db_connection.session.close()
         return None
+
+    @classmethod
+    def select_all_counterpart(cls) -> List[Counterpart]:
+        """Select all data in counterpart entity
+        :param  -   is None
+        :return -   List with Counterpart selected
+        """
+
+        with DBConnectionHandler() as db_connection:
+            try:
+                data = db_connection.session.query(Contrapartida).all()
+
+                return data
+            except NoResultFound:
+                return []
+            except:
+                db_connection.session.rollback()
+                raise
+            finally:
+                db_connection.session.close()
+        return None

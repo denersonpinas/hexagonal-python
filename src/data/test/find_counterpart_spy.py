@@ -118,3 +118,10 @@ class FindCounterpartSpy(FindCounterpartInterface):
             response = [mock_counterpart()]
 
         return {"Success": validate_entry, "Data": response}
+
+    def all(self) -> Dict[bool, List[Counterpart]]:
+        """Select all Counterpart spy"""
+
+        response = [mock_counterpart()]
+
+        return {"Success": True, "Data": response}

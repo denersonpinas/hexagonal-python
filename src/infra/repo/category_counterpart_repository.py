@@ -11,19 +11,21 @@ class CategoryCounterpartRepository(CategoryCounterpartRepositoryInterface):
 
     @classmethod
     def insert_category_counterpart(
-        cls, nome: str, descricao: str, subcategoria_id: int = None
+        cls, nome: str, descricao: str, subcategoria_de_id: int = None
     ) -> CategoryCounterpart:
         """Insert data in category counterpart entity
         :param  -   nome: category counterpart name
                 -   descricao: category counterpart description
-                -   subcategoria_id: id subcategory of the category counterpart
+                -   subcategoria_de_id: id subcategory of the category counterpart
         :return -   tuple with category counterpart inserted
         """
 
         with DBConnectionHandler() as db_connection:
             try:
                 new_category_counterpart = CategoriaContrapartida(
-                    nome=nome, descricao=descricao, subcategoria_id=subcategoria_id
+                    nome=nome,
+                    descricao=descricao,
+                    subcategoria_de_id=subcategoria_de_id,
                 )
                 db_connection.session.add(new_category_counterpart)
                 db_connection.session.commit()
@@ -32,7 +34,7 @@ class CategoryCounterpartRepository(CategoryCounterpartRepositoryInterface):
                     id=new_category_counterpart.id,
                     nome=new_category_counterpart.nome,
                     descricao=new_category_counterpart.descricao,
-                    subcategoria_id=new_category_counterpart.subcategoria_id,
+                    subcategoria_de_id=new_category_counterpart.subcategoria_de_id,
                 )
             except:
                 db_connection.session.rollback()
@@ -68,11 +70,11 @@ class CategoryCounterpartRepository(CategoryCounterpartRepositoryInterface):
 
     @classmethod
     def select_category_counterpart(
-        cls, category_counterpart_id: int = None, subcategoria_id: int = None
+        cls, category_counterpart_id: int = None, subcategoria_de_id: int = None
     ) -> List[CategoryCounterpart]:
-        """Select data in category counterpart entity by id and/or subcategoria_id
+        """Select data in category counterpart entity by id and/or subcategoria_de_id
         :param  -   category_counterpart_id: Id of the register
-                -   subcategoria_id: Id subcategory of the register
+                -   subcategoria_de_id: Id subcategory of the register
         :return -   List with Category Counterpart selected
         """
 
@@ -80,26 +82,27 @@ class CategoryCounterpartRepository(CategoryCounterpartRepositoryInterface):
             try:
                 query_data = None
 
-                if category_counterpart_id and subcategoria_id:
+                if category_counterpart_id and subcategoria_de_id:
                     data = (
                         db_connection.session.query(CategoriaContrapartida)
                         .filter_by(
-                            id=category_counterpart_id, subcategoria_id=subcategoria_id
+                            id=category_counterpart_id,
+                            subcategoria_de_id=subcategoria_de_id,
                         )
                         .one()
                     )
                     query_data = [data]
 
-                elif not category_counterpart_id and subcategoria_id:
+                elif not category_counterpart_id and subcategoria_de_id:
                     data = (
                         db_connection.session.query(CategoriaContrapartida)
-                        .filter_by(subcategoria_id=subcategoria_id)
+                        .filter_by(subcategoria_de_id=subcategoria_de_id)
                         .all()
                     )
 
                     query_data = data
 
-                elif category_counterpart_id and not subcategoria_id:
+                elif category_counterpart_id and not subcategoria_de_id:
                     data = (
                         db_connection.session.query(CategoriaContrapartida)
                         .filter_by(id=category_counterpart_id)

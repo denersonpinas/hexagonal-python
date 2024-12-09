@@ -9,7 +9,7 @@ class RegisterCategoryCounterpartInterface(ABC):
 
     @abstractmethod
     def register(
-        self, nome: str, descricao: str, subcategoria_id: int = None
+        self, nome: str, descricao: str, subcategoria_de_id: int = None
     ) -> Dict[bool, CategoryCounterpart]:
         """Use Case"""
 

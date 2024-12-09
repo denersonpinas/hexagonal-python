@@ -20,7 +20,7 @@ def test_insert_investment_approach():
 
     # SQL commands
     new_investment_approach = investment_approach.insert_investment_approach(
-        descricao=description, incetivado=incentivized
+        descricao=description, incentivado=incentivized
     )
 
     # Select investment approach
@@ -38,7 +38,7 @@ def test_insert_investment_approach():
             assert new_investment_approach.id == query_investment_appr.id
             assert new_investment_approach.descricao == query_investment_appr.descricao
             assert (
-                new_investment_approach.incetivado == query_investment_appr.incetivado
+                new_investment_approach.incentivado == query_investment_appr.incentivado
             )
         except:
             conn.rollback()
@@ -70,7 +70,7 @@ def test_select_investment_approach():
     id = faker.random_number(digits=5)
     description = faker.word()
     incentivized = faker.boolean()
-    data = AbordagemInvestimento(id=id, descricao=description, incetivado=incentivized)
+    data = AbordagemInvestimento(id=id, descricao=description, incentivado=incentivized)
 
     # Insert investment approach
     with engine.begin() as conn:
@@ -78,7 +78,7 @@ def test_select_investment_approach():
             conn.execute(
                 text(
                     """
-                    INSERT INTO {}_abordageminvestimento (id, descricao, incetivado)
+                    INSERT INTO {}_abordageminvestimento (id, descricao, incentivado)
                     VALUES ('{}', '{}', '{}');
                     """.format(
                         REFERENCE_TABLE, id, description, incentivized

@@ -13,18 +13,18 @@ class InvestmentApproachRepository(InvestmentApproachRepositoryInterface):
 
     @classmethod
     def insert_investment_approach(
-        cls, descricao: str, incetivado: bool
+        cls, descricao: str, incentivado: bool
     ) -> InvestmentApproach:
         """Insert data in investment approach entity
         :param  -   descricao: investment approach description
-                -   incetivado: if investment approach is incentivized
+                -   incentivado: if investment approach is incentivized
         :return -   tuple with investment approach inserted
         """
 
         with DBConnectionHandler() as db_connection:
             try:
                 new_investment_approach = AbordagemInvestimento(
-                    descricao=descricao, incetivado=incetivado
+                    descricao=descricao, incentivado=incentivado
                 )
                 db_connection.session.add(new_investment_approach)
                 db_connection.session.commit()
@@ -32,7 +32,7 @@ class InvestmentApproachRepository(InvestmentApproachRepositoryInterface):
                 return InvestmentApproach(
                     id=new_investment_approach.id,
                     descricao=new_investment_approach.descricao,
-                    incetivado=new_investment_approach.incetivado,
+                    incentivado=new_investment_approach.incentivado,
                 )
             except:
                 db_connection.session.rollback()

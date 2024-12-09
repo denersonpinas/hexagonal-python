@@ -3,8 +3,11 @@ from .register_counterpart_controller import RegisterCounterpartController
 from .register_investment_approach_controller import (
     RegisterInvestmentApproachController,
 )
+from .find_investment_approach_controller import FindInvestmentApproachController
 from .register_law_controller import RegisterLawController
+from .find_law_controller import FindLawController
 from .register_type_project_controller import RegisterTypeProjectController
+from .find_type_project_controller import FindTypeProjectController
 from .register_category_counterpart_controller import (
     RegisterCategoryCounterpartController,
 )
@@ -18,6 +21,7 @@ from .find_relationship_category_counterparts_controller import (
 from .register_abginvest_tpproj_lei_controller import (
     RegisterAbginvestTpprojLeiController,
 )
+from .find_abginvest_tpproj_lei_controller import FindAbginvestTpprojLeiController
 from .register_type_file_controller import RegisterTypeFileController
 from .find_type_file_controller import FindTypeFileController
 from .register_thematic_controller import RegisterThematicController

@@ -10,7 +10,7 @@ class CategoriaContrapartida(Base):
     id = Column(Integer, primary_key=True)
     nome = Column(String(120), nullable=False)
     descricao = Column(String(500), nullable=False)
-    subcategoria_id = Column(
+    subcategoria_de_id = Column(
         Integer, ForeignKey(f"{REFERENCE_TABLE}_categoriacontrapartida.id")
     )
 
@@ -24,7 +24,7 @@ class CategoriaContrapartida(Base):
             self.id == other.id
             and self.descricao == other.descricao
             and self.nome == other.nome
-            and self.subcategoria_id == other.subcategoria_id
+            and self.subcategoria_de_id == other.subcategoria_de_id
         ):
             return True
         return False

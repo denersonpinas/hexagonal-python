@@ -13,11 +13,11 @@ def test_register():
 
     attributes = {
         "description": faker.text(max_nb_chars=80),
-        "incetivado": faker.boolean(),
+        "incentivado": faker.boolean(),
     }
 
     response = register_investment_appr.register(
-        descricao=attributes["description"], incetivado=attributes["incetivado"]
+        descricao=attributes["description"], incentivado=attributes["incentivado"]
     )
 
     # Testing inputs
@@ -26,8 +26,8 @@ def test_register():
         == attributes["description"]
     )
     assert (
-        investment_appr_repo.insert_investment_appr_params["incetivado"]
-        == attributes["incetivado"]
+        investment_appr_repo.insert_investment_appr_params["incentivado"]
+        == attributes["incentivado"]
     )
 
     # Testing outputs
@@ -43,11 +43,11 @@ def test_register_max_len_description():
 
     attributes = {
         "description": faker.text(max_nb_chars=9000),
-        "incetivado": faker.boolean(),
+        "incentivado": faker.boolean(),
     }
 
     response = register_investment_appr.register(
-        descricao=attributes["description"], incetivado=attributes["incetivado"]
+        descricao=attributes["description"], incentivado=attributes["incentivado"]
     )
 
     # Testing inputs
@@ -66,11 +66,11 @@ def test_register_fail():
 
     attributes = {
         "description": faker.boolean(),
-        "incetivado": faker.word(),
+        "incentivado": faker.word(),
     }
 
     response = register_investment_appr.register(
-        descricao=attributes["description"], incetivado=attributes["incetivado"]
+        descricao=attributes["description"], incentivado=attributes["incentivado"]
     )
 
     # Testing inputs

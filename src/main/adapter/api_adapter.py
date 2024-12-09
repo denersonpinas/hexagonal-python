@@ -28,7 +28,8 @@ def flask_adapter_get(request: Type[Request], api_route: Type[RouteInterface]) -
         if "default" in query_string_params.keys():
             query_string_params["default"] = bool(query_string_params["default"])
 
-    except:  # noqa: E722
+    except Exception as exc:  # noqa: E722
+        print("Error encontrado: ", exc)
         http_error = HttpErrors.error_400()
         return HttpResponse(
             status_code=http_error["status_code"], body=http_error["body"]

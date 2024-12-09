@@ -9,7 +9,7 @@ class AbordagemInvestimento(Base):
 
     id = Column(Integer, primary_key=True)
     descricao = Column(String(80), nullable=False)
-    incetivado = Column(Boolean, nullable=False)
+    incentivado = Column(Boolean, nullable=False)
 
     id_abginvest_tpproj_lei = relationship("AbginvestTpprojLei")
 
@@ -20,7 +20,7 @@ class AbordagemInvestimento(Base):
         if (
             self.id == other.id
             and self.descricao == other.descricao
-            and self.incetivado == other.incetivado
+            and self.incentivado == other.incentivado
         ):
             return True
         return False

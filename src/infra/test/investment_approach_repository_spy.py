@@ -13,12 +13,12 @@ class InvestmentApproachRepositorySpy(InvestmentApproachRepositoryInterface):
         self.insert_investment_appr_params = {}
 
     def insert_investment_approach(
-        self, descricao: str, incetivado: bool
+        self, descricao: str, incentivado: bool
     ) -> InvestmentApproach:
         """Spy to all the attributes"""
 
         self.insert_investment_appr_params["descricao"] = descricao
-        self.insert_investment_appr_params["incetivado"] = incetivado
+        self.insert_investment_appr_params["incentivado"] = incentivado
 
         return mock_investment_appr()
 

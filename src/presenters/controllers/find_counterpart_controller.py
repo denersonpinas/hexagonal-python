@@ -115,8 +115,5 @@ class FindCounterpartController(RouteInterface):
 
             return HttpResponse(status_code=200, body=response["Data"])
 
-        # If not query in http_request
-        http_error = HttpErrors.error_400()
-        return HttpResponse(
-            status_code=http_error["status_code"], body=http_error["body"]
-        )
+        response = self.find_counterpart_use_case.all()
+        return HttpResponse(status_code=200, body=response["Data"])

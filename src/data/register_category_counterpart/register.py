@@ -13,12 +13,12 @@ class RegisterCategoryCounterpart(RegisterCategoryCounterpartInterface):
         self.__category_counterpart_repo = category_counterpart_repo
 
     def register(
-        self, nome: str, descricao: str, subcategoria_id: int = None
+        self, nome: str, descricao: str, subcategoria_de_id: int = None
     ) -> Dict[bool, CategoryCounterpart]:
         """Register category counterpart use case
         :param  -   nome: description of the category counterpart
                 -   descricao: description of the category counterpart
-                -   subcategoria_id: id subcategory of the category counterpart
+                -   subcategoria_de_id: id subcategory of the category counterpart
         :return -   Dictionary with informations of the process
         """
 
@@ -32,7 +32,7 @@ class RegisterCategoryCounterpart(RegisterCategoryCounterpartInterface):
 
         if validate_entry:
             response = self.__category_counterpart_repo.insert_category_counterpart(
-                nome=nome, descricao=descricao, subcategoria_id=subcategoria_id
+                nome=nome, descricao=descricao, subcategoria_de_id=subcategoria_de_id
             )
 
         return {"Success": validate_entry, "Data": response}

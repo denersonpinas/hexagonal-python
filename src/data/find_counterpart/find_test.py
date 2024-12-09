@@ -138,6 +138,19 @@ def test_by_id_and_required():
     assert response["Data"]
 
 
+def test_all():
+    """Testing all method"""
+
+    counterpart_repo = CounterpartRepositorySpy()
+    find_counterpart = FindCounterpart(counterpart_repository=counterpart_repo)
+
+    response = find_counterpart.all()
+
+    # Testing Output
+    assert response["Success"] is True
+    assert response["Data"]
+
+
 def test_by_id_and_required_fail():
     """Testing by_id_and_required method fail"""
 

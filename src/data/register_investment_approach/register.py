@@ -11,23 +11,23 @@ class RegisterInvestmentApproach(RegisterInvestmentApproachInterface):
     def __init__(self, investment_appr_repository: Type[InvestmentApproachRepository]):
         self._investment_appr_repository = investment_appr_repository
 
-    def register(self, descricao: str, incetivado: bool):
+    def register(self, descricao: str, incentivado: bool):
         """Register investment approach use case
         :param  -   descricao: description of the investment approach
-                -   incetivado: if investment approach is incentivized or not
+                -   incentivado: if investment approach is incentivized or not
         :return -   Dictionary with informations of the process
         """
 
         response = None
         validate_entry = (
             isinstance(descricao, str)
-            and isinstance(incetivado, bool)
+            and isinstance(incentivado, bool)
             and len(descricao) <= 80
         )
 
         if validate_entry:
             response = self._investment_appr_repository.insert_investment_approach(
-                descricao=descricao, incetivado=incetivado
+                descricao=descricao, incentivado=incentivado
             )
 
         return {"Success": validate_entry, "Data": response}

@@ -22,7 +22,7 @@ def test_register():
     response = register_category_counterpart.register(
         nome=attributes["name"],
         descricao=attributes["description"],
-        subcategoria_id=attributes["subcategory_id"],
+        subcategoria_de_id=attributes["subcategory_id"],
     )
 
     # Testing inputs
@@ -35,7 +35,9 @@ def test_register():
         == attributes["name"]
     )
     assert (
-        category_counterpart_repo.insert_category_counterpart_params["subcategoria_id"]
+        category_counterpart_repo.insert_category_counterpart_params[
+            "subcategoria_de_id"
+        ]
         == attributes["subcategory_id"]
     )
 
@@ -61,7 +63,7 @@ def test_register_fail_max_nb_char():
     response = register_category_counterpart.register(
         nome=attributes["name"],
         descricao=attributes["description"],
-        subcategoria_id=attributes["subcategory_id"],
+        subcategoria_de_id=attributes["subcategory_id"],
     )
 
     # Testing inputs
@@ -89,7 +91,7 @@ def test_register_fail():
     response = register_category_counterpart.register(
         nome=attributes["name"],
         descricao=attributes["description"],
-        subcategoria_id=attributes["subcategory_id"],
+        subcategoria_de_id=attributes["subcategory_id"],
     )
 
     # Testing inputs
