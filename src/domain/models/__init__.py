@@ -9,3 +9,4 @@ from .type_file import TypeFile
 from .thematic import Thematic
 from .benefit_categorization_type import BenefitCategorizationType
 from .benefit_categorization import BenefitCategorization
+from .abginvest_tpproj_lei_contrpart import AbginvestTpprojLeiContrpart

@@ -26,3 +26,7 @@ from .find_benefit_categorization_type_spy import FindBenefitCategorizationTypeS
 from .register_benefit_categorization_type_spy import (
     RegisterBenefitCategorizationTypeSpy,
 )
+from .register_abginvet_tpproj_lei_contrpart_spy import (
+    RegisterAbginvestTpprojLeiContrpartSpy,
+)
+from .find_abginvest_tpproj_lei_contrpart_spy import FindAbginvestTpprojLeiContrpartSpy

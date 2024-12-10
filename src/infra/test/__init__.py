@@ -13,3 +13,6 @@ from .benefit_categorization_repository_spy import BenefitCategorizationReposito
 from .benefit_categorization_type_repository_spy import (
     BenefitCategorizationTypeRepositorySpy,
 )
+from .abginvest_tpproj_lei_contrpart_repository_spy import (
+    AbginvestTpprojLeiContrpartRepositorySpy,
+)

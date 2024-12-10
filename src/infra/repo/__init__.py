@@ -11,3 +11,6 @@ from .type_file_repository import TypeFileRepository
 from .thematic_repository import ThematicRepository
 from .benefit_categorization_repository import BenefitCategorizationRepository
 from .benefit_categorization_type_repository import BenefitCategorizationTypeRepository
+from .abginvest_tpproj_lei_contrpart_repository import (
+    AbginvestTpprojLeiContrpartRepository,
+)

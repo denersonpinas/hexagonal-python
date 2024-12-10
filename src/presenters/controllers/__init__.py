@@ -36,3 +36,9 @@ from .register_benefit_categorization_type_controller import (
 from .find_benefit_categorization_type_controller import (
     FindBenefitCategorizationTypeController,
 )
+from .register_abginvest_tpproj_lei_contrpart_controller import (
+    RegisterAbginvestTpprojLeiContrpartController,
+)
+from .find_abginvest_tpproj_lei_contrpart_controller import (
+    FindAbginvestTpprojLeiContrpartController,
+)

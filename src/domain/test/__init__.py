@@ -11,3 +11,4 @@ from .mock_type_file import mock_type_file
 from .mock_thematic import mock_thematic
 from .mock_categorization import mock_categorization
 from .mock_categorization_type import mock_categorization_type
+from .mock_abginvest_tpproj_lei_contrpart import mock_abginvest_tpproj_lei_contrpart

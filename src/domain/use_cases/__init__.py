@@ -32,3 +32,9 @@ from .find_benefit_categorization_interface import FindBenefitCategorizationInte
 from .find_benefit_categorization_type_interface import (
     FindBenefitCategorizationTypeInterface,
 )
+from .register_abginvest_tpproj_lei_contrpart_interface import (
+    RegisterAbginvestTpprojLeiContrpartInterface,
+)
+from .find_abginvest_tpproj_lei_contrpart_interface import (
+    FindAbginvestTpprojLeiContrpartInterface,
+)

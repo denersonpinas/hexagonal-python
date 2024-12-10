@@ -21,3 +21,6 @@ from .benefit_categorization_type_repository_interface import (
 from .benefit_categorization_repository_interface import (
     BenefitCategorizationRepositoryInterface,
 )
+from .abginvest_tpproj_lei_contrpart_repository_interface import (
+    AbginvestTpprojLeiContrpartRepositoryInterface,
+)
