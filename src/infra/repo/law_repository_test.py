@@ -1,7 +1,6 @@
 from faker import Faker
-from sqlalchemy import text
+from sqlalchemy import select
 
-from src.constants.reference import REFERENCE_TABLE
 from src.infra.config.db_config import DBConnectionHandler
 from src.infra.entities.lei import Lei
 from .law_repository import LawRepository
@@ -13,7 +12,7 @@ engine = db_connection_handler.get_engine()
 
 
 def test_insert_law():
-    """Should insert law"""
+    """Should insert Law"""
 
     name = faker.text(max_nb_chars=100)
     description = faker.text(max_nb_chars=250)
@@ -21,86 +20,52 @@ def test_insert_law():
     # SQL commands
     new_law = law.insert_law(nome=name, descricao=description)
 
-    # Select law
-    with engine.begin() as conn:
+    # Select Law
+    query = select(Lei).where(Lei.id == new_law.id)
+    with DBConnectionHandler() as db_connection:
         try:
-            query_law = conn.execute(
-                text(
-                    "SELECT * FROM {}_lei WHERE id='{}';".format(
-                        REFERENCE_TABLE, new_law.id
-                    )
-                )
-            ).fetchone()
-            conn.commit()
+            for query_law in db_connection.session.execute(query):
+                assert new_law.id == query_law[0].id
+                assert new_law.nome == query_law[0].nome
+                assert new_law.descricao == query_law[0].descricao
 
-            assert new_law.id == query_law.id
-            assert new_law.nome == query_law.nome
-            assert new_law.descricao == query_law.descricao
+            # Deleting Law Inserted
+            law_inserted = db_connection.session.get(Lei, new_law.id)
+            db_connection.session.delete(law_inserted)
+            db_connection.session.flush()
+            db_connection.session.commit()
         except:
-            conn.rollback()
+            db_connection.session.rollback()
             raise
         finally:
-            conn.close()
-
-    # Deleting investment approach inserted with test
-    with engine.begin() as conn:
-        try:
-            conn.execute(
-                text(
-                    "DELETE FROM {}_lei WHERE id='{}';".format(
-                        REFERENCE_TABLE, new_law.id
-                    )
-                )
-            )
-            conn.commit()
-        except:
-            conn.rollback()
-            raise
-        finally:
-            conn.close()
+            db_connection.session.close()
 
 
 def test_select_all_law():
-    """Should select all law"""
+    """Should select all Law"""
 
-    id = faker.random_number(digits=5)
     name = faker.text(max_nb_chars=100)
     description = faker.text(max_nb_chars=250)
-    data = Lei(id=id, nome=name, descricao=description)
+    data = Lei(nome=name, descricao=description)
 
-    # Insert law
-    with engine.begin() as conn:
+    # Insert Law
+    with DBConnectionHandler() as db_connection:
         try:
-            conn.execute(
-                text(
-                    """
-                    INSERT INTO {}_lei (id, nome, descricao)
-                    VALUES ('{}', '{}', '{}');
-                    """.format(
-                        REFERENCE_TABLE, id, name, description
-                    )
-                )
-            )
-            conn.commit()
+            # Add Law for test
+            db_connection.session.add(data)
+            db_connection.session.flush()
+            db_connection.session.commit()
+
+            query_law = law.select_all_law()
+            assert data in query_law
+
+            # Deleting Law Inserted
+            law_inserted = db_connection.session.get(Lei, data.id)
+            db_connection.session.delete(law_inserted)
+            db_connection.session.flush()
+            db_connection.session.commit()
         except:
-            conn.rollback()
+            db_connection.session.rollback()
             raise
         finally:
-            conn.close()
-
-    query_law = law.select_all_law()
-
-    assert data in query_law
-
-    # Deleting investment approach inserted with test
-    with engine.begin() as conn:
-        try:
-            conn.execute(
-                text("DELETE FROM {}_lei WHERE id='{}';".format(REFERENCE_TABLE, id))
-            )
-            conn.commit()
-        except:
-            conn.rollback()
-            raise
-        finally:
-            conn.close()
+            db_connection.session.close()

@@ -12,3 +12,29 @@ from .find_type_file_composite import find_type_file_composer
 from .find_thematic_composite import find_thematic_composer
 from .find_categorization_type_composite import find_categorization_type_composer
 from .find_categorization_composite import find_categorization_composer
+from .find_abginvest_tpproj_lei_contrpart_composite import (
+    find_abginvest_tpproj_lei_contrpart_composer,
+)
+from .register_investment_approach_composite import (
+    register_investmento_approacht_composer,
+)
+from .register_law_composite import register_law_composer
+from .register_type_project_composite import register_type_project_composer
+from .register_category_counterpart_composite import (
+    register_category_counterpart_composer,
+)
+from .register_relationship_category_counterpart_composite import (
+    register_relationship_category_counterpart_composer,
+)
+from .register_abginvest_tpproj_lei_composite import (
+    register_abginvest_tpproj_lei_composer,
+)
+from .register_type_file_composite import register_type_file_composer
+from .register_thematic_composite import register_thematic_composer
+from .register_caracterization_type_composite import (
+    register_caracterization_type_composer,
+)
+from .register_caracterization_composite import register_caracterization_composer
+from .register_abginvest_tpproj_lei_contrpart_composite import (
+    register_abginvest_tpproj_lei_contrpart_composer,
+)

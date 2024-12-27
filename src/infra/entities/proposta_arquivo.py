@@ -1,29 +1,30 @@
-from sqlalchemy import UUID, Column, String, Integer, ForeignKey
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from sqlalchemy import ForeignKey, String, Integer
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from uuid import UUID
+
+from src.infra.config.db_base import Base
+from src.infra.entities.proposta import Proposta
+from src.infra.entities.tipo_arquivo import TipoArquivo
 
 
+@dataclass
 class PropostaArquivo(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_propostaarquivo"
+    __tablename__ = "tcc_api_propostaarquivo"
 
-    id = Column(UUID, primary_key=True)
-    nome = Column(String(255))
-    extensao = Column(String(4))
-    tamanho = Column(Integer)
-    url = Column(String(200))
-    tipo_id = Column(String(32), ForeignKey(f"{REFERENCE_TABLE}_tipoarquivo.id"))
-    proposta_id = Column(UUID, ForeignKey(f"{REFERENCE_TABLE}_proposta.id"))
+    id: Mapped[UUID] = mapped_column(primary_key=True, nullable=False)
+    nome: Mapped[str] = mapped_column(String(255), nullable=False)
+    extensao: Mapped[str] = mapped_column(String(4), nullable=False)
+    tamanho: Mapped[int] = mapped_column(
+        Integer, nullable=False, comment="Tamanho do arquivo em bytes"
+    )
+    uri: Mapped[str] = mapped_column(String(200), nullable=False)
+    proposta_id: Mapped[UUID] = mapped_column(
+        ForeignKey("tcc_api_proposta.id"), nullable=False
+    )
+    tipo_id: Mapped[str] = mapped_column(
+        ForeignKey("tcc_api_tipoarquivo.id"), nullable=False
+    )
 
-    def __req__(self):
-        return f"Arquivo [nome={self.nome}]"
-
-    def __eq__(self, other):
-        if (
-            self.id == other.id
-            and self.nome == other.nome
-            and self.extensao == other.extensao
-            and self.tamanho == other.tamanho
-            and self.url == other.url
-        ):
-            return True
-        return False
+    proposta: Mapped[Proposta] = relationship(back_populates="proposta_arquivo")
+    tipo: Mapped[TipoArquivo] = relationship(back_populates="proposta_arquivo")

@@ -1,30 +1,26 @@
-from sqlalchemy import Column, ForeignKey, String, Integer
-from sqlalchemy.orm import relationship
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from sqlalchemy import String, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from typing import Optional
+
+from src.infra.config.db_base import Base
 
 
+@dataclass
 class CategoriaContrapartida(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_categoriacontrapartida"
+    __tablename__ = "tcc_api_categoriacontrapartida"
 
-    id = Column(Integer, primary_key=True)
-    nome = Column(String(120), nullable=False)
-    descricao = Column(String(500), nullable=False)
-    subcategoria_de_id = Column(
-        Integer, ForeignKey(f"{REFERENCE_TABLE}_categoriacontrapartida.id")
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    nome: Mapped[str] = mapped_column(String(120))
+    descricao: Mapped[str] = mapped_column(String(500))
+    subcategoria_de_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("tcc_api_categoriacontrapartida.id")
     )
 
-    id_relacao_contrapartida_categoria = relationship("RelacaoCategoriaContrapartida")
+    subcategoria_de: Mapped["CategoriaContrapartida"] = relationship(
+        "CategoriaContrapartida", remote_side=[id]
+    )
 
-    def __rep__(self):
-        return f"Categoria Contrapartida [nome={self.nome}]"
-
-    def __eq__(self, other):
-        if (
-            self.id == other.id
-            and self.descricao == other.descricao
-            and self.nome == other.nome
-            and self.subcategoria_de_id == other.subcategoria_de_id
-        ):
-            return True
-        return False
+    relacao_categoria_contrapartida = relationship(
+        "RelacaoCategoriaContrapartida", back_populates="categoria"
+    )

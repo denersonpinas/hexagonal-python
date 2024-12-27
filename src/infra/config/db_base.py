@@ -1,3 +1,10 @@
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.declarative import DeferredReflection
+from sqlalchemy.orm import DeclarativeBase
 
-Base = declarative_base()
+
+class Base(DeclarativeBase):
+    pass
+
+
+class Reflected(DeferredReflection):
+    __abstract__ = True

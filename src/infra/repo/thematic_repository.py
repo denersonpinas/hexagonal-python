@@ -1,4 +1,5 @@
 from typing import List
+from sqlalchemy import select
 from sqlalchemy.orm.exc import NoResultFound
 from src.data.interface import ThematicRepositoryInterface
 from src.infra.config import DBConnectionHandler
@@ -20,6 +21,7 @@ class ThematicRepository(ThematicRepositoryInterface):
             try:
                 new_thematic = Tematica(descricao=descricao)
                 db_connection.session.add(new_thematic)
+                db_connection.session.flush()
                 db_connection.session.commit()
 
                 return Thematic(id=new_thematic.id, descricao=new_thematic.descricao)
@@ -40,12 +42,11 @@ class ThematicRepository(ThematicRepositoryInterface):
 
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = []
-
-                data = db_connection.session.query(Tematica).all()
-                query_data = data
-
-                return query_data
+                query = select(Tematica)
+                response: List[Thematic] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:
@@ -61,15 +62,14 @@ class ThematicRepository(ThematicRepositoryInterface):
         :param  -   id: id of the register entity
         :return -   List with Thematic selected
         """
+
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = None
-
-                if id:
-                    data = db_connection.session.query(Tematica).filter_by(id=id).one()
-                    query_data = [data]
-
-                return query_data
+                query = select(Tematica).where(Tematica.id == id)
+                response: List[Thematic] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:
@@ -77,4 +77,4 @@ class ThematicRepository(ThematicRepositoryInterface):
                 raise
             finally:
                 db_connection.session.close()
-        return None
+        return []

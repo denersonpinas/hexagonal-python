@@ -1,26 +1,28 @@
-from sqlalchemy import Column, Integer, ForeignKey, String
-from sqlalchemy.orm import relationship
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import ForeignKey
+
+from src.infra.config.db_base import Base
+from src.infra.entities.tipo_categorizacao_beneficiario import (
+    TipoCategorizacaoBeneficiario,
+)
 
 
+@dataclass
 class CategorizacaoBeneficiario(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_categorizacaobeneficiario"
+    __tablename__ = "tcc_api_categorizacaobeneficiario"
 
-    id = Column(Integer, primary_key=True)
-    valor = Column(String(64), nullable=False)
-    tipo_id = Column(
-        String(32), ForeignKey(f"{REFERENCE_TABLE}_tipocategorizacaobeneficiario.id")
+    id: Mapped[int] = mapped_column(primary_key=True)
+    valor: Mapped[str] = mapped_column(String(64))
+    tipo_id: Mapped[str] = mapped_column(
+        ForeignKey("tcc_api_tipocategorizacaobeneficiario.id")
     )
 
-    id_proposta_beneficiario_caracterizacao = relationship(
-        "PropostaBeneficiarioCategorizacao"
+    tipo_categorizacao_beneficiario: Mapped[TipoCategorizacaoBeneficiario] = (
+        relationship(back_populates="categorizacao_beneficiario")
     )
 
-    def __rep__(self):
-        return f"Categorização Beneficiario [valor={self.valor}]"
-
-    def __eq__(self, other):
-        if self.id == other.id and self.valor == other.valor:
-            return True
-        return False
+    proposta_beneficiario_categorizacao = relationship(
+        "PropostaBeneficiarioCategorizacao", back_populates="categorizacao_beneficiario"
+    )

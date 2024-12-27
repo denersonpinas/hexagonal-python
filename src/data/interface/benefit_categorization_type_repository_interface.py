@@ -8,7 +8,7 @@ class BenefitCategorizationTypeRepositoryInterface(ABC):
 
     @abstractmethod
     def insert_categorization_type(
-        cls, descricao: str, info: str
+        cls, id: str, descricao: str, info: str
     ) -> BenefitCategorizationType:
         """abstractmethod"""
         raise Exception("Method not implemented")

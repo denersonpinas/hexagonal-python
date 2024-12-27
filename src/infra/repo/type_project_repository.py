@@ -1,4 +1,5 @@
 from typing import List
+from sqlalchemy import select
 from sqlalchemy.orm.exc import NoResultFound
 from src.data.interface import TypeProjectRepositoryInterface
 from src.infra.config import DBConnectionHandler
@@ -21,6 +22,7 @@ class TypeProjectRepository(TypeProjectRepositoryInterface):
             try:
                 new_type_project = TipoProjeto(nome=nome, descricao=descricao)
                 db_connection.session.add(new_type_project)
+                db_connection.session.flush()
                 db_connection.session.commit()
 
                 return TypeProject(
@@ -45,12 +47,11 @@ class TypeProjectRepository(TypeProjectRepositoryInterface):
 
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = []
-
-                data = db_connection.session.query(TipoProjeto).all()
-                query_data = data
-
-                return query_data
+                query = select(TipoProjeto)
+                response: List[TypeProject] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:

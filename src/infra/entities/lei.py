@@ -1,26 +1,16 @@
-from sqlalchemy import Column, String, Integer
-from sqlalchemy.orm import relationship
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import SmallInteger, String
+
+from src.infra.config.db_base import Base
 
 
+@dataclass
 class Lei(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_lei"
+    __tablename__ = "tcc_api_lei"
 
-    id = Column(Integer, primary_key=True)
-    nome = Column(String(100), nullable=False)
-    descricao = Column(String(250), nullable=False)
+    id: Mapped[int] = mapped_column(SmallInteger(), primary_key=True)
+    nome: Mapped[str] = mapped_column(String(100), nullable=False)
+    descricao: Mapped[str] = mapped_column(String(250), nullable=False)
 
-    id_abginvest_tpproj_lei = relationship("AbginvestTpprojLei")
-
-    def __rep__(self):
-        return f"Lei [nome={self.nome}]"
-
-    def __eq__(self, other):
-        if (
-            self.id == other.id
-            and self.nome == other.nome
-            and self.descricao == other.descricao
-        ):
-            return True
-        return False
+    abginvest_tpproj_lei = relationship("AbginvestTpprojLei", back_populates="lei")

@@ -1,7 +1,6 @@
 from faker import Faker
-from sqlalchemy import text
+from sqlalchemy import select
 from src.infra.config import DBConnectionHandler
-from src.constants import REFERENCE_TABLE
 from src.infra.entities import Contrapartida
 from .counterpart_repository import CounterpartRepository
 
@@ -12,7 +11,7 @@ engine = db_connection_handler.get_engine()
 
 
 def test_insert_counterpart():
-    """Should insert counterpart"""
+    """Should insert Counterpart"""
 
     description = faker.word()
     exaple_aplicability = faker.word()
@@ -25,128 +24,88 @@ def test_insert_counterpart():
         obrigatoria=requirement,
     )
 
-    # Select counterpart
-    with engine.begin() as conn:
+    # Select Counterpart
+    query = select(Contrapartida).where(Contrapartida.id == new_counterpart.id)
+    with DBConnectionHandler() as db_connection:
         try:
-            query_counterpart = conn.execute(
-                text(
-                    "SELECT * FROM {}_contrapartida WHERE id='{}';".format(
-                        REFERENCE_TABLE, new_counterpart.id
-                    )
+            for query_counterpart in db_connection.session.execute(query):
+                assert new_counterpart.id == query_counterpart[0].id
+                assert new_counterpart.descricao == query_counterpart[0].descricao
+                assert (
+                    new_counterpart.exemplo_aplicabilidade
+                    == query_counterpart[0].exemplo_aplicabilidade
                 )
-            ).fetchone()
-            conn.commit()
+                assert new_counterpart.obrigatoria == query_counterpart[0].obrigatoria
+                assert new_counterpart.padrao == query_counterpart[0].padrao
 
-            assert new_counterpart.id == query_counterpart.id
-            assert new_counterpart.descricao == query_counterpart.descricao
-            assert (
-                new_counterpart.exemplo_aplicabilidade
-                == query_counterpart.exemplo_aplicabilidade
+            # Deleting Counterpart Inserted
+            counterpart_inserted = db_connection.session.get(
+                Contrapartida, new_counterpart.id
             )
-            assert new_counterpart.obrigatoria == query_counterpart.obrigatoria
-            assert new_counterpart.padrao == query_counterpart.padrao
+            db_connection.session.delete(counterpart_inserted)
+            db_connection.session.flush()
+            db_connection.session.commit()
         except:
-            conn.rollback()
+            db_connection.session.rollback()
             raise
         finally:
-            conn.close()
-
-    # Deleting counterpart inserted with test
-    with engine.begin() as conn:
-        try:
-            conn.execute(
-                text(
-                    "DELETE FROM {}_contrapartida WHERE id='{}';".format(
-                        REFERENCE_TABLE, new_counterpart.id
-                    )
-                )
-            )
-            conn.commit()
-        except:
-            conn.rollback()
-            raise
-        finally:
-            conn.close()
+            db_connection.session.close()
 
 
 def test_select_counterpart():
     """Shoul select a counterpart in Counterpart table and compare it"""
 
-    counterpart_id = faker.random_number(digits=5)
     description = faker.word()
     example_aplicability = faker.word()
     required = faker.boolean()
     data = Contrapartida(
-        id=counterpart_id,
         descricao=description,
         exemplo_aplicabilidade=example_aplicability,
         obrigatoria=required,
         padrao=True,
     )
 
-    # Insert counterpart
-    with engine.begin() as conn:
+    # Insert Counterpart
+    with DBConnectionHandler() as db_connection:
         try:
-            conn.execute(
-                text(
-                    """
-                        INSERT INTO {}_contrapartida (id, descricao,
-                        exemplo_aplicabilidade, obrigatoria,
-                        padrao) VALUES ('{}', '{}', '{}', '{}', '{}');
-                    """.format(
-                        REFERENCE_TABLE,
-                        counterpart_id,
-                        description,
-                        example_aplicability,
-                        required,
-                        True,
-                    )
-                )
+            # Add Counterpart for test
+            db_connection.session.add(data)
+            db_connection.session.flush()
+            db_connection.session.commit()
+
+            query_counterpart1 = counterpart_repository.select_counterpart(
+                counterpart_id=data.id
             )
-            conn.commit()
+            query_counterpart2 = counterpart_repository.select_counterpart(
+                required=required
+            )
+            query_counterpart3 = counterpart_repository.select_counterpart(default=True)
+            query_counterpart4 = counterpart_repository.select_counterpart(
+                counterpart_id=data.id, required=required
+            )
+            query_counterpart5 = counterpart_repository.select_counterpart(
+                required=required, default=True
+            )
+            query_counterpart6 = counterpart_repository.select_counterpart(
+                counterpart_id=data.id, required=required, default=True
+            )
+            query_counterpart7 = counterpart_repository.select_all_counterpart()
+
+            assert data in query_counterpart1
+            assert data in query_counterpart2
+            assert data in query_counterpart3
+            assert data in query_counterpart4
+            assert data in query_counterpart5
+            assert data in query_counterpart6
+            assert data in query_counterpart7
+
+            # Deleting Counterpart Inserted
+            counterpart_inserted = db_connection.session.get(Contrapartida, data.id)
+            db_connection.session.delete(counterpart_inserted)
+            db_connection.session.flush()
+            db_connection.session.commit()
         except:
-            conn.rollback()
+            db_connection.session.rollback()
             raise
         finally:
-            conn.close()
-
-    query_counterpart1 = counterpart_repository.select_counterpart(
-        counterpart_id=counterpart_id
-    )
-    query_counterpart2 = counterpart_repository.select_counterpart(required=required)
-    query_counterpart3 = counterpart_repository.select_counterpart(default=True)
-    query_counterpart4 = counterpart_repository.select_counterpart(
-        counterpart_id=counterpart_id, required=required
-    )
-    query_counterpart5 = counterpart_repository.select_counterpart(
-        required=required, default=True
-    )
-    query_counterpart6 = counterpart_repository.select_counterpart(
-        counterpart_id=counterpart_id, required=required, default=True
-    )
-    query_counterpart7 = counterpart_repository.select_all_counterpart()
-
-    assert data in query_counterpart1
-    assert data in query_counterpart2
-    assert data in query_counterpart3
-    assert data in query_counterpart4
-    assert data in query_counterpart5
-    assert data in query_counterpart6
-    assert data in query_counterpart7
-
-    # Deleting counterpart inserted with test
-    with engine.begin() as conn:
-        try:
-            conn.execute(
-                text(
-                    "DELETE FROM {}_contrapartida WHERE id='{}';".format(
-                        REFERENCE_TABLE, counterpart_id
-                    )
-                )
-            )
-            conn.commit()
-        except:
-            conn.rollback()
-            raise
-        finally:
-            conn.close()
+            db_connection.session.close()

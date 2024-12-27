@@ -1,4 +1,5 @@
 from typing import List
+from sqlalchemy import select
 from sqlalchemy.orm.exc import NoResultFound
 from src.data.interface import CounterpartRepositoryInterface
 from src.infra.config import DBConnectionHandler
@@ -30,6 +31,7 @@ class CounterpartRepository(CounterpartRepositoryInterface):
                     padrao=True,
                 )
                 db_connection.session.add(new_counterpart)
+                db_connection.session.flush()
                 db_connection.session.commit()
 
                 return Counterpart(
@@ -60,93 +62,81 @@ class CounterpartRepository(CounterpartRepositoryInterface):
 
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = None
+                query = None
 
                 if (
                     counterpart_id
                     and type(required) is not bool
                     and type(default) is not bool
                 ):
-                    data = (
-                        db_connection.session.query(Contrapartida)
-                        .filter_by(id=counterpart_id)
-                        .one()
+                    query = select(Contrapartida).where(
+                        Contrapartida.id == counterpart_id
                     )
-                    query_data = [data]
 
                 elif (
                     not counterpart_id
                     and type(required) is bool
                     and type(default) is not bool
                 ):
-                    data = (
-                        db_connection.session.query(Contrapartida)
-                        .filter_by(obrigatoria=required)
-                        .all()
+                    query = select(Contrapartida).where(
+                        Contrapartida.obrigatoria == required
                     )
-
-                    query_data = data
 
                 elif (
                     not counterpart_id
                     and type(required) is not bool
                     and type(default) is bool
                 ):
-                    data = (
-                        db_connection.session.query(Contrapartida)
-                        .filter_by(padrao=default)
-                        .all()
-                    )
-                    query_data = data
+                    query = select(Contrapartida).where(Contrapartida.padrao == default)
 
                 elif (
                     counterpart_id
                     and type(required) is bool
                     and type(default) is not bool
                 ):
-                    data = (
-                        db_connection.session.query(Contrapartida)
-                        .filter_by(id=counterpart_id, obrigatoria=required)
-                        .one()
+                    query = (
+                        select(Contrapartida)
+                        .where(Contrapartida.id == counterpart_id)
+                        .where(Contrapartida.obrigatoria == required)
                     )
-                    query_data = [data]
 
                 elif (
                     not counterpart_id
                     and type(required) is bool
                     and type(default) is bool
                 ):
-                    data = (
-                        db_connection.session.query(Contrapartida)
-                        .filter_by(padrao=default, obrigatoria=required)
-                        .all()
+                    query = (
+                        select(Contrapartida)
+                        .where(Contrapartida.padrao == default)
+                        .where(Contrapartida.obrigatoria == required)
                     )
-                    query_data = data
 
                 elif (
                     counterpart_id
                     and type(required) is not bool
                     and type(default) is bool
                 ):
-                    data = (
-                        db_connection.session.query(Contrapartida)
-                        .filter_by(id=counterpart_id, padrao=default)
-                        .one()
+                    query = (
+                        select(Contrapartida)
+                        .where(Contrapartida.id == counterpart_id)
+                        .where(Contrapartida.padrao == default)
                     )
-                    query_data = [data]
 
                 elif (
                     counterpart_id and type(required) is bool and type(default) is bool
                 ):
-                    data = (
-                        db_connection.session.query(Contrapartida)
-                        .filter_by(
-                            id=counterpart_id, obrigatoria=required, padrao=default
-                        )
-                        .one()
+                    query = (
+                        select(Contrapartida)
+                        .where(Contrapartida.id == counterpart_id)
+                        .where(Contrapartida.obrigatoria == required)
+                        .where(Contrapartida.padrao == default)
                     )
-                    query_data = [data]
-                return query_data
+
+                response: List[Counterpart] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
+
             except NoResultFound:
                 return []
             except:
@@ -154,7 +144,7 @@ class CounterpartRepository(CounterpartRepositoryInterface):
                 raise
             finally:
                 db_connection.session.close()
-        return None
+        return []
 
     @classmethod
     def select_all_counterpart(cls) -> List[Counterpart]:
@@ -165,9 +155,11 @@ class CounterpartRepository(CounterpartRepositoryInterface):
 
         with DBConnectionHandler() as db_connection:
             try:
-                data = db_connection.session.query(Contrapartida).all()
-
-                return data
+                query = select(Contrapartida)
+                response: List[Counterpart] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:
@@ -175,4 +167,4 @@ class CounterpartRepository(CounterpartRepositoryInterface):
                 raise
             finally:
                 db_connection.session.close()
-        return None
+        return []

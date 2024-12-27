@@ -1,25 +1,22 @@
-from sqlalchemy import UUID, Column, ForeignKey, String, Integer
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from typing import Optional
+from dataclasses import dataclass
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import String, UUID, BigInteger, ForeignKey, Integer
+
+from src.infra.config.db_base import Base
+from src.infra.entities.proponente import Proponente
 
 
+@dataclass
 class HistoricoDeParcerias(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_historicodeparcerias"
+    __tablename__ = "tcc_api_historicodeparcerias"
 
-    id = Column(Integer, primary_key=True)
-    numero_de_patrocinadores = Column(Integer)
-    numero_de_renovacao = Column(Integer)
-    informacoes_adicionais = Column(String(250))
-    id_proposta = Column(UUID, ForeignKey(f"{REFERENCE_TABLE}_proponente.proposta_id"))
+    id: Mapped[int] = mapped_column(BigInteger(), primary_key=True)
+    numero_de_patrocinadores: Mapped[int] = mapped_column(Integer())
+    numero_de_renovacao: Mapped[int] = mapped_column(Integer())
+    informacoes_adicionais: Mapped[Optional[str]] = mapped_column(String(250))
+    proposta_id: Mapped[str] = mapped_column(
+        UUID(), ForeignKey("tcc_api_proponente.proposta_id"), nullable=False
+    )
 
-    def __rep__(self):
-        return f"Historico Parcerias [numero de patrocinadores={self.numero_de_patrocinadores}]"
-
-    def __eq__(self, other):
-        if (
-            self.id == other.id
-            and self.numero_de_patrocinadores == other.numero_de_patrocinadores
-            and self.numero_de_renovacao == other.numero_de_renovacao
-        ):
-            return True
-        return False
+    proponente: Mapped[Proponente] = relationship(back_populates="historico_parcerias")

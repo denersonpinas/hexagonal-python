@@ -7,7 +7,6 @@ from .entities import (
     CategoriaContrapartida,
     CategorizacaoBeneficiario,
     Contrapartida,
-    GerenciamentoProposta,
     HistoricoDeFornecimento,
     HistoricoDeMetas,
     HistoricoDeParcerias,

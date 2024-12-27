@@ -1,3 +1,6 @@
+from .proposta import Proposta
+from .proponente import Proponente
+from .tematica import Tematica
 from .abginvest_tpproj_lei_contrpart import AbginvestTpprojLeiContrpart
 from .abginvest_tpproj_lei import AbginvestTpprojLei
 from .abordagem_investimento import AbordagemInvestimento
@@ -5,7 +8,6 @@ from .bairro import Bairro
 from .categoria_contrapartida import CategoriaContrapartida
 from .categorizacao_beneficiario import CategorizacaoBeneficiario
 from .contrapartida import Contrapartida
-from .gerenciamento_proposta import GerenciamentoProposta
 from .historico_de_fornecimento import HistoricoDeFornecimento
 from .historico_de_metas import HistoricoDeMetas
 from .historico_de_parcerias import HistoricoDeParcerias
@@ -14,7 +16,6 @@ from .lei import Lei
 from .logradouro import Logradouro
 from .municipio import Municipio
 from .ponto_de_contato_projeto import PontoDeContatoProjeto
-from .proponente import Proponente
 from .proposta_abginvest_tpproj_lei import PropostaAbginvestTpprojLei
 from .proposta_arquivo import PropostaArquivo
 from .proposta_beneficiario_categorizacao import PropostaBeneficiarioCategorizacao
@@ -25,10 +26,8 @@ from .proposta_marcos import PropostaMarcos
 from .proposta_meta import PropostaMeta
 from .proposta_patrocinador import PropostaPatrocinador
 from .proposta_tematica import PropostaTematica
-from .proposta import Proposta
 from .relacao_categoria_contrapartida import RelacaoCategoriaContrapartida
 from .representante_legal import RepresentanteLegal
-from .tematica import Tematica
 from .tipo_arquivo import TipoArquivo
 from .tipo_categorizacao_beneficiario import TipoCategorizacaoBeneficiario
 from .tipo_projeto import TipoProjeto

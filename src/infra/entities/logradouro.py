@@ -1,19 +1,19 @@
-from sqlalchemy import Column, ForeignKey, String, Integer
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from sqlalchemy import String, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from src.infra.config.db_base import Base
+from src.infra.entities.bairro import Bairro
 
 
+@dataclass
 class Logradouro(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_logradouro"
+    __tablename__ = "tcc_api_logradouro"
 
-    id = Column(Integer, primary_key=True)
-    nome = Column(String(120), nullable=False)
-    bairro_id = Column(Integer, ForeignKey(f"{REFERENCE_TABLE}_bairro.id"))
+    id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
+    nome: Mapped[str] = mapped_column(String(120), nullable=False)
+    bairro_id_id: Mapped[int] = mapped_column(
+        ForeignKey("tcc_api_bairro.id"), nullable=False
+    )
 
-    def __rep__(self):
-        return f"Lodradouro [nome={self.nome}]"
-
-    def __eq__(self, other):
-        if self.id == other.id and self.nome == other.nome:
-            return True
-        return False
+    bairro: Mapped[Bairro] = relationship(back_populates="logradouro")

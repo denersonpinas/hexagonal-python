@@ -1,11 +1,12 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session
 
 # Constants: Definition database information
 DB_USER = "postgres"
 DB_PASSWORD = "postgres"
 DB_HOST = "localhost"
 DB_PORT = "3006"
+# DB_NAME = "postgres"
 DB_NAME = "app_bank"
 
 
@@ -29,8 +30,7 @@ class DBConnectionHandler:
 
     def __enter__(self):
         engine = create_engine(self.__connection_string)
-        session_maker = sessionmaker()
-        self.session = session_maker(bind=engine)
+        self.session = Session(engine)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):

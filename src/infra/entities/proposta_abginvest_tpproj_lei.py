@@ -1,16 +1,30 @@
-from sqlalchemy import UUID, Column, Integer, ForeignKey
-from sqlalchemy.orm import relationship
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from uuid import UUID
+
+from src.infra.config.db_base import Base
+from src.infra.entities.abginvest_tpproj_lei import AbginvestTpprojLei
+from src.infra.entities.proposta import Proposta
 
 
+@dataclass
 class PropostaAbginvestTpprojLei(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_proposta_abginvest_tpproj_lei"
+    __tablename__ = "tcc_api_proposta_abginvest_tpproj_lei"
 
-    id = Column(UUID, primary_key=True)
-    abginvest_tpproj_lei = Column(
-        Integer, ForeignKey(f"{REFERENCE_TABLE}_abginvest_tpproj_lei.id")
+    id: Mapped[UUID] = mapped_column(primary_key=True)
+    abginvest_tpproj_lei_id: Mapped[int] = mapped_column(
+        ForeignKey("tcc_api_abginvest_tpproj_lei.id")
     )
-    proposta_id = Column(UUID, ForeignKey(f"{REFERENCE_TABLE}_proposta.id"))
+    proposta_id: Mapped[UUID] = mapped_column(ForeignKey("tcc_api_proposta.id"))
 
-    id_proposta_contrapartida = relationship("PropostaContrapartida")
+    abginvest_tpproj_lei: Mapped[AbginvestTpprojLei] = relationship(
+        back_populates="proposta_abginvest_tpproj_lei"
+    )
+    proposta: Mapped[Proposta] = relationship(
+        back_populates="proposta_abginvest_tpproj_lei"
+    )
+
+    proposta_contrapartida = relationship(
+        "PropostaContrapartida", back_populates="proposta_abginvest_tpproj_lei"
+    )

@@ -9,7 +9,7 @@ class RegisterBenefitCategorizationTypeInterface(ABC):
 
     @abstractmethod
     def register(
-        self, description: str, info: str
+        cls, id: str, description: str, info: str
     ) -> Dict[bool, BenefitCategorizationType]:
         """Use Case"""
         raise Exception("Should implement method: register")

@@ -1,26 +1,19 @@
-from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from typing import Optional
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from src.infra.config.db_base import Base
 
 
+@dataclass
 class TipoCategorizacaoBeneficiario(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_tipocategorizacaobeneficiario"
+    __tablename__ = "tcc_api_tipocategorizacaobeneficiario"
 
-    id = Column(String(32), primary_key=True)
-    descricao = Column(String(50), nullable=False)
-    info = Column(String(150), nullable=False)
+    id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    descricao: Mapped[str] = mapped_column(String(50))
+    info: Mapped[Optional[str]] = mapped_column(String(150), nullable=True)
 
-    id_caracterizacao_beneficiario = relationship("CategorizacaoBeneficiario")
-
-    def __rep__(self):
-        return f"Tipo Categorização Beneficiario [descricao={self.descricao}]"
-
-    def __eq__(self, other):
-        if (
-            self.id == other.id
-            and self.descricao == other.descricao
-            and self.info == other.info
-        ):
-            return True
-        return False
+    categorizacao_beneficiario = relationship(
+        "CategorizacaoBeneficiario", back_populates="tipo_categorizacao_beneficiario"
+    )

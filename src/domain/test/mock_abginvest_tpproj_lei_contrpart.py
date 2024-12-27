@@ -10,6 +10,6 @@ def mock_abginvest_tpproj_lei_contrpart() -> AbginvestTpprojLeiContrpart:
     return AbginvestTpprojLeiContrpart(
         id=faker.random_number(digits=5),
         ordem=faker.random_number(digits=5),
-        id_relacao_contrapartida_categoria=faker.random_number(digits=5),
-        id_abginvest_tpproj_lei=faker.random_number(digits=5),
+        relacao_contrapartida_categoria_id=faker.random_number(digits=5),
+        abginvest_tpproj_lei_id=faker.random_number(digits=5),
     )

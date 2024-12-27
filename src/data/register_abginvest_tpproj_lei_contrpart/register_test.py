@@ -15,13 +15,13 @@ def test_register():
 
     attributes = {
         "ordem": faker.random_number(digits=5),
-        "id_relacao_contrapartida": faker.random_number(digits=5),
+        "id_relacao_contrapartida_categoria": faker.random_number(digits=5),
         "id_abginvest_tpproj_lei": faker.random_number(digits=5),
     }
 
     response = register_abginvest_tpproj_lei_contrpart.register(
         ordem=attributes["ordem"],
-        id_relacao_contrapartida=attributes["id_relacao_contrapartida"],
+        id_relacao_contrapartida=attributes["id_relacao_contrapartida_categoria"],
         id_abginvest_tpproj_lei=attributes["id_abginvest_tpproj_lei"],
     )
 
@@ -34,9 +34,9 @@ def test_register():
     )
     assert (
         abginvest_tpproj_lei_contrpart_repo.insert_abginvest_tpproj_lei_contrpart_params[
-            "id_relacao_contrapartida"
+            "id_relacao_contrapartida_categoria"
         ]
-        == attributes["id_relacao_contrapartida"]
+        == attributes["id_relacao_contrapartida_categoria"]
     )
     assert (
         abginvest_tpproj_lei_contrpart_repo.insert_abginvest_tpproj_lei_contrpart_params[

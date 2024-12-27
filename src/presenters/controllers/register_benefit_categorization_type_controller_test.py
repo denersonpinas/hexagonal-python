@@ -19,6 +19,7 @@ def test_route():
     )
 
     attributer = {
+        "id": faker.text(max_nb_chars=50),
         "description": faker.text(max_nb_chars=50),
         "info": faker.text(max_nb_chars=150),
     }
@@ -26,6 +27,9 @@ def test_route():
     response = register_categorization_type_route.route(HttpRequest(body=attributer))
 
     # Testing input
+    assert (
+        register_categorization_type_use_case.register_param["id"] == attributer["id"]
+    )
     assert (
         register_categorization_type_use_case.register_param["description"]
         == attributer["description"]
@@ -51,6 +55,7 @@ def test_route_fail():
     )
 
     attributer = {
+        "id": faker.boolean(),
         "description": faker.boolean(),
         "info": faker.boolean(),
     }

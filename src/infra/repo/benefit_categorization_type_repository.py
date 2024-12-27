@@ -1,4 +1,5 @@
 from typing import List
+from sqlalchemy import select
 from sqlalchemy.orm.exc import NoResultFound
 from src.data.interface import BenefitCategorizationTypeRepositoryInterface
 from src.infra.config import DBConnectionHandler
@@ -18,12 +19,14 @@ class BenefitCategorizationTypeRepository(BenefitCategorizationTypeRepositoryInt
                     info: Additional information
         :return -   BenefitCategorizationType object
         """
+
         with DBConnectionHandler() as db_connection:
             try:
                 new_type = TipoCategorizacaoBeneficiario(
                     id=id, descricao=descricao, info=info
                 )
                 db_connection.session.add(new_type)
+                db_connection.session.flush()
                 db_connection.session.commit()
 
                 return BenefitCategorizationType(
@@ -35,6 +38,8 @@ class BenefitCategorizationTypeRepository(BenefitCategorizationTypeRepositoryInt
             finally:
                 db_connection.session.close()
 
+        return None
+
     @classmethod
     def select_categorization_type(
         cls, id: str = None
@@ -43,19 +48,16 @@ class BenefitCategorizationTypeRepository(BenefitCategorizationTypeRepositoryInt
         :param  -   id: id of the register
         :return -   List with BenefitCategorizationType selected
         """
+
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = None
-
-                if id:
-                    data = (
-                        db_connection.session.query(TipoCategorizacaoBeneficiario)
-                        .filter_by(id=id)
-                        .one()
-                    )
-                    query_data = [data]
-
-                return query_data
+                query = select(TipoCategorizacaoBeneficiario).where(
+                    TipoCategorizacaoBeneficiario.id == id
+                )
+                response: List[BenefitCategorizationType] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:
@@ -63,16 +65,21 @@ class BenefitCategorizationTypeRepository(BenefitCategorizationTypeRepositoryInt
                 raise
             finally:
                 db_connection.session.close()
+        return []
 
     @classmethod
     def select_all_categorization_types(cls) -> List[BenefitCategorizationType]:
         """Select all data in Benefit Categorization Type entity
         :return -   List with all BenefitCategorizationType
         """
+
         with DBConnectionHandler() as db_connection:
             try:
-                data = db_connection.session.query(TipoCategorizacaoBeneficiario).all()
-                return data
+                query = select(TipoCategorizacaoBeneficiario)
+                response: List[BenefitCategorizationType] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:
@@ -80,3 +87,4 @@ class BenefitCategorizationTypeRepository(BenefitCategorizationTypeRepositoryInt
                 raise
             finally:
                 db_connection.session.close()
+        return []

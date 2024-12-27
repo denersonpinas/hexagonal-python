@@ -9,7 +9,10 @@ class AbginvestTpprojLeiContrpartRepositoryInterface(ABC):
 
     @abstractmethod
     def insert_abginvest_tpproj_lei_contrpart(
-        cls, ordem: int, id_relacao_contrapartida: int, id_abginvest_tpproj_lei: int
+        cls,
+        ordem: int,
+        id_relacao_contrapartida_categoria: int,
+        id_abginvest_tpproj_lei: int,
     ) -> AbginvestTpprojLeiContrpart:
         """abstractmethod"""
         raise Exception("Method not implemented")

@@ -1,4 +1,6 @@
 from typing import List
+from sqlalchemy import select
+from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.exc import NoResultFound
 from src.data.interface import CategoryCounterpartRepositoryInterface
 from src.infra.config import DBConnectionHandler
@@ -28,6 +30,7 @@ class CategoryCounterpartRepository(CategoryCounterpartRepositoryInterface):
                     subcategoria_de_id=subcategoria_de_id,
                 )
                 db_connection.session.add(new_category_counterpart)
+                db_connection.session.flush()
                 db_connection.session.commit()
 
                 return CategoryCounterpart(
@@ -53,69 +56,46 @@ class CategoryCounterpartRepository(CategoryCounterpartRepositoryInterface):
 
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = []
-
-                data = db_connection.session.query(CategoriaContrapartida).all()
-                query_data = data
-
-                return query_data
+                query = select(CategoriaContrapartida).options(
+                    joinedload(CategoriaContrapartida.subcategoria_de)
+                )
+                return db_connection.session.scalars(query).all()
             except NoResultFound:
                 return []
-            except:
+            except Exception as e:
                 db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()
-        return []
+                raise e
 
     @classmethod
     def select_category_counterpart(
         cls, category_counterpart_id: int = None, subcategoria_de_id: int = None
     ) -> List[CategoryCounterpart]:
-        """Select data in category counterpart entity by id and/or subcategoria_de_id
-        :param  -   category_counterpart_id: Id of the register
-                -   subcategoria_de_id: Id subcategory of the register
-        :return -   List with Category Counterpart selected
-        """
-
+        """Select data in category counterpart entity by id and/or subcategoria_de_id"""
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = None
+                query = select(CategoriaContrapartida)
 
                 if category_counterpart_id and subcategoria_de_id:
-                    data = (
-                        db_connection.session.query(CategoriaContrapartida)
-                        .filter_by(
-                            id=category_counterpart_id,
-                            subcategoria_de_id=subcategoria_de_id,
-                        )
-                        .one()
+                    query = query.where(
+                        CategoriaContrapartida.id == category_counterpart_id,
+                        CategoriaContrapartida.subcategoria_de_id == subcategoria_de_id,
                     )
-                    query_data = [data]
-
-                elif not category_counterpart_id and subcategoria_de_id:
-                    data = (
-                        db_connection.session.query(CategoriaContrapartida)
-                        .filter_by(subcategoria_de_id=subcategoria_de_id)
-                        .all()
+                elif category_counterpart_id:
+                    query = query.where(
+                        CategoriaContrapartida.id == category_counterpart_id
+                    )
+                elif subcategoria_de_id:
+                    query = query.where(
+                        CategoriaContrapartida.subcategoria_de_id == subcategoria_de_id
                     )
 
-                    query_data = data
+                result = db_connection.session.execute(query).scalars().all()
 
-                elif category_counterpart_id and not subcategoria_de_id:
-                    data = (
-                        db_connection.session.query(CategoriaContrapartida)
-                        .filter_by(id=category_counterpart_id)
-                        .one()
-                    )
-                    query_data = [data]
-
-                return query_data
+                for obj in result:
+                    db_connection.session.expunge(obj)
+                return list(result)
             except NoResultFound:
                 return []
-            except:
+            except Exception as e:
                 db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()
-        return None
+                raise e

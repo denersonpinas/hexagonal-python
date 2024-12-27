@@ -37,7 +37,7 @@ class RegisterAbginvestTpprojLeiContrpart(RegisterAbginvestTpprojLeiContrpartInt
         if validate_entry:
             response = self._abginvest_tpproj_lei_contrpart_repo.insert_abginvest_tpproj_lei_contrpart(
                 ordem=ordem,
-                id_relacao_contrapartida=id_relacao_contrapartida,
+                id_relacao_contrapartida_categoria=id_relacao_contrapartida,
                 id_abginvest_tpproj_lei=id_abginvest_tpproj_lei,
             )
 

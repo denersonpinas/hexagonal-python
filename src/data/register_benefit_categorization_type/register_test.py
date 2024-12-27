@@ -14,15 +14,22 @@ def test_register():
     )
 
     attributes = {
+        "id": faker.text(max_nb_chars=50),
         "description": faker.text(max_nb_chars=50),
         "info": faker.text(max_nb_chars=150),
     }
 
     response = register_categorization_type.register(
-        description=attributes["description"], info=attributes["info"]
+        id=attributes["id"],
+        description=attributes["description"],
+        info=attributes["info"],
     )
 
     # Testing inputs
+    assert (
+        categorization_type_repo.insert_categorization_type_params["id"]
+        == attributes["id"]
+    )
     assert (
         categorization_type_repo.insert_categorization_type_params["descricao"]
         == attributes["description"]
@@ -45,10 +52,16 @@ def test_register_fail():
         categorization_type_repo=categorization_type_repo
     )
 
-    attributes = {"description": faker.boolean(), "info": faker.random_number()}
+    attributes = {
+        "id": faker.boolean(),
+        "description": faker.boolean(),
+        "info": faker.random_number(),
+    }
 
     response = register_categorization_type.register(
-        description=attributes["description"], info=attributes["info"]
+        id=attributes["id"],
+        description=attributes["description"],
+        info=attributes["info"],
     )
 
     # Testing inputs

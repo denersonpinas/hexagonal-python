@@ -1,29 +1,25 @@
-from sqlalchemy import UUID, Column, ForeignKey, String, Integer
-from sqlalchemy.orm import relationship
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from sqlalchemy import String, SmallInteger, ForeignKey, UUID
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from src.infra.config.db_base import Base
+from src.infra.entities.proponente import Proponente
 
 
+@dataclass
 class HistoricoProjeto(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_historicoprojeto"
+    __tablename__ = "tcc_api_historicoprojeto"
 
-    id = Column(Integer, primary_key=True)
-    ano_investimento = Column(Integer, nullable=False)
-    titulo = Column(String(150), nullable=False)
-    tipo_investimento = Column(String(16), nullable=False)
-    id_proposta = Column(UUID, ForeignKey(f"{REFERENCE_TABLE}_proponente.proposta_id"))
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    ano_investimento: Mapped[int] = mapped_column(SmallInteger)
+    titulo: Mapped[str] = mapped_column(String(150))
+    tipo_investimento: Mapped[str] = mapped_column(String(16))
+    proposta_id: Mapped[UUID] = mapped_column(
+        ForeignKey("tcc_api_proponente.proposta_id")
+    )
 
-    id_historico_de_metas = relationship("HistoricoDeMetas")
+    proponente: Mapped[Proponente] = relationship(back_populates="historico_projeto")
 
-    def __rep__(self):
-        return f"Historico Projeto [titulo={self.titulo}]"
-
-    def __eq__(self, other):
-        if (
-            self.id == other.id
-            and self.titulo == other.titulo
-            and self.ano_investimento == other.ano_investimento
-            and self.tipo_investimento == other.tipo_investimento
-        ):
-            return True
-        return False
+    historico_metas = relationship(
+        "HistoricoDeMetas", back_populates="historico_projeto"
+    )

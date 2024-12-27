@@ -1,30 +1,31 @@
-from sqlalchemy import Column, ForeignKey, Integer
-from sqlalchemy.orm import relationship
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from src.infra.config.db_base import Base
+from src.infra.entities.categoria_contrapartida import CategoriaContrapartida
+from src.infra.entities.contrapartida import Contrapartida
 
 
+@dataclass
 class RelacaoCategoriaContrapartida(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_relacaocategoriacontrapartida"
+    __tablename__ = "tcc_api_relacaocategoriacontrapartida"
 
-    id = Column(Integer, primary_key=True)
-    categoria_id = Column(
-        Integer, ForeignKey(f"{REFERENCE_TABLE}_categoriacontrapartida.id")
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    categoria_id: Mapped[int] = mapped_column(
+        ForeignKey("tcc_api_categoriacontrapartida.id")
     )
-    contrapartida_id = Column(
-        Integer, ForeignKey(f"{REFERENCE_TABLE}_contrapartida.id")
+    contrapartida_id: Mapped[int] = mapped_column(
+        ForeignKey("tcc_api_contrapartida.id")
     )
 
-    id_abginvest_tpproj_lei_contrpart = relationship("AbginvestTpprojLeiContrpart")
+    categoria: Mapped[CategoriaContrapartida] = relationship(
+        back_populates="relacao_categoria_contrapartida"
+    )
+    contrapartida: Mapped[Contrapartida] = relationship(
+        back_populates="relacao_categoria_contrapartida"
+    )
 
-    def __req__(self):
-        return f"RelacaoCategoriaContrapartida [id={self.id}]"
-
-    def __eq__(self, other):
-        if (
-            self.id == other.id
-            and self.categoria_id == other.categoria_id
-            and self.contrapartida_id == other.contrapartida_id
-        ):
-            return True
-        return False
+    abginvest_tpproj_lei_contrpart = relationship(
+        "AbginvestTpprojLeiContrpart", back_populates="relacao_categoria_contrapartida"
+    )

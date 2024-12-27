@@ -29,12 +29,17 @@ class RegisterBenefitCategorizationTypeController(RouteInterface):
 
             body_params = http_request.body.keys()
 
-            if "description" in body_params and "info" in body_params:
+            if (
+                "id" in body_params
+                and "description" in body_params
+                and "info" in body_params
+            ):
+                id = http_request.body["id"]
                 description = http_request.body["description"]
                 info = http_request.body["info"]
 
                 response = self.register_categorization_type_use_case.register(
-                    description=description, info=info
+                    id=id, description=description, info=info
                 )
 
             else:

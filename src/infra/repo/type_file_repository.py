@@ -1,4 +1,5 @@
 from typing import List
+from sqlalchemy import select
 from sqlalchemy.orm.exc import NoResultFound
 from src.data.interface import TypeFileRepositoryInterface
 from src.infra.config import DBConnectionHandler
@@ -29,6 +30,7 @@ class TypeFileRepository(TypeFileRepositoryInterface):
                     info=info,
                 )
                 db_connection.session.add(new_type_file)
+                db_connection.session.flush()
                 db_connection.session.commit()
 
                 return TypeFile(
@@ -54,12 +56,11 @@ class TypeFileRepository(TypeFileRepositoryInterface):
 
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = []
-
-                data = db_connection.session.query(TipoArquivo).all()
-                query_data = data
-
-                return query_data
+                query = select(TipoArquivo)
+                response: List[TypeFile] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:
@@ -75,17 +76,14 @@ class TypeFileRepository(TypeFileRepositoryInterface):
         :param  -   id: id of the register entity
         :return -   List with TypeFile selected
         """
+
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = None
-
-                if id:
-                    data = (
-                        db_connection.session.query(TipoArquivo).filter_by(id=id).one()
-                    )
-                    query_data = [data]
-
-                return query_data
+                query = select(TipoArquivo).where(TipoArquivo.id == id)
+                response: List[TypeFile] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:
@@ -93,4 +91,4 @@ class TypeFileRepository(TypeFileRepositoryInterface):
                 raise
             finally:
                 db_connection.session.close()
-        return None
+        return []

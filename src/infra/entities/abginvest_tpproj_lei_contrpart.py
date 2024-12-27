@@ -1,33 +1,34 @@
-from sqlalchemy import Column, Integer, ForeignKey
-from sqlalchemy.orm import relationship
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from sqlalchemy import SmallInteger, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from src.infra.config.db_base import Base
+from src.infra.entities.abginvest_tpproj_lei import AbginvestTpprojLei
+from src.infra.entities.relacao_categoria_contrapartida import (
+    RelacaoCategoriaContrapartida,
+)
 
 
+@dataclass
 class AbginvestTpprojLeiContrpart(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_abginvest_tpproj_lei_contrpart"
+    __tablename__ = "tcc_api_abginvest_tpproj_lei_contrpart"
 
-    id = Column(Integer, primary_key=True)
-    ordem = Column(Integer, nullable=False)
-    id_relacao_contrapartida_categoria = Column(
-        Integer, ForeignKey(f"{REFERENCE_TABLE}_relacaocategoriacontrapartida.id")
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    ordem: Mapped[int] = mapped_column(SmallInteger)
+    abginvest_tpproj_lei_id: Mapped[int] = mapped_column(
+        ForeignKey("tcc_api_abginvest_tpproj_lei.id")
     )
-    id_abginvest_tpproj_lei = Column(
-        Integer, ForeignKey(f"{REFERENCE_TABLE}_abginvest_tpproj_lei.id")
+    relacao_contrapartida_categoria_id: Mapped[int] = mapped_column(
+        ForeignKey("tcc_api_relacaocategoriacontrapartida.id")
     )
 
-    id_proposta_contrapartida = relationship("PropostaContrapartida")
+    relacao_categoria_contrapartida: Mapped[RelacaoCategoriaContrapartida] = (
+        relationship(back_populates="abginvest_tpproj_lei_contrpart")
+    )
+    abginvest_tpproj_lei: Mapped[AbginvestTpprojLei] = relationship(
+        back_populates="abginvest_tpproj_lei_contrpart"
+    )
 
-    def __rep__(self):
-        return f"AbginvestTpprojLeiContrpart [id={self.id}]"
-
-    def __eq__(self, other):
-        if (
-            self.id == other.id
-            and self.ordem == other.ordem
-            and self.id_relacao_contrapartida_categoria
-            == other.id_relacao_contrapartida_categoria
-            and self.id_abginvest_tpproj_lei == other.id_abginvest_tpproj_lei
-        ):
-            return True
-        return False
+    proposta_contrapartida = relationship(
+        "PropostaContrapartida", back_populates="abginvest_tpproj_lei_contrpart"
+    )

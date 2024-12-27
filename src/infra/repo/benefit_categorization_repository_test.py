@@ -1,14 +1,12 @@
-from uuid import uuid4
+import uuid
 from faker import Faker
-from sqlalchemy import text
-
-from src.constants.reference import REFERENCE_TABLE
+from sqlalchemy import select
 from src.infra.config.db_config import DBConnectionHandler
-from src.infra.entities import CategorizacaoBeneficiario
+from src.infra.entities import CategorizacaoBeneficiario, TipoCategorizacaoBeneficiario
 from src.infra.repo import BenefitCategorizationRepository
 
 faker = Faker()
-categorization_type = BenefitCategorizationRepository()
+categorization = BenefitCategorizationRepository()
 db_connection_handler = DBConnectionHandler()
 engine = db_connection_handler.get_engine()
 
@@ -18,188 +16,106 @@ def test_insert_categorization():
 
     valor = faker.text(max_nb_chars=64)
 
-    id_categorization_type = str(uuid4().hex)
+    id = str(uuid.uuid4().hex)
     description_categorization_type = faker.text(max_nb_chars=50)
     info = faker.text(max_nb_chars=150)
 
-    # Insert categorization_type
-    with engine.begin() as conn:
-        try:
-            conn.execute(
-                text(
-                    """
-                    INSERT INTO {}_tipocategorizacaobeneficiario (id, descricao, info)
-                    VALUES ('{}', '{}', '{}');
-                    """.format(
-                        REFERENCE_TABLE,
-                        id_categorization_type,
-                        description_categorization_type,
-                        info,
-                    )
-                )
-            )
-            conn.commit()
-        except:
-            conn.rollback()
-            raise
-        finally:
-            conn.close()
-
-    # SQL commands
-    new_categorization = categorization_type.insert_categorization(
-        valor=valor, tipo_id=id_categorization_type
+    categorization_type = TipoCategorizacaoBeneficiario(
+        id=id, descricao=description_categorization_type, info=info
     )
 
-    # Select categorization_type
-    with engine.begin() as conn:
+    # Insert Categorization
+    with DBConnectionHandler() as db_connection:
         try:
-            query_categorization = conn.execute(
-                text(
-                    "SELECT * FROM {}_categorizacaobeneficiario WHERE id='{}';".format(
-                        REFERENCE_TABLE, new_categorization.id
-                    )
-                )
-            ).fetchone()
-            conn.commit()
+            # Add Categorization for test
+            db_connection.session.add(categorization_type)
+            db_connection.session.flush()
+            db_connection.session.commit()
 
-            assert new_categorization.id == query_categorization.id
-            assert new_categorization.valor == query_categorization.valor
-            assert new_categorization.tipo_id == query_categorization.tipo_id
-        except:
-            conn.rollback()
-            raise
-        finally:
-            conn.close()
-
-    # Deleting categorizacaobeneficiario inserted with test
-    with engine.begin() as conn:
-        try:
-            conn.execute(
-                text(
-                    "DELETE FROM {}_categorizacaobeneficiario WHERE id='{}';".format(
-                        REFERENCE_TABLE, new_categorization.id
-                    )
-                )
+            # SQL commands
+            new_categorization = categorization.insert_categorization(
+                valor=valor, tipo_id=categorization_type.id
             )
-            conn.commit()
-        except:
-            conn.rollback()
-            raise
-        finally:
-            conn.close()
 
-    # Deleting tipocategorizacaobeneficiario inserted with test
-    with engine.begin() as conn:
-        try:
-            conn.execute(
-                text(
-                    "DELETE FROM {}_tipocategorizacaobeneficiario WHERE id='{}';".format(
-                        REFERENCE_TABLE, id_categorization_type
-                    )
-                )
+            # Select Categorization
+            query = select(CategorizacaoBeneficiario).where(
+                CategorizacaoBeneficiario.id == new_categorization.id
             )
-            conn.commit()
+
+            for query_categorization in db_connection.session.execute(query):
+                assert new_categorization.id == query_categorization[0].id
+                assert new_categorization.valor == query_categorization[0].valor
+                assert new_categorization.tipo_id == query_categorization[0].tipo_id
+
+            # Deleting Categorization Inserted
+            type_caracterization_inserted = db_connection.session.get(
+                TipoCategorizacaoBeneficiario, categorization_type.id
+            )
+            caracterization_inserted = db_connection.session.get(
+                CategorizacaoBeneficiario, new_categorization.id
+            )
+            db_connection.session.delete(caracterization_inserted)
+            db_connection.session.delete(type_caracterization_inserted)
+            db_connection.session.flush()
+            db_connection.session.commit()
+
         except:
-            conn.rollback()
+            db_connection.session.rollback()
             raise
         finally:
-            conn.close()
+            db_connection.session.close()
 
 
 def test_select_categorization():
     """Should select all categorization"""
 
-    id = faker.random_number(digits=5)
     valor = faker.text(max_nb_chars=64)
 
-    id_categorization_type = str(uuid4().hex)
+    id = str(uuid.uuid4().hex)
     description_categorization_type = faker.text(max_nb_chars=50)
     info = faker.text(max_nb_chars=150)
-    data = CategorizacaoBeneficiario(id=id, valor=valor, tipo_id=id_categorization_type)
-
-    # Insert categorization_type
-    with engine.begin() as conn:
-        try:
-            conn.execute(
-                text(
-                    """
-                    INSERT INTO {}_tipocategorizacaobeneficiario (id, descricao, info)
-                    VALUES ('{}', '{}', '{}');
-                    """.format(
-                        REFERENCE_TABLE,
-                        id_categorization_type,
-                        description_categorization_type,
-                        info,
-                    )
-                )
-            )
-            conn.commit()
-        except:
-            conn.rollback()
-            raise
-        finally:
-            conn.close()
-
-    # Insert categorization_type
-    with engine.begin() as conn:
-        try:
-            conn.execute(
-                text(
-                    """
-                    INSERT INTO {}_categorizacaobeneficiario (id, valor, tipo_id)
-                    VALUES ('{}', '{}', '{}');
-                    """.format(
-                        REFERENCE_TABLE, id, valor, id_categorization_type
-                    )
-                )
-            )
-            conn.commit()
-        except:
-            conn.rollback()
-            raise
-        finally:
-            conn.close()
-
-    query_categorization_1 = categorization_type.select_all_categorizations()
-    query_categorization_2 = categorization_type.select_categorization(id=id)
-    query_categorization_3 = categorization_type.select_categorization(
-        tipo_id=id_categorization_type
+    categorization_type = TipoCategorizacaoBeneficiario(
+        id=id, descricao=description_categorization_type, info=info
     )
 
-    assert data in query_categorization_1
-    assert data in query_categorization_2
-    assert data in query_categorization_3
-
-    # Deleting categorizacaobeneficiario inserted with test
-    with engine.begin() as conn:
+    # Insert Categorization
+    with DBConnectionHandler() as db_connection:
         try:
-            conn.execute(
-                text(
-                    "DELETE FROM {}_categorizacaobeneficiario WHERE id='{}';".format(
-                        REFERENCE_TABLE, id
-                    )
-                )
+            # Add Categorization for test
+            db_connection.session.add(categorization_type)
+
+            data = CategorizacaoBeneficiario(
+                valor=valor, tipo_id=categorization_type.id
             )
-            conn.commit()
+
+            db_connection.session.add(data)
+            db_connection.session.flush()
+            db_connection.session.commit()
+
+            query_categorization_1 = categorization.select_all_categorizations()
+            query_categorization_2 = categorization.select_categorization(id=data.id)
+            query_categorization_3 = categorization.select_categorization(
+                tipo_id=categorization_type.id
+            )
+
+            assert data in query_categorization_1
+            assert data in query_categorization_2
+            assert data in query_categorization_3
+
+            # Deleting Categorization Inserted
+            type_caracterization_inserted = db_connection.session.get(
+                TipoCategorizacaoBeneficiario, categorization_type.id
+            )
+            caracterization_inserted = db_connection.session.get(
+                CategorizacaoBeneficiario, data.id
+            )
+            db_connection.session.delete(caracterization_inserted)
+            db_connection.session.delete(type_caracterization_inserted)
+            db_connection.session.flush()
+            db_connection.session.commit()
+
         except:
-            conn.rollback()
+            db_connection.session.rollback()
             raise
         finally:
-            conn.close()
-
-    # Deleting tipocategorizacaobeneficiario inserted with test
-    with engine.begin() as conn:
-        try:
-            conn.execute(
-                text(
-                    "DELETE FROM {}_tipocategorizacaobeneficiario WHERE id='{}';".format(
-                        REFERENCE_TABLE, id_categorization_type
-                    )
-                )
-            )
-            conn.commit()
-        except:
-            conn.rollback()
-            raise
-        finally:
-            conn.close()
+            db_connection.session.close()

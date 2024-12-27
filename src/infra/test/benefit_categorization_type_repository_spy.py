@@ -14,10 +14,11 @@ class BenefitCategorizationTypeRepositorySpy(
         self.select_categorization_type_params = {}
 
     def insert_categorization_type(
-        self, descricao: str, info: str
+        self, id: str, descricao: str, info: str
     ) -> BenefitCategorizationType:
         """Spy to all the attributes"""
 
+        self.insert_categorization_type_params["id"] = id
         self.insert_categorization_type_params["descricao"] = descricao
         self.insert_categorization_type_params["info"] = info
 

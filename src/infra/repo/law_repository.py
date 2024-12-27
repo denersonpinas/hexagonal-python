@@ -1,9 +1,11 @@
 from typing import List
+from sqlalchemy import select
 from sqlalchemy.orm.exc import NoResultFound
-from src.data.interface import LawRepositoryInterface
-from src.infra.config import DBConnectionHandler
+
+from src.data.interface.law_repository_interface import LawRepositoryInterface
 from src.domain.models import Law
-from src.infra.entities import Lei
+from src.infra.config.db_config import DBConnectionHandler
+from src.infra.entities.lei import Lei
 
 
 class LawRepository(LawRepositoryInterface):
@@ -21,6 +23,7 @@ class LawRepository(LawRepositoryInterface):
             try:
                 new_law = Lei(nome=nome, descricao=descricao)
                 db_connection.session.add(new_law)
+                db_connection.session.flush()
                 db_connection.session.commit()
 
                 return Law(
@@ -45,12 +48,11 @@ class LawRepository(LawRepositoryInterface):
 
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = []
-
-                data = db_connection.session.query(Lei).all()
-                query_data = data
-
-                return query_data
+                query = select(Lei)
+                response: List[Law] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:

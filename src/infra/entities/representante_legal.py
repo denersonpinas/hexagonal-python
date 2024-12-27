@@ -1,29 +1,26 @@
-from sqlalchemy import UUID, Column, ForeignKey, String, Integer
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from typing import Optional
+from dataclasses import dataclass
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import String, UUID, BigInteger, ForeignKey
+
+from src.infra.config.db_base import Base
+from src.infra.entities.proponente import Proponente
 
 
+@dataclass
 class RepresentanteLegal(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_representantelegal"
+    __tablename__ = "tcc_api_representantelegal"
 
-    id = Column(Integer, primary_key=True)
-    nome = Column(String(150), nullable=False)
-    cpf = Column(String(11), nullable=False)
-    email = Column(String(150), nullable=False)
-    cargo = Column(String(150), nullable=False)
-    resumo = Column(String(1000))
-    id_proposta = Column(UUID, ForeignKey(f"{REFERENCE_TABLE}_proponente.proposta_id"))
+    id: Mapped[int] = mapped_column(BigInteger(), primary_key=True)
+    nome: Mapped[str] = mapped_column(String(150), nullable=False)
+    cpf: Mapped[str] = mapped_column(String(11), nullable=False)
+    email: Mapped[str] = mapped_column(String(150), nullable=False)
+    cargo: Mapped[str] = mapped_column(String(150), nullable=False)
+    resumo: Mapped[Optional[str]] = mapped_column(String(1000))
+    proposta_id: Mapped[str] = mapped_column(
+        UUID(), ForeignKey("tcc_api_proponente.proposta_id"), nullable=False
+    )
 
-    def __rep__(self):
-        return f"Representante Legal [nome={self.nome}]"
-
-    def __eq__(self, other):
-        if (
-            self.id == other.id
-            and self.nome == other.nome
-            and self.cpf == other.cpf
-            and self.email == other.email
-            and self.cargo == other.cargo
-        ):
-            return True
-        return False
+    proponente: Mapped[Proponente] = relationship(
+        back_populates="representantes_legais"
+    )

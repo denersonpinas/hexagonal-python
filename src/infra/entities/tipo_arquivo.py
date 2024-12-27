@@ -1,28 +1,17 @@
-from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from src.infra.config.db_base import Base
 
 
+@dataclass
 class TipoArquivo(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_tipoarquivo"
+    __tablename__ = "tcc_api_tipoarquivo"
 
-    id = Column(String(32), primary_key=True)
-    contexto = Column(String(32), nullable=False)
-    descricao = Column(String(120), nullable=False)
-    info = Column(String(1000), nullable=False)
+    id: Mapped[str] = mapped_column(primary_key=True, nullable=False)
+    contexto: Mapped[str] = mapped_column(String(32), nullable=False)
+    descricao: Mapped[str] = mapped_column(String(120), nullable=False)
+    info: Mapped[str] = mapped_column(String(1000), nullable=False)
 
-    id_proposta_arquivo = relationship("PropostaArquivo")
-
-    def __rep__(self):
-        return f"TP Arquivo [contexto={self.contexto}]"
-
-    def __eq__(self, other):
-        if (
-            self.id == other.id
-            and self.contexto == other.contexto
-            and self.descricao == other.descricao
-            and self.info == other.info
-        ):
-            return True
-        return False
+    proposta_arquivo = relationship("PropostaArquivo", back_populates="tipo")

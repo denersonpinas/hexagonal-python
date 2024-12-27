@@ -1,4 +1,6 @@
 from typing import List
+from sqlalchemy import select
+from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.exc import NoResultFound
 from src.data.interface import BenefitCategorizationRepositoryInterface
 from src.infra.config import DBConnectionHandler
@@ -16,12 +18,14 @@ class BenefitCategorizationRepository(BenefitCategorizationRepositoryInterface):
                     tipo_id: ID of the categorization type
         :return -   BenefitCategorization object
         """
+
         with DBConnectionHandler() as db_connection:
             try:
                 new_categorization = CategorizacaoBeneficiario(
                     valor=valor, tipo_id=tipo_id
                 )
                 db_connection.session.add(new_categorization)
+                db_connection.session.flush()
                 db_connection.session.commit()
 
                 return BenefitCategorization(
@@ -35,6 +39,8 @@ class BenefitCategorizationRepository(BenefitCategorizationRepositoryInterface):
             finally:
                 db_connection.session.close()
 
+        return None
+
     @classmethod
     def select_categorization(
         cls, id: int = None, tipo_id: int = None
@@ -44,27 +50,37 @@ class BenefitCategorizationRepository(BenefitCategorizationRepositoryInterface):
                 -   tipo_id: id TypeBenefitCategorization of the relationship register
         :return -   List with BenefitCategorization selected
         """
+
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = None
+                query = None
 
                 if id and not tipo_id:
-                    data = (
-                        db_connection.session.query(CategorizacaoBeneficiario)
-                        .filter_by(id=id)
-                        .one()
+                    query = (
+                        select(CategorizacaoBeneficiario)
+                        .where(CategorizacaoBeneficiario.id == id)
+                        .options(
+                            joinedload(
+                                CategorizacaoBeneficiario.tipo_categorizacao_beneficiario
+                            )
+                        )
                     )
-                    query_data = [data]
 
                 elif tipo_id and not id:
-                    data = (
-                        db_connection.session.query(CategorizacaoBeneficiario)
-                        .filter_by(tipo_id=tipo_id)
-                        .all()
+                    query = (
+                        select(CategorizacaoBeneficiario)
+                        .where(CategorizacaoBeneficiario.tipo_id == tipo_id)
+                        .options(
+                            joinedload(
+                                CategorizacaoBeneficiario.tipo_categorizacao_beneficiario
+                            )
+                        )
                     )
-                    query_data = data
 
-                return query_data
+                response: List[BenefitCategorization] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:
@@ -72,16 +88,25 @@ class BenefitCategorizationRepository(BenefitCategorizationRepositoryInterface):
                 raise
             finally:
                 db_connection.session.close()
+        return []
 
     @classmethod
     def select_all_categorizations(cls) -> List[BenefitCategorization]:
         """Select all data in Benefit Categorization entity
         :return -   List with all BenefitCategorization
         """
+
         with DBConnectionHandler() as db_connection:
             try:
-                data = db_connection.session.query(CategorizacaoBeneficiario).all()
-                return data
+                query = select(CategorizacaoBeneficiario).options(
+                    joinedload(
+                        CategorizacaoBeneficiario.tipo_categorizacao_beneficiario
+                    )
+                )
+                response: List[BenefitCategorization] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:
@@ -89,3 +114,4 @@ class BenefitCategorizationRepository(BenefitCategorizationRepositoryInterface):
                 raise
             finally:
                 db_connection.session.close()
+        return []

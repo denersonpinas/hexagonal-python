@@ -1,26 +1,22 @@
-from sqlalchemy import Column, ForeignKey, String, Integer
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from sqlalchemy import String, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from src.infra.config.db_base import Base
+from src.infra.entities.historico_projeto import HistoricoProjeto
 
 
+@dataclass
 class HistoricoDeMetas(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_historicodemetas"
+    __tablename__ = "tcc_api_historicodemetas"
 
-    id = Column(Integer, primary_key=True)
-    previsto = Column(String(144), nullable=False)
-    alcancado = Column(String(144), nullable=False)
-    id_historico_projeto = Column(
-        Integer, ForeignKey(f"{REFERENCE_TABLE}_historicoprojeto.id")
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    previsto: Mapped[str] = mapped_column(String(144))
+    alcancado: Mapped[str] = mapped_column(String(144))
+    historico_projetos_id: Mapped[int] = mapped_column(
+        ForeignKey("tcc_api_historicoprojeto.id")
     )
 
-    def __rep__(self):
-        return f"Historico Metas [previsto={self.previsto}]"
-
-    def __eq__(self, other):
-        if (
-            self.id == other.id
-            and self.previsto == other.previsto
-            and self.alcancado == other.alcancado
-        ):
-            return True
-        return False
+    historico_projeto: Mapped[HistoricoProjeto] = relationship(
+        back_populates="historico_metas"
+    )

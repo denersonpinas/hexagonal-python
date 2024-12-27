@@ -17,19 +17,21 @@ class RegisterBenefitCategorizationTypeSpy(RegisterBenefitCategorizationTypeInte
         self.register_param = {}
 
     def register(
-        self, description: str, info: str
+        self, id: str, description: str, info: str
     ) -> Dict[bool, BenefitCategorizationType]:
         """Register BenefitCategorizationType use case"""
 
         response = None
         validate_entry = (
-            isinstance(description, str)
+            isinstance(id, str)
+            and isinstance(description, str)
             and isinstance(info, str)
             and len(description) <= 50
             and len(info) <= 150
         )
 
         if validate_entry:
+            self.register_param["id"] = id
             self.register_param["description"] = description
             self.register_param["info"] = info
 

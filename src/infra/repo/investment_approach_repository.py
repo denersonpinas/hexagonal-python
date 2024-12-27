@@ -1,4 +1,5 @@
 from typing import List
+from sqlalchemy import select
 from sqlalchemy.orm.exc import NoResultFound
 from src.data.interface import (
     InvestmentApproachRepositoryInterface,
@@ -27,6 +28,7 @@ class InvestmentApproachRepository(InvestmentApproachRepositoryInterface):
                     descricao=descricao, incentivado=incentivado
                 )
                 db_connection.session.add(new_investment_approach)
+                db_connection.session.flush()
                 db_connection.session.commit()
 
                 return InvestmentApproach(
@@ -48,15 +50,13 @@ class InvestmentApproachRepository(InvestmentApproachRepositoryInterface):
         :param  -   is None
         :return -   List with all Investment Approach
         """
-
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = []
-
-                data = db_connection.session.query(AbordagemInvestimento).all()
-                query_data = data
-
-                return query_data
+                query = select(AbordagemInvestimento)
+                response: List[InvestmentApproach] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:

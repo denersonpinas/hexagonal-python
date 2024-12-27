@@ -1,4 +1,6 @@
 from typing import List
+from sqlalchemy import select
+from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.exc import NoResultFound
 from src.data.interface import AbginvestTpprojLeiRepositoryInterface
 from src.infra.config import DBConnectionHandler
@@ -28,6 +30,7 @@ class AbginvestTpprojLeiRepository(AbginvestTpprojLeiRepositoryInterface):
                     tipo_pojeto_id=tipo_pojeto_id,
                 )
                 db_connection.session.add(new_abginvest_tpproj_lei)
+                db_connection.session.flush()
                 db_connection.session.commit()
 
                 return AbginvestTpprojLei(
@@ -53,12 +56,15 @@ class AbginvestTpprojLeiRepository(AbginvestTpprojLeiRepositoryInterface):
 
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = []
-
-                data = db_connection.session.query(AbginvestTpprojLeiEntitie).all()
-                query_data = data
-
-                return query_data
+                query = select(AbginvestTpprojLeiEntitie).options(
+                    joinedload(AbginvestTpprojLeiEntitie.tipo_projeto),
+                    joinedload(AbginvestTpprojLeiEntitie.abordagem_investimento),
+                    joinedload(AbginvestTpprojLeiEntitie.lei),
+                )
+                response: List[AbginvestTpprojLei] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:
@@ -83,9 +89,10 @@ class AbginvestTpprojLeiRepository(AbginvestTpprojLeiRepositoryInterface):
                 -   tipo_pojeto_id: id type project of the relationship abginvest tpprj lei
         :return -   List with AbginvestTpprojLei selected
         """
+
         with DBConnectionHandler() as db_connection:
             try:
-                query_data = None
+                query = None
 
                 if (
                     id
@@ -93,12 +100,17 @@ class AbginvestTpprojLeiRepository(AbginvestTpprojLeiRepositoryInterface):
                     and not lei_id
                     and not tipo_pojeto_id
                 ):
-                    data = (
-                        db_connection.session.query(AbginvestTpprojLeiEntitie)
-                        .filter_by(id=id)
-                        .one()
+                    query = (
+                        select(AbginvestTpprojLeiEntitie)
+                        .where(AbginvestTpprojLeiEntitie.id == id)
+                        .options(
+                            joinedload(AbginvestTpprojLeiEntitie.tipo_projeto),
+                            joinedload(
+                                AbginvestTpprojLeiEntitie.abordagem_investimento
+                            ),
+                            joinedload(AbginvestTpprojLeiEntitie.lei),
+                        )
                     )
-                    query_data = [data]
 
                 elif (
                     abordagem_investimento_id
@@ -106,13 +118,20 @@ class AbginvestTpprojLeiRepository(AbginvestTpprojLeiRepositoryInterface):
                     and not lei_id
                     and not tipo_pojeto_id
                 ):
-                    data = (
-                        db_connection.session.query(AbginvestTpprojLeiEntitie)
-                        .filter_by(abordagem_investimento_id=abordagem_investimento_id)
-                        .all()
+                    query = (
+                        select(AbginvestTpprojLeiEntitie)
+                        .where(
+                            AbginvestTpprojLeiEntitie.abordagem_investimento_id
+                            == abordagem_investimento_id
+                        )
+                        .options(
+                            joinedload(AbginvestTpprojLeiEntitie.tipo_projeto),
+                            joinedload(
+                                AbginvestTpprojLeiEntitie.abordagem_investimento
+                            ),
+                            joinedload(AbginvestTpprojLeiEntitie.lei),
+                        )
                     )
-
-                    query_data = data
 
                 elif (
                     lei_id
@@ -120,12 +139,17 @@ class AbginvestTpprojLeiRepository(AbginvestTpprojLeiRepositoryInterface):
                     and not abordagem_investimento_id
                     and not tipo_pojeto_id
                 ):
-                    data = (
-                        db_connection.session.query(AbginvestTpprojLeiEntitie)
-                        .filter_by(lei_id=lei_id)
-                        .all()
+                    query = (
+                        select(AbginvestTpprojLeiEntitie)
+                        .where(AbginvestTpprojLeiEntitie.lei_id == lei_id)
+                        .options(
+                            joinedload(AbginvestTpprojLeiEntitie.tipo_projeto),
+                            joinedload(
+                                AbginvestTpprojLeiEntitie.abordagem_investimento
+                            ),
+                            joinedload(AbginvestTpprojLeiEntitie.lei),
+                        )
                     )
-                    query_data = data
 
                 elif (
                     tipo_pojeto_id
@@ -133,14 +157,24 @@ class AbginvestTpprojLeiRepository(AbginvestTpprojLeiRepositoryInterface):
                     and not abordagem_investimento_id
                     and not lei_id
                 ):
-                    data = (
-                        db_connection.session.query(AbginvestTpprojLeiEntitie)
-                        .filter_by(tipo_pojeto_id=tipo_pojeto_id)
-                        .all()
+                    query = (
+                        select(AbginvestTpprojLeiEntitie)
+                        .where(
+                            AbginvestTpprojLeiEntitie.tipo_pojeto_id == tipo_pojeto_id
+                        )
+                        .options(
+                            joinedload(AbginvestTpprojLeiEntitie.tipo_projeto),
+                            joinedload(
+                                AbginvestTpprojLeiEntitie.abordagem_investimento
+                            ),
+                            joinedload(AbginvestTpprojLeiEntitie.lei),
+                        )
                     )
-                    query_data = data
 
-                return query_data
+                response: List[AbginvestTpprojLei] = []
+                for row in db_connection.session.execute(query).all():
+                    response.append(row[0])
+                return response
             except NoResultFound:
                 return []
             except:
@@ -148,4 +182,4 @@ class AbginvestTpprojLeiRepository(AbginvestTpprojLeiRepositoryInterface):
                 raise
             finally:
                 db_connection.session.close()
-        return None
+        return []

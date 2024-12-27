@@ -15,7 +15,7 @@ class RegisterBenefitCategorizationType(RegisterBenefitCategorizationTypeInterfa
         self._categorization_type_repo = categorization_type_repo
 
     def register(
-        self, description: str, info: str
+        self, id: str, description: str, info: str
     ) -> Dict[bool, BenefitCategorizationType]:
         """Register Benefit Categorization Type use case
         :param  -   description: Description of the categorization type
@@ -24,7 +24,8 @@ class RegisterBenefitCategorizationType(RegisterBenefitCategorizationTypeInterfa
         """
         response = None
         validate_entry = (
-            isinstance(description, str)
+            isinstance(id, str)
+            and isinstance(description, str)
             and isinstance(info, str)
             and len(description) <= 50
             and len(info) <= 150
@@ -32,7 +33,7 @@ class RegisterBenefitCategorizationType(RegisterBenefitCategorizationTypeInterfa
 
         if validate_entry:
             response = self._categorization_type_repo.insert_categorization_type(
-                descricao=description, info=info
+                id=id, descricao=description, info=info
             )
 
         return {"Success": validate_entry, "Data": response}

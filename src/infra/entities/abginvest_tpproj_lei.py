@@ -1,31 +1,35 @@
-from sqlalchemy import Column, Integer, ForeignKey
-from sqlalchemy.orm import relationship
-from src.constants.reference import REFERENCE_TABLE
-from src.infra.config import Base
+from dataclasses import dataclass
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from src.infra.config.db_base import Base
+from src.infra.entities.abordagem_investimento import AbordagemInvestimento
+from src.infra.entities.lei import Lei
+from src.infra.entities.tipo_projeto import TipoProjeto
 
 
+@dataclass
 class AbginvestTpprojLei(Base):
-    __tablename__ = f"{REFERENCE_TABLE}_abginvest_tpproj_lei"
+    __tablename__ = "tcc_api_abginvest_tpproj_lei"
 
-    id = Column(Integer, primary_key=True)
-    abordagem_investimento_id = Column(
-        Integer, ForeignKey(f"{REFERENCE_TABLE}_abordageminvestimento.id")
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    abordagem_investimento_id: Mapped[int] = mapped_column(
+        ForeignKey("tcc_api_abordageminvestimento.id")
     )
-    lei_id = Column(Integer, ForeignKey(f"{REFERENCE_TABLE}_lei.id"))
-    tipo_pojeto_id = Column(Integer, ForeignKey(f"{REFERENCE_TABLE}_tipoprojeto.id"))
+    lei_id: Mapped[int] = mapped_column(ForeignKey("tcc_api_lei.id"))
+    tipo_pojeto_id: Mapped[int] = mapped_column(ForeignKey("tcc_api_tipoprojeto.id"))
 
-    id_proposta_abginvest_tpproj_lei = relationship("PropostaAbginvestTpprojLei")
-    id_abginvest_tpproj_lei_contrpart = relationship("AbginvestTpprojLeiContrpart")
+    tipo_projeto: Mapped[TipoProjeto] = relationship(
+        back_populates="abginvest_tpproj_lei"
+    )
+    abordagem_investimento: Mapped[AbordagemInvestimento] = relationship(
+        back_populates="abginvest_tpproj_lei"
+    )
+    lei: Mapped[Lei] = relationship(back_populates="abginvest_tpproj_lei")
 
-    def __rep__(self):
-        return f"AbginvestTpprojLei [id={self.id}]"
-
-    def __eq__(self, other):
-        if (
-            self.id == other.id
-            and self.abordagem_investimento_id == other.abordagem_investimento_id
-            and self.lei_id == other.lei_id
-            and self.tipo_pojeto_id == other.tipo_pojeto_id
-        ):
-            return True
-        return False
+    abginvest_tpproj_lei_contrpart = relationship(
+        "AbginvestTpprojLeiContrpart", back_populates="abginvest_tpproj_lei"
+    )
+    proposta_abginvest_tpproj_lei = relationship(
+        "PropostaAbginvestTpprojLei", back_populates="abginvest_tpproj_lei"
+    )
