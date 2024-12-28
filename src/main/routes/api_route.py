@@ -1,5 +1,11 @@
+import json
+import os
 from flask import Blueprint, jsonify, request
 
+# from werkzeug.datastructures import ImmutableMultiDict
+from werkzeug.utils import secure_filename
+
+from src.constants.reference import UPLOAD_FOLDER
 from src.main.adapter.api_adapter import flask_adapter_get, flask_adapter_post
 from src.main.composer import (
     find_relationship_category_counterparts_composer,
@@ -819,3 +825,27 @@ def finder_bff_project_create():
     )
 
     return jsonify(data), response_investment_appr.status_code
+
+
+@api_routes_bp.route("/bff/cadastro_projeto/", methods=["POST"])
+def register_bff_project_create():
+    """Register bff project create route"""
+
+    # Pega dados do form
+    data = request.form.get("Data")
+
+    # Converte para JSON
+    json_data = json.loads(data)
+
+    # Extrai mensagem
+    message = json_data["message"]
+
+    file = request.files["arquivo[0]"]
+    savePath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
+    file.save(savePath)
+
+    print(json_data)
+    print(message)
+    print(UPLOAD_FOLDER)
+
+    return jsonify({"message": "Certo!"})
