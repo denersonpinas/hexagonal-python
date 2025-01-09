@@ -14,3 +14,4 @@ from .benefit_categorization_type_repository import BenefitCategorizationTypeRep
 from .abginvest_tpproj_lei_contrpart_repository import (
     AbginvestTpprojLeiContrpartRepository,
 )
+from .legal_representative_repository import LegalRepresentativeRepository

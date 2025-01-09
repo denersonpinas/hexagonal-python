@@ -42,3 +42,40 @@ from .register_abginvest_tpproj_lei_contrpart_controller import (
 from .find_abginvest_tpproj_lei_contrpart_controller import (
     FindAbginvestTpprojLeiContrpartController,
 )
+from .register_proposal_controller import RegisterProposalController
+from .register_proposal_beneficiary_controller import (
+    RegisterProposalBeneficiaryController,
+)
+from .register_proposal_sponsor_controller import RegisterProposalSponsorController
+from .register_proposal_meta_controller import RegisterProposalMetaController
+from .register_proposal_beneficinary_categorization_controller import (
+    RegisterProposalBeneficinaryCategorizationController,
+)
+from .register_proposal_execution_location_controller import (
+    RegisterProposalExecutionLocationController,
+)
+from .register_city_controller import RegisterCityController
+from .register_neighborhood_controller import RegisterNeighborhoodController
+from .register_street_controller import RegisterStreetController
+from .register_proponent_controller import RegisterProponentController
+from .register_supply_history_controller import RegisterSupplyHistoryController
+from .register_legal_representative_controller import (
+    RegisterLegalRepresentativeController,
+)
+from .register_project_history_controller import RegisterProjectHistoryController
+from .register_goal_history_controller import RegisterGoalHistoryController
+from .register_partnership_history_controller import (
+    RegisterPartnershipHistoryController,
+)
+from .register_project_contact_point_controller import (
+    RegisterProjectContactPointController,
+)
+from .register_proposal_file_controller import RegisterProposalFileController
+from .register_proposal_milestone_controller import RegisterProposalMilestoneController
+from .register_proposal_investment_type_law_controller import (
+    RegisterProposalInvestmentTypeLawController,
+)
+from .register_proposal_counterpart_controller import (
+    RegisterProposalCounterpartController,
+)
+from .register_proposal_thematic_controller import RegisterProposalThematicController

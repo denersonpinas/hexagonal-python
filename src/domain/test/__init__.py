@@ -12,3 +12,26 @@ from .mock_thematic import mock_thematic
 from .mock_categorization import mock_categorization
 from .mock_categorization_type import mock_categorization_type
 from .mock_abginvest_tpproj_lei_contrpart import mock_abginvest_tpproj_lei_contrpart
+from .mock_proposal import mock_proposal
+from .mock_proposal_beneficiary import mock_proposal_beneficiary
+from .mock_proposal_beneficiary_categorization import (
+    mock_proposal_beneficiary_categorization,
+)
+from .mock_proposal_sponsor import mock_proposal_sponsor
+from .mock_proposal_meta import mock_proposal_meta
+from .mock_proposal_execution_location import mock_proposal_execution_location
+from .mock_city import mock_city
+from .mock_neighborhood import mock_neighborhood
+from .mock_street import mock_street
+from .mock_proponent import mock_proponent
+from .mock_partnership_history import mock_partnership_history
+from .mock_supply_history import mock_supply_history
+from .mock_project_contact import mock_project_contact
+from .mock_legal_representative import mock_legal_representative
+from .mock_project_history import mock_project_history
+from .mock_goal_history import mock_goal_history
+from .mock_proposal_file import mock_proposal_file
+from .mock_proposal_milestone import mock_proposal_milestone
+from .mock_proposal_investment_type_law import mock_proposal_investment_type_law
+from .mock_proposal_counterpart import mock_proposal_counterpart
+from .mock_proposal_thematic import mock_proposal_thematic

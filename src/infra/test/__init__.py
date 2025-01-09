@@ -16,3 +16,30 @@ from .benefit_categorization_type_repository_spy import (
 from .abginvest_tpproj_lei_contrpart_repository_spy import (
     AbginvestTpprojLeiContrpartRepositorySpy,
 )
+from .proposal_repository_spy import ProposalRepositorySpy
+from .proposal_beneficiary_repository_spy import ProposalBeneficiaryRepositorySpy
+from .proposal_beneficiary_categorization_repository_spy import (
+    ProposalBeneficiaryCategorizationRepositorySpy,
+)
+from .proposal_sponsor_repository_spy import ProposalSponsorRepositorySpy
+from .proposal_meta_repository_spy import ProposalMetaRepositorySpy
+from .proposal_execution_location_repository_spy import (
+    ProposalExecutionLocationRepositorySpy,
+)
+from .city_repository_spy import CityRepositorySpy
+from .neighborhood_repository_spy import NeighborhoodRepositorySpy
+from .street_repository_spy import StreetRepositorySpy
+from .proponent_repository_spy import ProponentRepositorySpy
+from .partnership_history_repository_spy import PartnershipHistoryRepositorySpy
+from .supply_history_repository_spy import SupplyHistoryRepositorySpy
+from .project_contact_point_repository_spy import ProjectContactPointRepositorySpy
+from .legal_representative_repository_spy import LegalRepresentativeRepositorySpy
+from .project_history_repository_spy import ProjectHistoryRepositorySpy
+from .goal_history_repository_spy import GoalHistoryRepositorySpy
+from .proposal_file_repository_spy import ProposalFileRepositorySpy
+from .proposal_milestone_repository_spy import ProposalMilestoneRepositorySpy
+from .proposal_investment_type_law_repository_spy import (
+    ProposalInvestmentTypeLawRepositorySpy,
+)
+from .proposal_counterpart_repository_spy import ProposalCounterpartRepositorySpy
+from .proposal_thematic_repository_spy import ProposalThematicRepositorySpy

@@ -38,3 +38,38 @@ from .register_abginvest_tpproj_lei_contrpart_interface import (
 from .find_abginvest_tpproj_lei_contrpart_interface import (
     FindAbginvestTpprojLeiContrpartInterface,
 )
+from .register_proposal_interface import RegisterProposalInterface
+from .register_proposal_beneficiary_interface import (
+    RegisterProposalBeneficiaryInterface,
+)
+from .register_proposal_beneficiary_categorization_interface import (
+    RegisterProposalBeneficiaryCategorizationInterface,
+)
+from .register_proposal_sponsor_interface import RegisterProposalSponsorInterface
+from .register_proposal_meta_interface import RegisterProposalMetaInterface
+from .register_proposal_execution_location_interface import (
+    RegisterProposalExecutionLocationInterface,
+)
+from .register_city_interface import RegisterCityInterface
+from .register_neighborhood_interface import RegisterNeighborhoodInterface
+from .register_street_interface import RegisterStreetInterface
+from .register_proponent_interface import RegisterProponentInterface
+from .register_partnership_history_interface import RegisterPartnershipHistoryInterface
+from .register_supply_history_interface import RegisterSupplyHistoryInterface
+from .register_project_contact_point_interface import (
+    RegisterProjectContactPointInterface,
+)
+from .register_legal_representative_interface import (
+    RegisterLegalRepresentativeInterface,
+)
+from .register_project_history_interface import RegisterProjectHistoryInterface
+from .register_goal_history_interface import RegisterGoalHistoryInterface
+from .register_proposal_milestone_interface import RegisterProposalMilestoneInterface
+from .register_proposal_investment_type_law_interface import (
+    RegisterProposalInvestmentTypeLawInterface,
+)
+from .register_proposal_counterpart_interface import (
+    RegisterProposalCounterpartInterface,
+)
+from .register_proposal_thematic_interface import RegisterProposalThematicInterface
+from .register_proposal_file_interface import RegisterProposalFileInterface

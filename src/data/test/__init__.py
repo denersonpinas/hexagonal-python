@@ -30,3 +30,30 @@ from .register_abginvet_tpproj_lei_contrpart_spy import (
     RegisterAbginvestTpprojLeiContrpartSpy,
 )
 from .find_abginvest_tpproj_lei_contrpart_spy import FindAbginvestTpprojLeiContrpartSpy
+from .register_proposal_spy import RegisterProposalSpy
+from .register_proposal_beneficiary_spy import RegisterProposalBeneficiarySpy
+from .register_proposal_sponsor_spy import RegisterProposalSponsorSpy
+from .register_proposal_meta_spy import RegisterProposalMetaSpy
+from .register_proposal_beneficiary_categorization_spy import (
+    RegisterProposalBeneficiaryCategorizationSpy,
+)
+from .register_proposal_execution_location_spy import (
+    RegisterProposalExecutionLocationSpy,
+)
+from .register_city_spy import RegisterCitySpy
+from .register_neighborhood_spy import RegisterNeighborhoodSpy
+from .register_street_spy import RegisterStreetSpy
+from .register_proponent_spy import RegisterProponentSpy
+from .register_supply_history_spy import RegisterSupplyHistorySpy
+from .register_legal_representative_spy import RegisterLegalRepresentativeSpy
+from .register_project_history_spy import RegisterProjectHistorySpy
+from .register_goal_history_spy import RegisterGoalHistorySpy
+from .register_partnership_history_spy import RegisterPartnershipHistorySpy
+from .register_project_contact_point_spy import RegisterProjectContactPointSpy
+from .register_proposal_file_spy import RegisterProposalFileSpy
+from .register_proposal_milestone_spy import RegisterProposalMilestoneSpy
+from .register_proposal_investment_type_law_spy import (
+    RegisterProposalInvestmentTypeLawSpy,
+)
+from .register_proposal_counterpart_spy import RegisterProposalCounterpartSpy
+from .register_proposal_thematic_spy import RegisterProposalThematicSpy
