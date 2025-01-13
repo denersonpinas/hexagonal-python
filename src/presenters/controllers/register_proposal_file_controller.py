@@ -49,7 +49,7 @@ class RegisterProposalFileController(RouteInterface):
                         proposal_id=proposal_id,
                         type_id=type_id,
                     )
-                    print("TE: ", response)
+
                 except (ValueError, TypeError):
                     response = {"Success": False, "Data": None}
             else:

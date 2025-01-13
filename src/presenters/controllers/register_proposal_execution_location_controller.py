@@ -1,5 +1,4 @@
 from typing import Type
-import uuid
 from src.domain.use_cases.register_proposal_execution_location_interface import (
     RegisterProposalExecutionLocationInterface,
 )
@@ -33,7 +32,7 @@ class RegisterProposalExecutionLocationController(RouteInterface):
             if all(param in body_params for param in required_params):
                 try:
                     city_id = int(http_request.body["city_id"])
-                    proposal_id = uuid.UUID(http_request.body["proposal_id"])
+                    proposal_id = http_request.body["proposal_id"]
 
                     response = (
                         self.register_proposal_execution_location_use_case.register(

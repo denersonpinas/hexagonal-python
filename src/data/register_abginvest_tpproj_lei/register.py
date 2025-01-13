@@ -26,7 +26,7 @@ class RegisterAbginvestTpprojLei(RegisterAbginvestTpprojLeiInterface):
         validate_entry = (
             isinstance(investment_approach_id, int)
             and isinstance(type_project_id, int)
-            and isinstance(law_id, int)
+            and (law_id is None or isinstance(law_id, int))
         )
 
         if validate_entry:

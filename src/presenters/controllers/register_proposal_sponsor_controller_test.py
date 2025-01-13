@@ -19,10 +19,10 @@ def test_route():
     )
 
     attributes = {
-        "nome": faker.name(),
+        "nome": faker.name()[:100],
         "formato": faker.random_element(elements=("PATROCINADOR", "APOIADOR")),
         "valor": faker.pyfloat(positive=True, min_value=100, max_value=1000000),
-        "proposta_id": str(uuid.uuid4()),
+        "proposta_id": uuid.uuid4(),
     }
 
     response = register_proposal_sponsor_route.route(HttpRequest(body=attributes))
@@ -39,9 +39,10 @@ def test_route():
         register_proposal_sponsor_use_case.register_param["valor"]
         == attributes["valor"]
     )
-    assert register_proposal_sponsor_use_case.register_param[
-        "proposta_id"
-    ] == uuid.UUID(attributes["proposta_id"])
+    assert (
+        register_proposal_sponsor_use_case.register_param["proposta_id"]
+        == attributes["proposta_id"]
+    )
 
     # Testing output
     assert response.status_code == 200

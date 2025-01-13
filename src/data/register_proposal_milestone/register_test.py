@@ -1,3 +1,4 @@
+import uuid
 from faker import Faker
 from src.infra.test import ProposalMilestoneRepositorySpy
 from .register import RegisterProposalMilestone
@@ -16,7 +17,7 @@ def test_register():
     attributes = {
         "description": faker.text(max_nb_chars=500),
         "execution_date": faker.date(),
-        "proposal_id": faker.uuid4(),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_proposal_milestone.register(**attributes)

@@ -1,5 +1,4 @@
 from typing import Type
-import uuid
 from src.domain.use_cases.register_proposal_counterpart_interface import (
     RegisterProposalCounterpartInterface,
 )
@@ -42,9 +41,9 @@ class RegisterProposalCounterpartController(RouteInterface):
                     investment_type_law_counterpart_id = int(
                         http_request.body["investment_type_law_counterpart_id"]
                     )
-                    proposal_investment_type_law_id = uuid.UUID(
-                        http_request.body["proposal_investment_type_law_id"]
-                    )
+                    proposal_investment_type_law_id = http_request.body[
+                        "proposal_investment_type_law_id"
+                    ]
                     expected = (
                         int(http_request.body["expected"])
                         if "expected" in http_request.body

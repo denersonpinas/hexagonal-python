@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Optional
 
+from sqlalchemy import UUID
+
 from src.domain.models import Proponent
 
 
@@ -11,7 +13,7 @@ class RegisterProponentInterface(ABC):
     def register(
         self,
         cnpj: str,
-        proposal_id: str,
+        proposal_id: UUID,
         company_name: str,
         trade_name: Optional[str] = None,
         zip_code: Optional[str] = None,

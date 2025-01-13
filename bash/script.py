@@ -1,3 +1,4 @@
+import json
 import requests
 
 
@@ -49,6 +50,7 @@ def transform_type_file_data(type_file_list):
 
     for type_file in type_file_list:
         new_type_file = {
+            "id": type_file["id"],
             "context": type_file["contexto"],
             "description": type_file["descricao"],
             "info": type_file["info"],
@@ -405,7 +407,6 @@ transformed_counterparts = transform_counterparts_data(counterparts_list)
 caracterization_list = data["categorizacoes_beneficiarios"]
 transformed_caracterization = transform_caracterization_data(caracterization_list)
 
-print("TR: ", transformed_abginvest_contrpart)
 
 # Enviar via POST
 for counterparts in transformed_counterparts:
@@ -509,10 +510,16 @@ for abginvest in transformed_abginvest:
         "http://127.0.0.1:8001/api/abginvest-tpproj-lei/", json=abginvest
     )
 
-    if response.status_code == 200:
-        print(f"Relação {abginvest} enviada com sucesso")
-    else:
-        print(f"Erro ao enviar relação {abginvest}")
+    for res in response:
+        data = json.loads(res)
+
+        try:
+            if data["error"]:
+                print("Err: ", abginvest)
+        except:
+            pass
+        finally:
+            pass
 
 for abginvest_contrpart in transformed_abginvest_contrpart:
     response = requests.post(

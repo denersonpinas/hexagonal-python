@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 DB_USER = "postgres"
 DB_PASSWORD = "postgres"
 DB_HOST = "localhost"
-DB_PORT = "3006"
+DB_PORT = "3005"
 # DB_NAME = "postgres"
 DB_NAME = "app_bank"
 

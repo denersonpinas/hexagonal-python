@@ -1,5 +1,4 @@
 from typing import Type
-import uuid
 from src.domain.use_cases.register_project_contact_point_interface import (
     RegisterProjectContactPointInterface,
 )
@@ -35,7 +34,7 @@ class RegisterProjectContactPointController(RouteInterface):
                     name = http_request.body["name"]
                     email = http_request.body["email"]
                     position = http_request.body["position"]
-                    proposal_id = uuid.UUID(http_request.body["proposal_id"])
+                    proposal_id = http_request.body["proposal_id"]
 
                     response = self.register_project_contact_point_use_case.register(
                         name=name,

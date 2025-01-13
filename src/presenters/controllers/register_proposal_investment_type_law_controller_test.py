@@ -20,7 +20,7 @@ def test_route():
 
     attributes = {
         "investment_type_law_id": faker.random_int(min=1, max=100),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_proposal_investment_type_law_route.route(
@@ -34,9 +34,10 @@ def test_route():
         ]
         == attributes["investment_type_law_id"]
     )
-    assert register_proposal_investment_type_law_use_case.register_param[
-        "proposal_id"
-    ] == uuid.UUID(attributes["proposal_id"])
+    assert (
+        register_proposal_investment_type_law_use_case.register_param["proposal_id"]
+        == attributes["proposal_id"]
+    )
 
     # Testing output
     assert response.status_code == 200

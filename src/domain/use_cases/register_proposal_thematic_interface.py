@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Dict
 
+from sqlalchemy import UUID
+
 from src.domain.models import ProposalThematic
 
 
@@ -9,7 +11,7 @@ class RegisterProposalThematicInterface(ABC):
 
     @abstractmethod
     def register(
-        self, proposal_id: str, thematic_id: int
+        self, proposal_id: UUID, thematic_id: int
     ) -> Dict[bool, ProposalThematic]:
         """Use Case"""
 

@@ -1,3 +1,4 @@
+import uuid
 from faker import Faker
 from src.infra.test import ProposalThematicRepositorySpy
 from .register import RegisterProposalThematic
@@ -11,7 +12,7 @@ def test_register():
     proposal_thematic_repository = ProposalThematicRepositorySpy()
     register_proposal_thematic = RegisterProposalThematic(proposal_thematic_repository)
 
-    attributes = {"proposal_id": faker.uuid4(), "thematic_id": faker.random_int(min=1)}
+    attributes = {"proposal_id": uuid.uuid4(), "thematic_id": faker.random_int(min=1)}
 
     response = register_proposal_thematic.register(**attributes)
 

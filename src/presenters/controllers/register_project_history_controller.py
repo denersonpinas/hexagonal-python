@@ -1,5 +1,4 @@
 from typing import Type
-import uuid
 from src.domain.use_cases.register_project_history_interface import (
     RegisterProjectHistoryInterface,
 )
@@ -36,7 +35,7 @@ class RegisterProjectHistoryController(RouteInterface):
                     investment_year = int(http_request.body["investment_year"])
                     title = http_request.body["title"]
                     investment_type = http_request.body["investment_type"]
-                    proposal_id = uuid.UUID(http_request.body["proposal_id"])
+                    proposal_id = http_request.body["proposal_id"]
 
                     response = self.register_project_history_use_case.register(
                         investment_year=investment_year,

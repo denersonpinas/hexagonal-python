@@ -1,5 +1,4 @@
 from typing import Type
-import uuid
 from src.domain.use_cases.register_proposal_beneficiary_interface import (
     RegisterProposalBeneficiaryInterface,
 )
@@ -33,7 +32,7 @@ class RegisterProposalBeneficiaryController(RouteInterface):
             if all(param in body_params for param in required_params):
                 try:
                     quantidade = int(http_request.body["quantidade"])
-                    proposta_id = uuid.UUID(http_request.body["proposta_id"])
+                    proposta_id = http_request.body["proposta_id"]
 
                     response = self.register_proposal_beneficiary_use_case.register(
                         quantidade=quantidade, proposta_id=proposta_id

@@ -16,7 +16,7 @@ class AbginvestTpprojLei(Base):
     abordagem_investimento_id: Mapped[int] = mapped_column(
         ForeignKey("tcc_api_abordageminvestimento.id")
     )
-    lei_id: Mapped[int] = mapped_column(ForeignKey("tcc_api_lei.id"))
+    lei_id: Mapped[int] = mapped_column(ForeignKey("tcc_api_lei.id"), nullable=True)
     tipo_pojeto_id: Mapped[int] = mapped_column(ForeignKey("tcc_api_tipoprojeto.id"))
 
     tipo_projeto: Mapped[TipoProjeto] = relationship(

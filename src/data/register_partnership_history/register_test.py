@@ -1,3 +1,4 @@
+import uuid
 from faker import Faker
 from src.infra.test import PartnershipHistoryRepositorySpy
 from .register import RegisterPartnershipHistory
@@ -16,7 +17,7 @@ def test_register():
     attributes = {
         "sponsors_number": faker.random_int(min=0),
         "renewal_number": faker.random_int(min=0),
-        "proposal_id": faker.uuid4(),
+        "proposal_id": uuid.uuid4(),
         "additional_info": faker.text(max_nb_chars=500),
     }
 
@@ -43,7 +44,7 @@ def test_register_only_required():
     attributes = {
         "sponsors_number": faker.random_int(min=0),
         "renewal_number": faker.random_int(min=0),
-        "proposal_id": faker.uuid4(),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_partnership_history.register(**attributes)

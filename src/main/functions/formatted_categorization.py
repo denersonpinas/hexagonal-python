@@ -15,7 +15,7 @@ def formatted_categorization(
 
     for item in data:
         categorization.append(
-            {"id": item.id, "valor": item.valor, "tipo_id": item.tipo_id}
+            {"id": item.id, "valor": item.valor, "tipo": item.tipo_id}
         )
 
     return categorization

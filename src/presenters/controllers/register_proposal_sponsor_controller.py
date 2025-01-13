@@ -1,5 +1,4 @@
 from typing import Type
-import uuid
 from src.domain.use_cases.register_proposal_sponsor_interface import (
     RegisterProposalSponsorInterface,
 )
@@ -31,7 +30,7 @@ class RegisterProposalSponsorController(RouteInterface):
                     nome = http_request.body["nome"]
                     formato = http_request.body["formato"]
                     valor = float(http_request.body["valor"])
-                    proposta_id = uuid.UUID(http_request.body["proposta_id"])
+                    proposta_id = http_request.body["proposta_id"]
 
                     response = self.register_proposal_sponsor_use_case.register(
                         nome=nome, formato=formato, valor=valor, proposta_id=proposta_id

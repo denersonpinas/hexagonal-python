@@ -12,12 +12,14 @@ def test_register():
     register_abginvest_tpproj_lei = RegisterTypeFile(type_file_repo=type_file_repo)
 
     attributes = {
+        "id": faker.text(max_nb_chars=32),
         "context": faker.text(max_nb_chars=32),
         "dexcription": faker.text(max_nb_chars=120),
         "info": faker.text(max_nb_chars=1000),
     }
 
     response = register_abginvest_tpproj_lei.register(
+        id=attributes["id"],
         context=attributes["context"],
         description=attributes["dexcription"],
         info=attributes["info"],
@@ -42,12 +44,14 @@ def test_register_fail_max_char():
     register_abginvest_tpproj_lei = RegisterTypeFile(type_file_repo=type_file_repo)
 
     attributes = {
+        "id": faker.text(max_nb_chars=320),
         "context": faker.text(max_nb_chars=320),
         "dexcription": faker.text(max_nb_chars=1200),
         "info": faker.text(max_nb_chars=10000),
     }
 
     response = register_abginvest_tpproj_lei.register(
+        id=attributes["id"],
         context=attributes["context"],
         description=attributes["dexcription"],
         info=attributes["info"],
@@ -68,12 +72,14 @@ def test_register_fail():
     register_abginvest_tpproj_lei = RegisterTypeFile(type_file_repo=type_file_repo)
 
     attributes = {
+        "id": faker.boolean(),
         "context": faker.boolean(),
         "dexcription": faker.boolean(),
         "info": faker.random_number(),
     }
 
     response = register_abginvest_tpproj_lei.register(
+        id=attributes["id"],
         context=attributes["context"],
         description=attributes["dexcription"],
         info=attributes["info"],

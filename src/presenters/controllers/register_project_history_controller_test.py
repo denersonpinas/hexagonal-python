@@ -22,7 +22,7 @@ def test_route():
         "investment_year": faker.random_int(min=2000, max=2023),
         "title": faker.sentence(),
         "investment_type": faker.random_element(elements=("DIRECT", "INDIRECT")),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_history_route.route(HttpRequest(body=attributes))
@@ -39,8 +39,9 @@ def test_route():
         register_project_history_use_case.register_param["investment_type"]
         == attributes["investment_type"]
     )
-    assert register_project_history_use_case.register_param["proposal_id"] == uuid.UUID(
-        attributes["proposal_id"]
+    assert (
+        register_project_history_use_case.register_param["proposal_id"]
+        == attributes["proposal_id"]
     )
 
     # Testing output
@@ -62,7 +63,7 @@ def test_route_invalid_year():
         "investment_year": "invalid_year",
         "title": faker.sentence(),
         "investment_type": faker.random_element(elements=("DIRECT", "INDIRECT")),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_history_route.route(HttpRequest(body=attributes))
@@ -182,7 +183,7 @@ def test_route_with_future_year():
         "investment_year": 2050,
         "title": faker.sentence(),
         "investment_type": faker.random_element(elements=("DIRECT", "INDIRECT")),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_history_route.route(HttpRequest(body=attributes))
@@ -199,8 +200,9 @@ def test_route_with_future_year():
         register_project_history_use_case.register_param["investment_type"]
         == attributes["investment_type"]
     )
-    assert register_project_history_use_case.register_param["proposal_id"] == uuid.UUID(
-        attributes["proposal_id"]
+    assert (
+        register_project_history_use_case.register_param["proposal_id"]
+        == attributes["proposal_id"]
     )
 
     # Testing output
@@ -222,7 +224,7 @@ def test_route_with_past_year():
         "investment_year": 1900,
         "title": faker.sentence(),
         "investment_type": faker.random_element(elements=("DIRECT", "INDIRECT")),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_history_route.route(HttpRequest(body=attributes))
@@ -249,7 +251,7 @@ def test_route_with_invalid_investment_type():
         "investment_year": faker.random_int(min=2000, max=2023),
         "title": faker.sentence(),
         "investment_type": "INVALID_TYPE",
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_history_route.route(HttpRequest(body=attributes))
@@ -266,8 +268,9 @@ def test_route_with_invalid_investment_type():
         register_project_history_use_case.register_param["investment_type"]
         == attributes["investment_type"]
     )
-    assert register_project_history_use_case.register_param["proposal_id"] == uuid.UUID(
-        attributes["proposal_id"]
+    assert (
+        register_project_history_use_case.register_param["proposal_id"]
+        == attributes["proposal_id"]
     )
 
     # Testing output
@@ -289,7 +292,7 @@ def test_route_with_empty_title():
         "investment_year": faker.random_int(min=2000, max=2023),
         "title": "",
         "investment_type": faker.random_element(elements=("DIRECT", "INDIRECT")),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_history_route.route(HttpRequest(body=attributes))
@@ -306,8 +309,9 @@ def test_route_with_empty_title():
         register_project_history_use_case.register_param["investment_type"]
         == attributes["investment_type"]
     )
-    assert register_project_history_use_case.register_param["proposal_id"] == uuid.UUID(
-        attributes["proposal_id"]
+    assert (
+        register_project_history_use_case.register_param["proposal_id"]
+        == attributes["proposal_id"]
     )
 
     # Testing output
@@ -329,7 +333,7 @@ def test_route_with_special_characters():
         "investment_year": faker.random_int(min=2000, max=2023),
         "title": "Project@#$%Title&*()!",
         "investment_type": faker.random_element(elements=("DIRECT", "INDIRECT")),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_history_route.route(HttpRequest(body=attributes))
@@ -346,8 +350,9 @@ def test_route_with_special_characters():
         register_project_history_use_case.register_param["investment_type"]
         == attributes["investment_type"]
     )
-    assert register_project_history_use_case.register_param["proposal_id"] == uuid.UUID(
-        attributes["proposal_id"]
+    assert (
+        register_project_history_use_case.register_param["proposal_id"]
+        == attributes["proposal_id"]
     )
 
     # Testing output
@@ -369,7 +374,7 @@ def test_route_with_long_title():
         "investment_year": faker.random_int(min=2000, max=2023),
         "title": faker.text(max_nb_chars=1000),
         "investment_type": faker.random_element(elements=("DIRECT", "INDIRECT")),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_history_route.route(HttpRequest(body=attributes))
@@ -396,7 +401,7 @@ def test_route_with_negative_year():
         "investment_year": -2000,
         "title": faker.sentence(),
         "investment_type": faker.random_element(elements=("DIRECT", "INDIRECT")),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_history_route.route(HttpRequest(body=attributes))
@@ -423,7 +428,7 @@ def test_route_with_html_content():
         "investment_year": faker.random_int(min=2000, max=2023),
         "title": "<p>HTML Title</p><script>alert('test')</script>",
         "investment_type": faker.random_element(elements=("DIRECT", "INDIRECT")),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_history_route.route(HttpRequest(body=attributes))
@@ -440,8 +445,9 @@ def test_route_with_html_content():
         register_project_history_use_case.register_param["investment_type"]
         == attributes["investment_type"]
     )
-    assert register_project_history_use_case.register_param["proposal_id"] == uuid.UUID(
-        attributes["proposal_id"]
+    assert (
+        register_project_history_use_case.register_param["proposal_id"]
+        == attributes["proposal_id"]
     )
 
     # Testing output
@@ -463,7 +469,7 @@ def test_route_with_zero_year():
         "investment_year": 0,
         "title": faker.sentence(),
         "investment_type": faker.random_element(elements=("DIRECT", "INDIRECT")),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_history_route.route(HttpRequest(body=attributes))
@@ -490,7 +496,7 @@ def test_route_with_whitespace_title():
         "investment_year": faker.random_int(min=2000, max=2023),
         "title": "    ",
         "investment_type": faker.random_element(elements=("DIRECT", "INDIRECT")),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_history_route.route(HttpRequest(body=attributes))
@@ -507,8 +513,9 @@ def test_route_with_whitespace_title():
         register_project_history_use_case.register_param["investment_type"]
         == attributes["investment_type"]
     )
-    assert register_project_history_use_case.register_param["proposal_id"] == uuid.UUID(
-        attributes["proposal_id"]
+    assert (
+        register_project_history_use_case.register_param["proposal_id"]
+        == attributes["proposal_id"]
     )
 
     # Testing output

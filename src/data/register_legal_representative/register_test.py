@@ -1,3 +1,4 @@
+import uuid
 from faker import Faker
 from src.infra.test import LegalRepresentativeRepositorySpy
 from .register import RegisterLegalRepresentative
@@ -18,7 +19,7 @@ def test_register():
         "cpf": faker.numerify(text="#" * 11),
         "email": faker.email()[:100],
         "position": faker.job()[:100],
-        "proposal_id": faker.uuid4(),
+        "proposal_id": uuid.uuid4(),
         "summary": faker.text(max_nb_chars=500),
     }
 
@@ -47,7 +48,7 @@ def test_register_only_required():
         "cpf": faker.numerify(text="#" * 11),
         "email": faker.email()[:100],
         "position": faker.job()[:100],
-        "proposal_id": faker.uuid4(),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_legal_representative.register(**attributes)

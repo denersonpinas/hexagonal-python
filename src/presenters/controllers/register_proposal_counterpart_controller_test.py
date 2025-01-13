@@ -22,7 +22,7 @@ def test_route():
         "description": faker.text(),
         "quantity": faker.random_int(min=1, max=100),
         "investment_type_law_counterpart_id": faker.random_int(min=1, max=100),
-        "proposal_investment_type_law_id": str(uuid.uuid4()),
+        "proposal_investment_type_law_id": uuid.uuid4(),
         "expected": faker.random_int(min=1, max=100),
     }
 
@@ -43,9 +43,12 @@ def test_route():
         ]
         == attributes["investment_type_law_counterpart_id"]
     )
-    assert register_proposal_counterpart_use_case.register_param[
-        "proposal_investment_type_law_id"
-    ] == uuid.UUID(attributes["proposal_investment_type_law_id"])
+    assert (
+        register_proposal_counterpart_use_case.register_param[
+            "proposal_investment_type_law_id"
+        ]
+        == attributes["proposal_investment_type_law_id"]
+    )
     assert (
         register_proposal_counterpart_use_case.register_param["expected"]
         == attributes["expected"]
@@ -70,7 +73,7 @@ def test_route_without_expected():
         "description": faker.text(),
         "quantity": faker.random_int(min=1, max=100),
         "investment_type_law_counterpart_id": faker.random_int(min=1, max=100),
-        "proposal_investment_type_law_id": str(uuid.uuid4()),
+        "proposal_investment_type_law_id": uuid.uuid4(),
     }
 
     response = register_proposal_counterpart_route.route(HttpRequest(body=attributes))
@@ -90,9 +93,12 @@ def test_route_without_expected():
         ]
         == attributes["investment_type_law_counterpart_id"]
     )
-    assert register_proposal_counterpart_use_case.register_param[
-        "proposal_investment_type_law_id"
-    ] == uuid.UUID(attributes["proposal_investment_type_law_id"])
+    assert (
+        register_proposal_counterpart_use_case.register_param[
+            "proposal_investment_type_law_id"
+        ]
+        == attributes["proposal_investment_type_law_id"]
+    )
     assert register_proposal_counterpart_use_case.register_param["expected"] is None
 
     # Testing output

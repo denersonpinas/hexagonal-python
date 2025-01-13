@@ -15,3 +15,23 @@ from .abginvest_tpproj_lei_contrpart_repository import (
     AbginvestTpprojLeiContrpartRepository,
 )
 from .legal_representative_repository import LegalRepresentativeRepository
+from .proposal_repository import ProposalRepository
+from .proponent_repository import ProponentRepository
+from .proposal_beneficiary_repository import ProposalBeneficiaryRepository
+from .proposal_beneficiary_categorization_repository import (
+    ProposalBeneficiaryCategorizationRepository,
+)
+from .proposal_sponsor_repository import ProposalSponsorRepository
+from .proposal_meta_repository import ProposalMetaRepository
+from .proposal_execution_location_repository import ProposalExecutionLocationRepository
+from .city_repository import CityRepository
+from .supply_history_repository import SupplyHistoryRepository
+from .project_history_repository import ProjectHistoryRepository
+from .goal_history_repository import GoalHistoryRepository
+from .project_contact_point_repository import ProjectContactPointRepository
+from .partnership_history_repository import PartnershipHistoryRepository
+from .proposal_file_repository import ProposalFileRepository
+from .proposal_milestone_repository import ProposalMilestoneRepository
+from .proposal_investment_type_law_repository import ProposalInvestmentTypeLawRepository
+from .proposal_counterpart_repository import ProposalCounterpartRepository
+from .proposal_thematic_repository import ProposalThematicRepository

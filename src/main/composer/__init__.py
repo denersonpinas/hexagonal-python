@@ -38,3 +38,39 @@ from .register_caracterization_composite import register_caracterization_compose
 from .register_abginvest_tpproj_lei_contrpart_composite import (
     register_abginvest_tpproj_lei_contrpart_composer,
 )
+
+from .register_proposal_composite import register_proposal_composer
+from .register_proponent_composite import register_proponent_composer
+from .register_proposal_beneficiary_composite import (
+    register_proposal_beneficiary_composer,
+)
+from .register_proposal_beneficiary_categorization_composite import (
+    register_proposal_beneficiary_categorization_composer,
+)
+from .register_proposal_sponsor_composite import register_proposal_sponsor_composer
+from .register_proposal_meta_composite import register_proposal_meta_composer
+from .register_proposal_execution_location_composite import (
+    register_proposal_execution_location_composer,
+)
+from .register_city_composite import register_city_composer
+from .register_supply_history_composite import register_supply_history_composer
+from .register_project_history_composite import register_project_history_composer
+from .register_goal_history_composite import register_goal_history_composer
+from .register_project_contact_point_composite import (
+    register_project_contact_point_composer,
+)
+from .register_legal_representative_composite import (
+    register_legal_representative_composer,
+)
+from .register_partnership_history_composite import (
+    register_partnership_history_composer,
+)
+from .register_proposal_file_composite import register_proposal_file_composer
+from .register_proposal_milestone_composite import register_proposal_milestone_composer
+from .register_proposal_investment_type_law_composite import (
+    register_proposal_investment_type_law_composer,
+)
+from .register_proposal_counterpart_composite import (
+    register_proposal_counterpart_composer,
+)
+from .register_proposal_thematic_composite import register_proposal_thematic_composer

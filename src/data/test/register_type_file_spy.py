@@ -14,13 +14,14 @@ class RegisterTypeFileSpy(RegisterTypeFileInterface):
         self.register_param = {}
 
     def register(
-        self, context: str, description: str, info: str
+        self, id: str, context: str, description: str, info: str
     ) -> Dict[bool, TypeFile]:
         """Register TypeFile use case"""
 
         response = None
         validate_entry = (
-            isinstance(context, str)
+            isinstance(id, str)
+            and isinstance(context, str)
             and isinstance(description, str)
             and isinstance(info, str)
             and len(context) <= 32
@@ -29,6 +30,7 @@ class RegisterTypeFileSpy(RegisterTypeFileInterface):
         )
 
         if validate_entry:
+            self.register_param["id"] = id
             self.register_param["context"] = context
             self.register_param["description"] = description
             self.register_param["info"] = info

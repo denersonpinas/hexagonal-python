@@ -1,5 +1,4 @@
 from typing import Type
-import uuid
 from src.domain.use_cases.register_proposal_meta_interface import (
     RegisterProposalMetaInterface,
 )
@@ -31,7 +30,7 @@ class RegisterProposalMetaController(RouteInterface):
                     order = int(http_request.body["order"])
                     goal = http_request.body["goal"]
                     quantity = int(http_request.body["quantity"])
-                    proposal_id = uuid.UUID(http_request.body["proposal_id"])
+                    proposal_id = http_request.body["proposal_id"]
 
                     response = self.register_proposal_meta_use_case.register(
                         order=order,

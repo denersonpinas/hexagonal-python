@@ -1,4 +1,7 @@
 from typing import Dict, Optional, Type
+import uuid
+
+from sqlalchemy import UUID
 from src.data.interface.legal_representative_repository_interface import (
     LegalRepresentativeRepositoryInterface,
 )
@@ -23,7 +26,7 @@ class RegisterLegalRepresentative(RegisterLegalRepresentativeInterface):
         cpf: str,
         email: str,
         position: str,
-        proposal_id: str,
+        proposal_id: UUID,
         summary: Optional[str] = None,
     ) -> Dict[bool, LegalRepresentative]:
         """Register legal representative use case
@@ -42,7 +45,7 @@ class RegisterLegalRepresentative(RegisterLegalRepresentativeInterface):
             and isinstance(cpf, str)
             and isinstance(email, str)
             and isinstance(position, str)
-            and isinstance(proposal_id, str)
+            and isinstance(proposal_id, uuid.UUID)
             and len(name) <= 100
             and len(cpf) == 11
             and len(email) <= 100

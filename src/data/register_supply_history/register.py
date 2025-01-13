@@ -1,4 +1,7 @@
 from typing import Dict, Type
+import uuid
+
+from sqlalchemy import UUID
 from src.data.interface.supply_history_repository_interface import (
     SupplyHistoryRepositoryInterface,
 )
@@ -17,7 +20,7 @@ class RegisterSupplyHistory(RegisterSupplyHistoryInterface):
         self._supply_history_repository = supply_history_repository
 
     def register(
-        self, service_provided: str, hiring_manager: str, proposal_id: str
+        self, service_provided: str, hiring_manager: str, proposal_id: UUID
     ) -> Dict[bool, SupplyHistory]:
         """Register supply history use case
         :param  -   service_provided: service provided description
@@ -30,7 +33,7 @@ class RegisterSupplyHistory(RegisterSupplyHistoryInterface):
         validate_entry = (
             isinstance(service_provided, str)
             and isinstance(hiring_manager, str)
-            and isinstance(proposal_id, str)
+            and isinstance(proposal_id, uuid.UUID)
             and len(service_provided) <= 500
             and len(hiring_manager) <= 100
         )

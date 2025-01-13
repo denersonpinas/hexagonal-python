@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Optional
 
+from sqlalchemy import UUID
+
 from src.domain.models import PartnershipHistory
 
 
@@ -12,7 +14,7 @@ class RegisterPartnershipHistoryInterface(ABC):
         self,
         sponsors_number: int,
         renewal_number: int,
-        proposal_id: str,
+        proposal_id: UUID,
         additional_info: Optional[str] = None,
     ) -> Dict[bool, PartnershipHistory]:
         """Use Case"""

@@ -1,4 +1,7 @@
 from typing import Dict, Type
+import uuid
+
+from sqlalchemy import UUID
 from src.data.interface.proposal_milestone_repository_interface import (
     ProposalMilestoneRepositoryInterface,
 )
@@ -17,7 +20,7 @@ class RegisterProposalMilestone(RegisterProposalMilestoneInterface):
         self._proposal_milestone_repository = proposal_milestone_repository
 
     def register(
-        self, description: str, execution_date: str, proposal_id: str
+        self, description: str, execution_date: str, proposal_id: UUID
     ) -> Dict[bool, ProposalMilestone]:
         """Register proposal milestone use case
         :param  -   description: milestone description
@@ -30,7 +33,7 @@ class RegisterProposalMilestone(RegisterProposalMilestoneInterface):
         validate_entry = (
             isinstance(description, str)
             and isinstance(execution_date, str)
-            and isinstance(proposal_id, str)
+            and isinstance(proposal_id, uuid.UUID)
             and len(description) <= 500
             and len(execution_date) <= 10  # Assuming date format YYYY-MM-DD
         )

@@ -1,4 +1,7 @@
 from typing import Dict, Type
+import uuid
+
+from sqlalchemy import UUID
 from src.data.interface.proposal_thematic_repository_interface import (
     ProposalThematicRepositoryInterface,
 )
@@ -17,7 +20,7 @@ class RegisterProposalThematic(RegisterProposalThematicInterface):
         self._proposal_thematic_repository = proposal_thematic_repository
 
     def register(
-        self, proposal_id: str, thematic_id: int
+        self, proposal_id: UUID, thematic_id: int
     ) -> Dict[bool, ProposalThematic]:
         """Register proposal thematic use case
         :param  -   proposal_id: foreign key to proposal
@@ -27,7 +30,7 @@ class RegisterProposalThematic(RegisterProposalThematicInterface):
 
         response = None
         validate_entry = (
-            isinstance(proposal_id, str)
+            isinstance(proposal_id, uuid.UUID)
             and isinstance(thematic_id, int)
             and thematic_id > 0
         )

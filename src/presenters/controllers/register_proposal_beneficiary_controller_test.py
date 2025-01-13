@@ -20,7 +20,7 @@ def test_route():
 
     attributes = {
         "quantidade": faker.random_int(min=1, max=100),
-        "proposta_id": str(uuid.uuid4()),
+        "proposta_id": uuid.uuid4(),
     }
 
     response = register_proposal_beneficiary_route.route(HttpRequest(body=attributes))
@@ -30,9 +30,10 @@ def test_route():
         register_proposal_beneficiary_use_case.register_param["quantidade"]
         == attributes["quantidade"]
     )
-    assert register_proposal_beneficiary_use_case.register_param[
-        "proposta_id"
-    ] == uuid.UUID(attributes["proposta_id"])
+    assert (
+        register_proposal_beneficiary_use_case.register_param["proposta_id"]
+        == attributes["proposta_id"]
+    )
 
     # Testing output
     assert response.status_code == 200

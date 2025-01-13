@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Dict
 
+from sqlalchemy import UUID
+
 from src.domain.models import SupplyHistory
 
 
@@ -9,7 +11,7 @@ class RegisterSupplyHistoryInterface(ABC):
 
     @abstractmethod
     def register(
-        self, service_provided: str, hiring_manager: str, proposal_id: str
+        self, service_provided: str, hiring_manager: str, proposal_id: UUID
     ) -> Dict[bool, SupplyHistory]:
         """Use Case"""
 

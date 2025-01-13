@@ -26,15 +26,18 @@ class RegisterTypeFileController(RouteInterface):
             body_params = http_request.body.keys()
 
             if (
-                "context" in body_params
+                "id" in body_params
+                and "context" in body_params
                 and "description" in body_params
                 and "info" in body_params
             ):
+                id = http_request.body["id"]
                 context = http_request.body["context"]
                 description = http_request.body["description"]
                 info = http_request.body["info"]
 
                 response = self.register_type_file_use_case.register(
+                    id=id,
                     context=context,
                     description=description,
                     info=info,

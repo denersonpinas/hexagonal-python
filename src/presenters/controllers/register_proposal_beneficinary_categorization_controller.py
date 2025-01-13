@@ -1,5 +1,4 @@
 from typing import Type
-import uuid
 from src.domain.use_cases.register_proposal_beneficiary_categorization_interface import (
     RegisterProposalBeneficiaryCategorizationInterface,
 )
@@ -33,9 +32,9 @@ class RegisterProposalBeneficinaryCategorizationController(RouteInterface):
             if all(param in body_params for param in required_params):
                 try:
                     categorizacao_id = http_request.body["categorizacao_id"]
-                    proposta_beneficiario_id = uuid.UUID(
-                        http_request.body["proposta_beneficiario_id"]
-                    )
+                    proposta_beneficiario_id = http_request.body[
+                        "proposta_beneficiario_id"
+                    ]
 
                     response = self.register_proposal_beneficiary_categorization_use_case.register(
                         categorizacao_id=categorizacao_id,

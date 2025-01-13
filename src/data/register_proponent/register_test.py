@@ -1,3 +1,4 @@
+import uuid
 from faker import Faker
 from src.infra.test import ProponentRepositorySpy
 from .register import RegisterProponent
@@ -13,7 +14,7 @@ def test_register():
 
     attributes = {
         "cnpj": faker.numerify(text="#" * 14),
-        "proposal_id": faker.uuid4(),
+        "proposal_id": uuid.uuid4(),
         "company_name": faker.company()[:200],
         "trade_name": faker.company()[:200],
         "zip_code": faker.numerify(text="#" * 8),
@@ -46,7 +47,7 @@ def test_register_only_required():
 
     attributes = {
         "cnpj": faker.numerify(text="#" * 14),
-        "proposal_id": faker.uuid4(),
+        "proposal_id": uuid.uuid4(),
         "company_name": faker.company()[:200],
     }
 
@@ -76,7 +77,7 @@ def test_register_invalid_lengths():
 
     attributes = {
         "cnpj": faker.numerify(text="#" * 15),
-        "proposal_id": faker.uuid4(),
+        "proposal_id": uuid.uuid4(),
         "company_name": faker.text(max_nb_chars=250),
         "zip_code": faker.numerify(text="#" * 9),
         "state": faker.estado(),

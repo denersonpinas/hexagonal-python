@@ -1,5 +1,6 @@
 import json
 import os
+import uuid
 from flask import Blueprint, jsonify, request
 
 # from werkzeug.datastructures import ImmutableMultiDict
@@ -31,6 +32,25 @@ from src.main.composer import (
     register_caracterization_type_composer,
     register_caracterization_composer,
     register_abginvest_tpproj_lei_contrpart_composer,
+    register_proposal_composer,
+    register_proponent_composer,
+    register_proposal_beneficiary_composer,
+    register_proposal_beneficiary_categorization_composer,
+    register_proposal_sponsor_composer,
+    register_proposal_meta_composer,
+    register_proposal_execution_location_composer,
+    register_city_composer,
+    register_supply_history_composer,
+    register_project_history_composer,
+    register_goal_history_composer,
+    register_project_contact_point_composer,
+    register_legal_representative_composer,
+    register_partnership_history_composer,
+    register_proposal_file_composer,
+    register_proposal_milestone_composer,
+    register_proposal_investment_type_law_composer,
+    register_proposal_counterpart_composer,
+    register_proposal_thematic_composer,
 )
 from src.main.composer.find_law_composite import find_law_composer
 from src.main.functions import (
@@ -495,15 +515,23 @@ def finder_bff_project_create():
                 response_relationship_category.status_code,
             )
 
+        data_cp = response_relationship_counterpart.body
+        cata_categ = response_relationship_category.body
         data_relationship_ctg_ctpr.append(
             {
                 "id": relationship.id,
-                "countrapartida": formatted_counterpart(
-                    response_relationship_counterpart.body
-                ),
-                "categoria": formatted_category_counterpart(
-                    response_relationship_category.body
-                ),
+                "contrapartida": {
+                    "id": data_cp[0].id,
+                    "descricao": data_cp[0].descricao,
+                    "obrigatoria": data_cp[0].obrigatoria,
+                    "exemplo_aplicabilidade": data_cp[0].exemplo_aplicabilidade,
+                },
+                "categoria": {
+                    "id": cata_categ[0].id,
+                    "subcategoria_de": cata_categ[0].subcategoria_de_id,
+                    "nome": cata_categ[0].nome,
+                    "descricao": cata_categ[0].descricao,
+                },
             }
         )
 
@@ -647,7 +675,7 @@ def finder_bff_project_create():
                     response_relation_catg_contrpart.status_code,
                 )
 
-            data_abginvest_contrpart = []
+            data_abginvest_contrpart = {}
             for relations_categ_contrpart in response_relation_catg_contrpart.body:
                 res_counterpart = []
                 if relations_categ_contrpart.contrapartida_id:
@@ -708,13 +736,23 @@ def finder_bff_project_create():
                         )
                     res_relations = response_relationship_category.body
 
-                data_abginvest_contrpart.append(
-                    {
-                        "id": relations_categ_contrpart.id,
-                        "countrapartida": formatted_counterpart(res_counterpart),
-                        "categoria": formatted_category_counterpart(res_relations),
-                    }
-                )
+                data_abginvest_contrpart = {
+                    "id": relations_categ_contrpart.id,
+                    "contrapartida": {
+                        "id": res_counterpart[0].id,
+                        "descricao": res_counterpart[0].descricao,
+                        "obrigatoria": res_counterpart[0].obrigatoria,
+                        "exemplo_aplicabilidade": res_counterpart[
+                            0
+                        ].exemplo_aplicabilidade,
+                    },
+                    "categoria": {
+                        "id": res_relations[0].id,
+                        "subcategoria_de": res_relations[0].subcategoria_de_id,
+                        "nome": res_relations[0].nome,
+                        "descricao": res_relations[0].descricao,
+                    },
+                }
 
                 abginvest_counterpart.append(
                     {
@@ -830,22 +868,319 @@ def finder_bff_project_create():
 @api_routes_bp.route("/bff/cadastro_projeto/", methods=["POST"])
 def register_bff_project_create():
     """Register bff project create route"""
+    data = {
+        "id": "",
+        "proponente": {},
+        "locais_execucao": [],
+        "tematicas": [],
+        "metas": [],
+        "marcos": [],
+        "beneficiarios": [],
+        "patrocinadores": [],
+        "abginvests_tpprojs_leis": [],
+        "arquivo_detalhes": [],
+        "titulo_projeto": "",
+        "resumo_projeto": "",
+        "descricao_projeto": "",
+        "dados_bancario_instituicao": "",
+        "dados_bancario_agencia_conta_bancaria": "",
+        "dados_bancario_conta_corrente": "",
+        "dados_bancario_cnpj_fundo": None,
+        "dados_bancario_razao_social_fundo": None,
+        "dados_bancario_contato_fundo_nome": None,
+        "dados_bancario_contato_fundo_email": None,
+        "valor_total_projeto": "",
+        "valor_total_lei_incentivo": "",
+        "valor_total_captado": "",
+        "valor_total_captado_lei_incentivo": "",
+        "valor_total_incentivado_nubank": "",
+        "observacoes": "",
+        "data_inicio_projeto": "",
+        "data_fim_projeto": "",
+    }
 
-    # Pega dados do form
-    data = request.form.get("Data")
+    # Get Data Form =========================================================
+    data = request.form.get("proposta_json")
 
     # Converte para JSON
     json_data = json.loads(data)
 
-    # Extrai mensagem
-    message = json_data["message"]
+    # Saved Proposal
+    http_request = HttpRequest(body=json_data)
+    register_proposal_composite = register_proposal_composer()
+    response_proposal = register_proposal_composite.route(http_request)
 
-    file = request.files["arquivo[0]"]
-    savePath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
-    file.save(savePath)
+    # Saved Proponent
+    proponent_data = json_data["proponente"]
+    http_request = HttpRequest(
+        body={
+            "cnpj": proponent_data["cnpj"],
+            "proposal_id": response_proposal.body.id,
+            "company_name": proponent_data["razao_social"],
+            "trade_name": proponent_data["nome_fantasia"],
+            "zip_code": proponent_data["endereco_cep"],
+            "state": proponent_data["endereco_uf"],
+            "city": proponent_data["endereco_municipio"],
+            "neighborhood": proponent_data["endereco_bairro"],
+            "street": proponent_data["endereco_logradouro"],
+            "number": proponent_data["endereco_numero"],
+            "complement": proponent_data["endereco_complemento"],
+            "website": proponent_data["site"],
+            "social_media": proponent_data["rede_social"],
+            "curriculum_summary": "",
+        }
+    )
+    register_proponent_composite = register_proponent_composer()
+    response_proponent = register_proponent_composite.route(http_request)
 
-    print(json_data)
-    print(message)
-    print(UPLOAD_FOLDER)
+    # Saved Beneficiary
+    beneficiary_data = json_data["beneficiarios"]
+    for beneficiary in beneficiary_data:
+        http_request_pb = HttpRequest(
+            body={
+                "quantidade": beneficiary["quantidade"],
+                "proposta_id": response_proposal.body.id,
+            }
+        )
+        register_beneficiary_composite = register_proposal_beneficiary_composer()
+        response_beneficiary = register_beneficiary_composite.route(http_request_pb)
+        http_request_pbc = HttpRequest(
+            body={
+                "categorizacao_id": int(beneficiary["categorizacoes_ids"][0]),
+                "proposta_beneficiario_id": response_beneficiary.body.id,
+            }
+        )
+        register_beneficiary_catg_composite = (
+            register_proposal_beneficiary_categorization_composer()
+        )
+        register_beneficiary_catg_composite.route(http_request_pbc)
 
-    return jsonify({"message": "Certo!"})
+    # Saved Proposal Sponsor
+    sponsor_data = json_data["patrocinadores"]
+    for sponsor in sponsor_data:
+        http_request = HttpRequest(
+            body={
+                "nome": sponsor["nome"],
+                "formato": sponsor["formato"],
+                "valor": sponsor["valor"],
+                "proposta_id": response_proposal.body.id,
+            }
+        )
+        register_proposal_sponsor_composite = register_proposal_sponsor_composer()
+        register_proposal_sponsor_composite.route(http_request)
+
+    # Saved Proposal Sponsor
+    goals_data = json_data["metas"]
+    for goal in goals_data:
+        http_request = HttpRequest(
+            body={
+                "goal": goal["meta"],
+                "quantity": goal["quantitativo"],
+                "order": goal["ordem"],
+                "proposal_id": response_proposal.body.id,
+            }
+        )
+        register_proposal_meta_composite = register_proposal_meta_composer()
+        register_proposal_meta_composite.route(http_request)
+
+    # Saved Execution Location
+    city_data = json_data["locais_execucao"]
+    for city in city_data:
+        http_request_city = HttpRequest(
+            body={"name": city["nome"], "state": city["uf"]}
+        )
+        register_city_composite = register_city_composer()
+        response_city = register_city_composite.route(http_request_city)
+
+        http_request_exlo = HttpRequest(
+            body={
+                "city_id": response_city.body.id,
+                "proposal_id": response_proposal.body.id,
+            }
+        )
+        register_proposal_execution_location_composite = (
+            register_proposal_execution_location_composer()
+        )
+        register_proposal_execution_location_composite.route(http_request_exlo)
+
+    # Saved Supply History
+    supply_history_data = proponent_data["historico_de_fornecimento"]
+    for supply_history in supply_history_data:
+        http_request = HttpRequest(
+            body={
+                "service_provided": supply_history["servico_prestado"],
+                "hiring_manager": supply_history["responsavel_contratacao"],
+                "proposal_id": response_proponent.body.proposta_id,
+            }
+        )
+        register_supply_history_composite = register_supply_history_composer()
+        register_supply_history_composite.route(http_request)
+
+    # Saved Project History
+    project_history_data = proponent_data["historico_projetos"]
+    for project_history in project_history_data:
+        goals_history_data = project_history["historico_de_metas"]
+        http_request_ph = HttpRequest(
+            body={
+                "investment_year": project_history["ano_investimento"],
+                "title": project_history["titulo"],
+                "investment_type": project_history["tipo_investimento"],
+                "proposal_id": response_proponent.body.proposta_id,
+            }
+        )
+        register_project_history_composite = register_project_history_composer()
+        response_project_history = register_project_history_composite.route(
+            http_request_ph
+        )
+
+        for goals_history in goals_history_data:
+            http_request_gh = HttpRequest(
+                body={
+                    "expected": goals_history["previsto"],
+                    "achieved": goals_history["alcancado"],
+                    "project_history_id": response_project_history.body.id,
+                }
+            )
+            register_goals_history_composite = register_goal_history_composer()
+            register_goals_history_composite.route(http_request_gh)
+
+    # Saved Project Contact Point
+    project_contact_point_data = proponent_data["ponto_de_contato"]
+    for project_contact_point in project_contact_point_data:
+        http_request = HttpRequest(
+            body={
+                "name": project_contact_point["nome"],
+                "email": project_contact_point["email"],
+                "position": project_contact_point["cargo"],
+                "proposal_id": response_proponent.body.proposta_id,
+            }
+        )
+        register_project_contact_point_composite = (
+            register_project_contact_point_composer()
+        )
+        register_project_contact_point_composite.route(http_request)
+
+    # Saved Legal Representative
+    legal_representative_data = proponent_data["representante_legal"]
+    for legal_representative in legal_representative_data:
+        http_request = HttpRequest(
+            body={
+                "name": legal_representative["nome"],
+                "cpf": legal_representative["cpf"],
+                "email": legal_representative["email"],
+                "position": legal_representative["cargo"],
+                "proposal_id": response_proponent.body.proposta_id,
+            }
+        )
+        register_legal_representative_composite = (
+            register_legal_representative_composer()
+        )
+        register_legal_representative_composite.route(http_request)
+
+    # Saved Partnership History
+    partnership_history_data = proponent_data["historico_de_parcerias"]
+    for partnership_history in partnership_history_data:
+        http_request = HttpRequest(
+            body={
+                "sponsors_number": partnership_history["numero_de_patrocinadores"],
+                "renewal_number": partnership_history["numero_de_renovacao"],
+                "additional_info": partnership_history["informacoes_adicionais"],
+                "proposal_id": response_proponent.body.proposta_id,
+            }
+        )
+        register_partnership_history_composite = register_partnership_history_composer()
+        register_partnership_history_composite.route(http_request)
+
+    # Saved Proposal File
+    proposal_file_data = json_data["arquivos_tipos_ids"]
+    cont = 0
+    for chave, file in dict(request.files).items():
+        name = f"{uuid.uuid4().hex}_{secure_filename(file.filename)}"
+        extension = secure_filename(file.filename).split(".")[1]
+        savePath = os.path.join(UPLOAD_FOLDER, name)
+        file.save(savePath)
+        size = os.path.getsize(savePath)
+
+        http_request = HttpRequest(
+            body={
+                "name": name.split(".")[0],
+                "extension": f".{extension}",
+                "size": size,
+                "uri": name,
+                "type_id": proposal_file_data[cont],
+                "proposal_id": response_proposal.body.id,
+            }
+        )
+        register_proposal_file_composite = register_proposal_file_composer()
+        register_proposal_file_composite.route(http_request)
+        cont += 1
+
+    # Saved Proposal Milestone
+    proposal_milestone_data = json_data["marcos"]
+    for proposal_milestone in proposal_milestone_data:
+        http_request = HttpRequest(
+            body={
+                "description": proposal_milestone["descricao"],
+                "execution_date": proposal_milestone["execucao"],
+                "proposal_id": response_proposal.body.id,
+            }
+        )
+        register_proposal_milestone_composite = register_proposal_milestone_composer()
+        register_proposal_milestone_composite.route(http_request)
+
+    # Saved Proposal Investment Type Law
+    proposal_investment_type_law_data = json_data["abginvests_tpprojs_leis"]
+    for proposal_investment_type_law in proposal_investment_type_law_data:
+        http_request_pitl = HttpRequest(
+            body={
+                "investment_type_law_id": proposal_investment_type_law[
+                    "abginvest_tpproj_lei"
+                ],
+                "proposal_id": response_proposal.body.id,
+            }
+        )
+        register_proposal_investment_type_law_composite = (
+            register_proposal_investment_type_law_composer()
+        )
+        response_proposal_investment_type_law = (
+            register_proposal_investment_type_law_composite.route(http_request_pitl)
+        )
+
+        proposal_counterpart = proposal_investment_type_law["contrapartidas"]
+        for counterpart in proposal_counterpart:
+            http_request = HttpRequest(
+                body={
+                    "description": counterpart["descricao"],
+                    "quantity": counterpart["quantitativo"],
+                    "investment_type_law_counterpart_id": counterpart[
+                        "abginvest_tpproj_lei_contrpart_id"
+                    ],
+                    "proposal_investment_type_law_id": response_proposal_investment_type_law.body.id,
+                }
+            )
+            register_proposal_counterpart_composite = (
+                register_proposal_counterpart_composer()
+            )
+            register_proposal_counterpart_composite.route(http_request)
+
+    # Saved Proposal Thematic
+    proposal_thematic_data = json_data["tematicas_ids"]
+    for proposal_thematic in proposal_thematic_data:
+        http_request = HttpRequest(
+            body={
+                "thematic_id": proposal_thematic,
+                "proposal_id": response_proposal.body.id,
+            }
+        )
+        register_proposal_thematic_composite = register_proposal_thematic_composer()
+        response_proposal_thematic = register_proposal_thematic_composite.route(
+            http_request
+        )
+
+    message = {
+        "Type": "Form Data",
+        "id": response_proposal.body.id,
+        "attibutes": {},
+    }
+
+    return jsonify({"data": message}), response_proposal_thematic.status_code

@@ -1,4 +1,7 @@
 from typing import Dict, Optional, Type
+import uuid
+
+from sqlalchemy import UUID
 
 from src.data.interface.proponent_repository_interface import (
     ProponentRepositoryInterface,
@@ -16,7 +19,7 @@ class RegisterProponent(RegisterProponentInterface):
     def register(
         self,
         cnpj: str,
-        proposal_id: str,
+        proposal_id: UUID,
         company_name: str,
         trade_name: Optional[str] = None,
         zip_code: Optional[str] = None,
@@ -51,7 +54,7 @@ class RegisterProponent(RegisterProponentInterface):
         response = None
         validate_entry = (
             isinstance(cnpj, str)
-            and isinstance(proposal_id, str)
+            and isinstance(proposal_id, uuid.UUID)
             and isinstance(company_name, str)
             and len(cnpj) == 14
             and len(company_name) <= 200

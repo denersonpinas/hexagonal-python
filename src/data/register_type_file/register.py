@@ -1,5 +1,4 @@
 from typing import Dict, Type
-import uuid
 from src.data.interface import TypeFileRepositoryInterface
 from src.domain.models import TypeFile
 from src.domain.use_cases import RegisterTypeFileInterface
@@ -12,7 +11,7 @@ class RegisterTypeFile(RegisterTypeFileInterface):
         self._type_file_repo = type_file_repo
 
     def register(
-        self, context: str, description: str, info: str
+        self, id: str, context: str, description: str, info: str
     ) -> Dict[bool, TypeFile]:
         """Register TypeFile use case
         :param  -   context: Context of the TypeFile
@@ -23,7 +22,8 @@ class RegisterTypeFile(RegisterTypeFileInterface):
 
         response = None
         validate_entry = (
-            isinstance(context, str)
+            isinstance(id, str)
+            and isinstance(context, str)
             and isinstance(description, str)
             and isinstance(info, str)
             and len(context) <= 32
@@ -32,7 +32,6 @@ class RegisterTypeFile(RegisterTypeFileInterface):
         )
 
         if validate_entry:
-            id = str(uuid.uuid4().hex)  # Create id of the TipoArquivo entity
             response = self._type_file_repo.insert_type_file(
                 id=id,
                 contexto=context,

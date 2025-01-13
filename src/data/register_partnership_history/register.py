@@ -1,4 +1,7 @@
 from typing import Dict, Optional, Type
+import uuid
+
+from sqlalchemy import UUID
 from src.data.interface.partnership_history_repository_interface import (
     PartnershipHistoryRepositoryInterface,
 )
@@ -21,7 +24,7 @@ class RegisterPartnershipHistory(RegisterPartnershipHistoryInterface):
         self,
         sponsors_number: int,
         renewal_number: int,
-        proposal_id: str,
+        proposal_id: UUID,
         additional_info: Optional[str] = None,
     ) -> Dict[bool, PartnershipHistory]:
         """Register partnership history use case
@@ -36,7 +39,7 @@ class RegisterPartnershipHistory(RegisterPartnershipHistoryInterface):
         validate_entry = (
             isinstance(sponsors_number, int)
             and isinstance(renewal_number, int)
-            and isinstance(proposal_id, str)
+            and isinstance(proposal_id, uuid.UUID)
             and sponsors_number >= 0
             and renewal_number >= 0
             and (

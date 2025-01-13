@@ -22,7 +22,7 @@ def test_route():
         "order": faker.random_int(min=1, max=100),
         "goal": faker.text(max_nb_chars=200),
         "quantity": faker.random_int(min=1, max=1000),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_proposal_meta_route.route(HttpRequest(body=attributes))
@@ -36,8 +36,9 @@ def test_route():
         register_proposal_meta_use_case.register_param["quantity"]
         == attributes["quantity"]
     )
-    assert register_proposal_meta_use_case.register_param["proposal_id"] == uuid.UUID(
-        attributes["proposal_id"]
+    assert (
+        register_proposal_meta_use_case.register_param["proposal_id"]
+        == attributes["proposal_id"]
     )
 
     # Testing output

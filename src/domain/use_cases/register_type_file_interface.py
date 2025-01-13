@@ -9,7 +9,7 @@ class RegisterTypeFileInterface(ABC):
 
     @abstractmethod
     def register(
-        self, context: str, description: str, info: str
+        self, id: str, context: str, description: str, info: str
     ) -> Dict[bool, TypeFile]:
         """Use Case"""
 

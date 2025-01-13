@@ -1,5 +1,4 @@
 from typing import Type
-import uuid
 from src.domain.use_cases.register_proposal_investment_type_law_interface import (
     RegisterProposalInvestmentTypeLawInterface,
 )
@@ -35,7 +34,7 @@ class RegisterProposalInvestmentTypeLawController(RouteInterface):
                     investment_type_law_id = int(
                         http_request.body["investment_type_law_id"]
                     )
-                    proposal_id = uuid.UUID(http_request.body["proposal_id"])
+                    proposal_id = http_request.body["proposal_id"]
 
                     response = (
                         self.register_proposal_investment_type_law_use_case.register(

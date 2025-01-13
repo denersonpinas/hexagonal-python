@@ -22,7 +22,7 @@ def test_route():
         "name": faker.name(),
         "email": faker.email(),
         "position": faker.job(),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_contact_point_route.route(HttpRequest(body=attributes))
@@ -40,9 +40,10 @@ def test_route():
         register_project_contact_point_use_case.register_param["position"]
         == attributes["position"]
     )
-    assert register_project_contact_point_use_case.register_param[
-        "proposal_id"
-    ] == uuid.UUID(attributes["proposal_id"])
+    assert (
+        register_project_contact_point_use_case.register_param["proposal_id"]
+        == attributes["proposal_id"]
+    )
 
     # Testing output
     assert response.status_code == 200
@@ -63,7 +64,7 @@ def test_route_invalid_email():
         "name": faker.name(),
         "email": "invalid_email",
         "position": faker.job(),
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_contact_point_route.route(HttpRequest(body=attributes))
@@ -183,7 +184,7 @@ def test_route_with_empty_params():
         "name": "",
         "email": "",
         "position": "",
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_contact_point_route.route(HttpRequest(body=attributes))
@@ -210,7 +211,7 @@ def test_route_with_special_characters():
         "name": "Name@#$%",
         "email": faker.email(),
         "position": "Position@#$%",
-        "proposal_id": str(uuid.uuid4()),
+        "proposal_id": uuid.uuid4(),
     }
 
     response = register_project_contact_point_route.route(HttpRequest(body=attributes))
@@ -228,9 +229,10 @@ def test_route_with_special_characters():
         register_project_contact_point_use_case.register_param["position"]
         == attributes["position"]
     )
-    assert register_project_contact_point_use_case.register_param[
-        "proposal_id"
-    ] == uuid.UUID(attributes["proposal_id"])
+    assert (
+        register_project_contact_point_use_case.register_param["proposal_id"]
+        == attributes["proposal_id"]
+    )
 
     # Testing output
     assert response.status_code == 200
